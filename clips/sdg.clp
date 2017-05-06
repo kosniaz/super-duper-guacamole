@@ -271,6 +271,50 @@
 ;+		(allowed-classes Event)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
+
+(definstances sdg
+([RicoRicoProject_Class2] of  Plate
+
+	(isVegetarian TRUE)
+	(Name "Pasta_Al_rabiata")
+	(PlatePrice 10.0)
+	(Style Classic))
+
+([RicoRicoProject_Class33] of  Plate
+
+	(isVegetarian FALSE)
+	(Name "Pasta Alla Carbonara")
+	(PlatePrice 8.5)
+	(Style Classic))
+
+([RicoRicoProject_Class36] of  Ingredients
+
+	(IngredientName "Egg")
+	(IsInPlate [RicoRicoProject_Class33]))
+
+([RicoRicoProject_Class37] of  Ingredients
+
+	(IngredientName "Bacon")
+	(IsInPlate [RicoRicoProject_Class33]))
+
+([RicoRicoProject_Class38] of  Ingredients
+
+	(IngredientName "Black Pepper")
+	(IsInPlate [RicoRicoProject_Class33]))
+
+([RicoRicoProject_Class39] of  Ingredients
+
+	(IngredientName "Parmigiano")
+	(IsInPlate [RicoRicoProject_Class33]))
+
+([RicoRicoProject_Class40] of  Ingredients
+
+	(IngredientName "Pasta")
+	(IsInPlate [RicoRicoProject_Class33]))
+
+)
+
+
 ;begin
 (defmodule MAIN "Main"
 (export ?ALL))
@@ -282,8 +326,9 @@
 )
 
 (defmessage-handler Plate printName primary ()
-  (printout t "Dish Name: " crlf)
-  (send ?self:Name print)
+  (printout t "Dish Name: ")
+  (bind ?name ?self:Name)
+  (printout t ?name) 
   (printout t crlf)
 )
 
@@ -402,7 +447,8 @@
   (isVeganVegetarian ?v)
   =>
   (switch ?v
-   (case vegeterian then (send ?x put-First (find-instance ((?ins Plate)) (eq ?ins:isVegetarian TRUE) )) )
+   (case vegan then (assert (the-system-has-failed)))
+   (case vegetarian then (send ?x put-First (find-instance ((?ins Plate)) (eq ?ins:isVegetarian TRUE) )) )
    (case no then (send ?x put-First (find-instance ((?ins Plate)) (eq ?ins:isVegetarian FALSE))))
    )
    (assert (dishes-selected))
@@ -413,9 +459,7 @@
   (entered-state "creating-menu")
   (dishes-selected)
  =>
- (printout t "First dish name: " crlf)
  (send ?x printName)
- (printout crlf)
  (halt))
 
 
