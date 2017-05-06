@@ -1,0 +1,6 @@
+(load sdg.clp)
+(reset)
+(run)
+
+
+
