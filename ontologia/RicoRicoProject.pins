@@ -1,41 +1,24 @@
-; Sun May 07 18:28:27 CEST 2017
+; Sun May 07 19:19:48 CEST 2017
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
 
-([RicoRicoProject_Class2] of  Dish
-
-	(DishName "Pasta_Al_rabiata")
-	(DishPrice 10.0)
-	(Style Classic))
-
-([RicoRicoProject_Class33] of  Dish
-
-	(DishName "Pasta Alla Carbonara")
-	(DishPrice 8.5)
-	(Style Classic))
-
 ([RicoRicoProject_Class36] of  Ingredient
 
-	(IngredientName "Egg")
-	(IsInDish [RicoRicoProject_Class33]))
+	(IngredientName "Egg"))
 
 ([RicoRicoProject_Class37] of  Ingredient
 
-	(IngredientName "Bacon")
-	(IsInDish [RicoRicoProject_Class33]))
+	(IngredientName "Bacon"))
 
 ([RicoRicoProject_Class38] of  Ingredient
 
-	(IngredientName "Black Pepper")
-	(IsInDish [RicoRicoProject_Class33]))
+	(IngredientName "Black Pepper"))
 
 ([RicoRicoProject_Class39] of  Ingredient
 
-	(IngredientName "Parmigiano")
-	(IsInDish [RicoRicoProject_Class33]))
+	(IngredientName "Parmigiano"))
 
 ([RicoRicoProject_Class40] of  Ingredient
 
-	(IngredientName "Pasta")
-	(IsInDish [RicoRicoProject_Class33]))
+	(IngredientName "Pasta"))

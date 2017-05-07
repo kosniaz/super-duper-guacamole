@@ -1,4 +1,4 @@
-; Sun May 07 18:28:27 CEST 2017
+; Sun May 07 19:19:48 CEST 2017
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -20,9 +20,10 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[RicoRicoProject_ProjectKB_Class10072]
-		[RicoRicoProject_ProjectKB_Class10073]
-		[RicoRicoProject_ProjectKB_Class10074]))
+		[RicoRicoProject_ProjectKB_Class10118]
+		[RicoRicoProject_ProjectKB_Class10119]
+		[RicoRicoProject_ProjectKB_Class10120]
+		[RicoRicoProject_ProjectKB_Class10121]))
 
 ([CLSES_TAB] of  Widget
 
@@ -74,9 +75,9 @@
 ([KB_273644_Class1] of  Map
 
 	(entries
-		[RicoRicoProject_ProjectKB_Class10075]
-		[RicoRicoProject_ProjectKB_Class10076]
-		[RicoRicoProject_ProjectKB_Class10077]))
+		[RicoRicoProject_ProjectKB_Class10122]
+		[RicoRicoProject_ProjectKB_Class10123]
+		[RicoRicoProject_ProjectKB_Class10124]))
 
 ([KB_273644_Class100] of  Property_List
 )
@@ -329,36 +330,83 @@
 ([RicoRicoProject_ProjectKB_Class10] of  Property_List
 )
 
-([RicoRicoProject_ProjectKB_Class10072] of  String
+([RicoRicoProject_ProjectKB_Class10066] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "Season")
+	(property_list [RicoRicoProject_ProjectKB_Class10067])
+	(widget_class_name "edu.stanford.smi.protege.widget.ComboBoxWidget")
+	(width 100)
+	(x 0)
+	(y 120))
+
+([RicoRicoProject_ProjectKB_Class10067] of  Property_List
+)
+
+([RicoRicoProject_ProjectKB_Class10098] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "Season")
+	(property_list [RicoRicoProject_ProjectKB_Class10099])
+	(widget_class_name "edu.stanford.smi.protege.widget.ComboBoxWidget")
+	(width 100)
+	(x 0)
+	(y 180))
+
+([RicoRicoProject_ProjectKB_Class10099] of  Property_List
+)
+
+([RicoRicoProject_ProjectKB_Class10100] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "Season")
+	(property_list [RicoRicoProject_ProjectKB_Class10101])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 180))
+
+([RicoRicoProject_ProjectKB_Class10101] of  Property_List
+)
+
+([RicoRicoProject_ProjectKB_Class10118] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([RicoRicoProject_ProjectKB_Class10073] of  String
+([RicoRicoProject_ProjectKB_Class10119] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([RicoRicoProject_ProjectKB_Class10074] of  String
+([RicoRicoProject_ProjectKB_Class10120] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([RicoRicoProject_ProjectKB_Class10075] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10121] of  String
+
+	(name "Ingredient")
+	(string_value "IngredientName"))
+
+([RicoRicoProject_ProjectKB_Class10122] of  Map_Entry
 
 	(key "suppress_instance_counting")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([RicoRicoProject_ProjectKB_Class10076] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10123] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([RicoRicoProject_ProjectKB_Class10077] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10124] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")

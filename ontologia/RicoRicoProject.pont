@@ -1,4 +1,4 @@
-; Sun May 07 18:28:27 CEST 2017
+; Sun May 07 19:19:48 CEST 2017
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -47,11 +47,6 @@
 ;+		(allowed-classes First)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot DrinkPerDish
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(single-slot RicoRicoProject_Class0
 		(type SYMBOL)
 		(allowed-values FALSE TRUE)
@@ -93,10 +88,6 @@
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot RicoRicoProject_Class10001
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot DrinkType
 		(type SYMBOL)
 		(allowed-values Water Wine Sake Refreshment Juice)
@@ -108,7 +99,7 @@
 		(create-accessor read-write))
 	(single-slot DishType
 		(type SYMBOL)
-		(allowed-values Vegetarian Vegan)
+		(allowed-values Vegetarian Vegan Fruitarian)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot DishInfo
@@ -116,10 +107,11 @@
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot Season
+	(multislot Season
+;+		(comment "The seasons of the year in which the ingredient is available.")
 		(type SYMBOL)
-		(allowed-values Spring Summer Autumn Winter)
-;+		(cardinality 0 1)
+		(allowed-values Winter Summer Spring Autumn)
+		(cardinality 1 4)
 		(create-accessor read-write))
 	(single-slot Style
 		(type SYMBOL)
@@ -127,14 +119,21 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot IngredientType
-		(type STRING)
-;+		(cardinality 0 1)
+		(type SYMBOL)
+		(allowed-values Cow Pork Fruit Vegetable Fish Dairy)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot SecondDish
 ;+		(comment "Second recommendation for the menu; main dish")
 		(type INSTANCE)
 ;+		(allowed-classes Second)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot MenuDrink
+;+		(comment "The drink/s selected for the menu")
+		(type INSTANCE)
+;+		(allowed-classes Drink)
+		(cardinality 1 3)
 		(create-accessor read-write)))
 
 (defclass Menu "Clase que describe los menus"
@@ -146,16 +145,17 @@
 ;+		(allowed-classes Dessert)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot DrinkPerDish
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(single-slot SecondDish
 ;+		(comment "Second recommendation for the menu; main dish")
 		(type INSTANCE)
 ;+		(allowed-classes Second)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot MenuDrink
+;+		(comment "The drink/s selected for the menu")
+		(type INSTANCE)
+;+		(allowed-classes Drink)
+		(cardinality 1 3)
 		(create-accessor read-write))
 	(single-slot FirstDish
 ;+		(comment "First plate of the menu;starter, appetizer")
@@ -166,7 +166,7 @@
 
 (defclass Dish "Describe los platos"
 	(is-a USER)
-	(role concrete)
+	(role abstract)
 	(single-slot DishPrice
 		(type FLOAT)
 ;+		(cardinality 1 1)
@@ -178,7 +178,7 @@
 		(create-accessor read-write))
 	(single-slot DishType
 		(type SYMBOL)
-		(allowed-values Vegetarian Vegan)
+		(allowed-values Vegetarian Vegan Fruitarian)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot DishName
@@ -243,14 +243,16 @@
 		(type INSTANCE)
 ;+		(allowed-classes Dish)
 		(create-accessor read-write))
-	(single-slot Season
+	(multislot Season
+;+		(comment "The seasons of the year in which the ingredient is available.")
 		(type SYMBOL)
-		(allowed-values Spring Summer Autumn Winter)
-;+		(cardinality 0 1)
+		(allowed-values Winter Summer Spring Autumn)
+		(cardinality 1 4)
 		(create-accessor read-write))
 	(single-slot IngredientType
-		(type STRING)
-;+		(cardinality 0 1)
+		(type SYMBOL)
+		(allowed-values Cow Pork Fruit Vegetable Fish Dairy)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot IngredientName
 		(type STRING)
