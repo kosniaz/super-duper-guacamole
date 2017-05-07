@@ -1,7 +1,7 @@
-; Sat May 06 19:45:29 CEST 2017
+; Sun May 07 17:42:57 CEST 2017
 ; 
-;+ (version "3.4.8")
-;+ (build "Build 629")
+;+ (version "3.5")
+;+ (build "Build 663")
 
 
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
@@ -9,49 +9,43 @@
 	(role abstract)
 	(single-slot Disponibility
 		(type INSTANCE)
-;+		(allowed-classes Plate)
+;+		(allowed-classes Dish)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot Recomendation
-;+		(comment "Descrivìbe el menu que se propone para el evento indicado")
+	(single-slot DishCompatibility
+;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
 		(type INSTANCE)
-;+		(allowed-classes Event)
+;+		(allowed-classes Dish)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot N%C2%B0+commensales
+	(single-slot GuestsAmount
 		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot IsInDish
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+		(create-accessor read-write))
+	(single-slot DessertDish
+;+		(comment "Recommended dessert for the menu")
+		(type INSTANCE)
+;+		(allowed-classes Dessert)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Compatibility
 		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot PlateCompatibility
-;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot isVegetarian
-;+		(comment "True if this dish is vegetarian")
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinksType
-		(type SYMBOL)
+;+		(allowed-classes Dish)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot DrinkPrice
 		(type FLOAT)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot First
+	(single-slot FirstDish
 ;+		(comment "First plate of the menu;starter, appetizer")
 		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
+;+		(allowed-classes First)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot DrinkPerDish
 		(type SYMBOL)
@@ -65,25 +59,23 @@
 		(create-accessor read-write))
 	(single-slot IngredientName
 		(type STRING)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot PlateType
+	(single-slot Friendliness
 		(type SYMBOL)
-		(allowed-values Vegetarian)
-;+		(cardinality 0 1)
+		(allowed-values Low High Average)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Period
 		(type INSTANCE)
 ;+		(allowed-classes Event)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot IngredientsType
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(multislot IsInPlate
-		(type INSTANCE)
-;+		(allowed-classes Plate)
+	(single-slot FamilyEventType
+;+		(comment "Describes the type of family event")
+		(type SYMBOL)
+		(allowed-values Marriage Baptism Communion)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot DrinkName
 		(type STRING)
@@ -93,9 +85,30 @@
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot Tipe
+	(single-slot DishPrice
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot DishName
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot RicoRicoProject_Class10001
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DrinkType
 		(type SYMBOL)
-		(allowed-values Marriage Baptisme Communion)
+		(allowed-values Water Wine Sake Refreshment Juice)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot RicoRicoProject_Class10005
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DishType
+		(type SYMBOL)
+		(allowed-values Vegetarian Vegan)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot MenuCompatibility
@@ -104,15 +117,7 @@
 ;+		(allowed-classes Menu)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot PlatePrice
-		(type FLOAT)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Name
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Seasons
+	(single-slot Season
 		(type SYMBOL)
 		(allowed-values Spring Summer Autumn Winter)
 ;+		(cardinality 0 1)
@@ -122,16 +127,32 @@
 		(allowed-values Classic Modern Regional Gourmet)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot Compose
+	(single-slot Recommendation
+;+		(comment "Describe el menu que se propone para el evento indicado")
 		(type INSTANCE)
-;+		(allowed-classes Menu)
+;+		(allowed-classes Event)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot IngredientType
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot SecondDish
+;+		(comment "Second recommendation for the menu; main dish")
+		(type INSTANCE)
+;+		(allowed-classes Second)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
 (defclass Event "Clase que describe los eventos"
 	(is-a USER)
 	(role concrete)
-	(single-slot N%C2%B0+commensales
+	(single-slot Season
+		(type SYMBOL)
+		(allowed-values Spring Summer Autumn Winter)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot GuestsAmount
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write)))
@@ -139,134 +160,140 @@
 (defclass Family
 	(is-a Event)
 	(role concrete)
-	(single-slot Tipe
+	(single-slot FamilyEventType
+;+		(comment "Describes the type of family event")
 		(type SYMBOL)
-		(allowed-values Marriage Baptisme Communion)
-;+		(cardinality 0 1)
+		(allowed-values Marriage Baptism Communion)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
-(defclass Congresses "Eventos de tipo congreso"
+(defclass Congress "Eventos de tipo congreso"
 	(is-a Event)
 	(role concrete))
 
 (defclass Menu "Clase que describe los menus"
 	(is-a USER)
 	(role concrete)
-	(single-slot First
-;+		(comment "First plate of the menu;starter, appetizer")
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Recomendation
-;+		(comment "Descrivìbe el menu que se propone para el evento indicado")
+	(single-slot Recommendation
+;+		(comment "Describe el menu que se propone para el evento indicado")
 		(type INSTANCE)
 ;+		(allowed-classes Event)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DessertDish
+;+		(comment "Recommended dessert for the menu")
+		(type INSTANCE)
+;+		(allowed-classes Dessert)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot DrinkPerDish
 		(type SYMBOL)
 		(allowed-values FALSE TRUE)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot SecondDish
+;+		(comment "Second recommendation for the menu; main dish")
+		(type INSTANCE)
+;+		(allowed-classes Second)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot FirstDish
+;+		(comment "First plate of the menu;starter, appetizer")
+		(type INSTANCE)
+;+		(allowed-classes First)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
-(defclass Plate "Describe los platos"
+(defclass Dish "Describe los platos"
 	(is-a USER)
 	(role concrete)
-	(single-slot PlatePrice
+	(single-slot DishPrice
 		(type FLOAT)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Name
-		(type STRING)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Style
 		(type SYMBOL)
 		(allowed-values Classic Modern Regional Gourmet)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot isVegetarian
-;+		(comment "True if this dish is vegetarian")
+	(single-slot DishType
 		(type SYMBOL)
-		(allowed-values FALSE TRUE)
+		(allowed-values Vegetarian Vegan)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DishName
+		(type STRING)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot Compatibility
 		(type INSTANCE)
-;+		(allowed-classes Plate)
+;+		(allowed-classes Dish)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot Compose
-		(type INSTANCE)
-;+		(allowed-classes Menu)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot PlateType
+	(single-slot Friendliness
 		(type SYMBOL)
-		(allowed-values Vegetarian)
-;+		(cardinality 0 1)
+		(allowed-values Low High Average)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
-(defclass Drinks "Describe las babidas"
+(defclass First
+	(is-a Dish)
+	(role concrete))
+
+(defclass Second
+	(is-a Dish)
+	(role concrete))
+
+(defclass Dessert
+	(is-a Dish)
+	(role concrete))
+
+(defclass Drink "Describe las babidas"
 	(is-a USER)
 	(role concrete)
 	(single-slot DrinkName
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot DrinksType
-		(type SYMBOL)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot PlateCompatibility
+	(single-slot DishCompatibility
 ;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
 		(type INSTANCE)
-;+		(allowed-classes Plate)
+;+		(allowed-classes Dish)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot DrinkPrice
 		(type FLOAT)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot MenuCompatibility
 ;+		(comment "En el caso que se pida una unica bebida por todo el menu")
 		(type INSTANCE)
 ;+		(allowed-classes Menu)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DrinkType
+		(type SYMBOL)
+		(allowed-values Water Wine Sake Refreshment Juice)
+;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
-(defclass Ingredients
+(defclass Ingredient
 	(is-a USER)
 	(role concrete)
-	(multislot IsInPlate
+	(multislot IsInDish
 		(type INSTANCE)
-;+		(allowed-classes Plate)
+;+		(allowed-classes Dish)
 		(create-accessor read-write))
-	(single-slot IngredientsType
+	(single-slot Season
+		(type SYMBOL)
+		(allowed-values Spring Summer Autumn Winter)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot IngredientType
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot IngredientName
 		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(defclass Epoch
-	(is-a USER)
-	(role concrete)
-	(single-slot Seasons
-		(type SYMBOL)
-		(allowed-values Spring Summer Autumn Winter)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Disponibility
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Period
-		(type INSTANCE)
-;+		(allowed-classes Event)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))

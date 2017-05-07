@@ -1,7 +1,7 @@
-; Sat May 06 19:45:15 CEST 2017
+; Sun May 07 17:42:57 CEST 2017
 ; 
-;+ (version "3.4.8")
-;+ (build "Build 629")
+;+ (version "3.5")
+;+ (build "Build 663")
 
 ([ANNOTATED_INSTANCE_WIDGET] of  Widget
 
@@ -20,12 +20,13 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[RicoRicoProject_ProjectKB_Class10108]
-		[RicoRicoProject_ProjectKB_Class10109]
-		[RicoRicoProject_ProjectKB_Class10110]))
+		[RicoRicoProject_ProjectKB_Class10034]
+		[RicoRicoProject_ProjectKB_Class10035]
+		[RicoRicoProject_ProjectKB_Class10036]))
 
 ([CLSES_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.ClsesTab"))
 
 ([CREATION_TIMESTAMP_WIDGET] of  Widget
@@ -38,6 +39,7 @@
 
 ([FORMS_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.FormsTab"))
 
 ([INSTANCE_ANNOTATION_FORM_WIDGET] of  Widget
@@ -61,6 +63,7 @@
 
 ([INSTANCES_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
 ([KB_273644_Class0] of  String
@@ -69,7 +72,11 @@
 	(string_value "edu.stanford.smi.protege.storage.clips.ClipsKnowledgeBaseFactory"))
 
 ([KB_273644_Class1] of  Map
-)
+
+	(entries
+		[RicoRicoProject_ProjectKB_Class10037]
+		[RicoRicoProject_ProjectKB_Class10038]
+		[RicoRicoProject_ProjectKB_Class10039]))
 
 ([KB_273644_Class100] of  Property_List
 )
@@ -163,7 +170,7 @@
 ([KB_273644_Class99] of  Property_List
 )
 
-([KB_895121_Class0] of  Map
+([KB_817319_Class3] of  Map
 )
 
 ([LAYOUT_PROPERTIES] of  Property_List
@@ -178,6 +185,7 @@
 	(display_hidden_classes TRUE)
 	(display_multi_parent_class_icon TRUE)
 	(is_readonly FALSE)
+	(tabbed_instance_form_layout FALSE)
 	(undo_enabled TRUE)
 	(update_modification_slots FALSE))
 
@@ -257,6 +265,7 @@
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
 	(default_slot_metaclass ":STANDARD-SLOT")
+	(journaling_enabled FALSE)
 	(next_frame_number 0)
 	(options [option_instance])
 	(property_map [KB_273644_Class1])
@@ -266,10 +275,48 @@
 		[SLOTS_TAB]
 		[FORMS_TAB]
 		[INSTANCES_TAB]
-		[QUERIES_TAB]))
+		[QUERIES_TAB]
+		[RicoRicoProject_ProjectKB_Class57]
+		[RicoRicoProject_ProjectKB_Class39]
+		[RicoRicoProject_ProjectKB_Class17]
+		[RicoRicoProject_ProjectKB_Class71]
+		[RicoRicoProject_ProjectKB_Class35]
+		[RicoRicoProject_ProjectKB_Class67]
+		[RicoRicoProject_ProjectKB_Class49]
+		[RicoRicoProject_ProjectKB_Class37]
+		[RicoRicoProject_ProjectKB_Class55]
+		[RicoRicoProject_ProjectKB_Class19]
+		[RicoRicoProject_ProjectKB_Class21]
+		[RicoRicoProject_ProjectKB_Class15]
+		[RicoRicoProject_ProjectKB_Class51]
+		[RicoRicoProject_ProjectKB_Class9]
+		[RicoRicoProject_ProjectKB_Class47]
+		[RicoRicoProject_ProjectKB_Class1]
+		[RicoRicoProject_ProjectKB_Class27]
+		[RicoRicoProject_ProjectKB_Class25]
+		[RicoRicoProject_ProjectKB_Class5]
+		[RicoRicoProject_ProjectKB_Class63]
+		[RicoRicoProject_ProjectKB_Class23]
+		[RicoRicoProject_ProjectKB_Class43]
+		[RicoRicoProject_ProjectKB_Class69]
+		[RicoRicoProject_ProjectKB_Class41]
+		[RicoRicoProject_ProjectKB_Class53]
+		[RicoRicoProject_ProjectKB_Class61]
+		[RicoRicoProject_ProjectKB_Class65]
+		[RicoRicoProject_ProjectKB_Class73]
+		[RicoRicoProject_ProjectKB_Class3]
+		[RicoRicoProject_ProjectKB_Class11]
+		[RicoRicoProject_ProjectKB_Class33]
+		[RicoRicoProject_ProjectKB_Class29]
+		[RicoRicoProject_ProjectKB_Class45]
+		[RicoRicoProject_ProjectKB_Class59]
+		[RicoRicoProject_ProjectKB_Class7]
+		[RicoRicoProject_ProjectKB_Class31]
+		[RicoRicoProject_ProjectKB_Class13]))
 
 ([QUERIES_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(property_list [KB_273644_Class104])
 	(widget_class_name "edu.stanford.smi.protegex.queries_tab.QueriesTab"))
 
@@ -282,62 +329,41 @@
 ([RicoRicoProject_ProjectKB_Class10] of  Property_List
 )
 
-([RicoRicoProject_ProjectKB_Class10100] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "RicoRicoProject_Class0")
-	(property_list [RicoRicoProject_ProjectKB_Class10101])
-	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
-	(width 200)
-	(x 0)
-	(y 180))
-
-([RicoRicoProject_ProjectKB_Class10101] of  Property_List
-)
-
-([RicoRicoProject_ProjectKB_Class10102] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "RicoRicoProject_Class0")
-	(property_list [RicoRicoProject_ProjectKB_Class10103])
-	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
-	(width 200)
-	(x 0)
-	(y 180))
-
-([RicoRicoProject_ProjectKB_Class10103] of  Property_List
-)
-
-([RicoRicoProject_ProjectKB_Class10104] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "isVegetarian")
-	(property_list [RicoRicoProject_ProjectKB_Class10105])
-	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
-	(width 200)
-	(x 0)
-	(y 240))
-
-([RicoRicoProject_ProjectKB_Class10105] of  Property_List
-)
-
-([RicoRicoProject_ProjectKB_Class10108] of  String
+([RicoRicoProject_ProjectKB_Class10034] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([RicoRicoProject_ProjectKB_Class10109] of  String
+([RicoRicoProject_ProjectKB_Class10035] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([RicoRicoProject_ProjectKB_Class10110] of  String
+([RicoRicoProject_ProjectKB_Class10036] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
+
+([RicoRicoProject_ProjectKB_Class10037] of  Map_Entry
+
+	(key "suppress_instance_counting")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([RicoRicoProject_ProjectKB_Class10038] of  Map_Entry
+
+	(key "add_name_on_instance_form")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([RicoRicoProject_ProjectKB_Class10039] of  Map_Entry
+
+	(key "change_tracking_active")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
 
 ([RicoRicoProject_ProjectKB_Class107] of  String
 
@@ -347,7 +373,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class12])
-	(widget_class_name "edu.stanford.smi.protegex.server_changes.prompt.UsersTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.cls.OWLClassesTab"))
 
 ([RicoRicoProject_ProjectKB_Class12] of  Property_List
 )
@@ -356,7 +382,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class14])
-	(widget_class_name "edu.stanford.smi.protege.query.LuceneQueryPlugin"))
+	(widget_class_name "edu.stanford.smi.protegex.server_changes.prompt.UsersTab"))
 
 ([RicoRicoProject_ProjectKB_Class14] of  Property_List
 )
@@ -365,7 +391,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class16])
-	(widget_class_name "edu.stanford.smi.protege.widget.ClsesAndInstancesTab"))
+	(widget_class_name "edu.stanford.smi.protege.query.LuceneQueryPlugin"))
 
 ([RicoRicoProject_ProjectKB_Class16] of  Property_List
 )
@@ -374,7 +400,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class18])
-	(widget_class_name "edu.stanford.smi.protege.widget.KAToolTab"))
+	(widget_class_name "edu.stanford.smi.protege.widget.ClsesAndInstancesTab"))
 
 ([RicoRicoProject_ProjectKB_Class18] of  Property_List
 )
@@ -383,7 +409,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class20])
-	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.KnowledgeTreeTab"))
+	(widget_class_name "edu.stanford.smi.protege.widget.KAToolTab"))
 
 ([RicoRicoProject_ProjectKB_Class2] of  Property_List
 )
@@ -395,7 +421,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class22])
-	(widget_class_name "edu.stanford.smi.protegex.prompt.PromptTab"))
+	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.KnowledgeTreeTab"))
 
 ([RicoRicoProject_ProjectKB_Class22] of  Property_List
 )
@@ -413,7 +439,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class26])
-	(widget_class_name "org.algernon.kb.okbc.protege.plugins.AlgernonTab"))
+	(widget_class_name "edu.stanford.smi.protegex.prompt.PromptTab"))
 
 ([RicoRicoProject_ProjectKB_Class26] of  Property_List
 )
@@ -431,13 +457,13 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class30])
-	(widget_class_name "edu.stanford.smi.RemoteKBTab.WordNetTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.metadatatab.OWLMetadataTab"))
 
 ([RicoRicoProject_ProjectKB_Class3] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class4])
-	(widget_class_name "edu.stanford.smi.protege.widget.ProtegePropertiesTab"))
+	(widget_class_name "org.protege.owl.mm.portability.protege3.MappingMasterTab"))
 
 ([RicoRicoProject_ProjectKB_Class30] of  Property_List
 )
@@ -446,7 +472,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class32])
-	(widget_class_name "edu.stanford.smi.protegex.owl.ui.metadatatab.OWLMetadataTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.swrl.ui.tab.SWRLTab"))
 
 ([RicoRicoProject_ProjectKB_Class32] of  Property_List
 )
@@ -455,7 +481,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class34])
-	(widget_class_name "edu.stanford.smi.protegex.owl.swrl.ui.tab.SWRLTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.individuals.OWLIndividualsTab"))
 
 ([RicoRicoProject_ProjectKB_Class34] of  Property_List
 )
@@ -464,7 +490,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class36])
-	(widget_class_name "org.protege.owl.mm.protege3.MappingMasterTab"))
+	(widget_class_name "uk.ac.man.cs.mig.coode.debugger.test.DebuggerTestTab"))
 
 ([RicoRicoProject_ProjectKB_Class36] of  Property_List
 )
@@ -473,7 +499,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class38])
-	(widget_class_name "edu.stanford.smi.RemoteKBTab.UMLSTab"))
+	(widget_class_name "ca.uvic.csr.shrimp.jambalaya.JambalayaTab"))
 
 ([RicoRicoProject_ProjectKB_Class38] of  Property_List
 )
@@ -482,7 +508,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class40])
-	(widget_class_name "edu.stanford.smi.protegex.owl.ui.individuals.OWLIndividualsTab"))
+	(widget_class_name "edu.stanford.smi.protegex.changes.ChangesTab"))
 
 ([RicoRicoProject_ProjectKB_Class4] of  Property_List
 )
@@ -494,7 +520,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class42])
-	(widget_class_name "uk.ac.man.cs.mig.coode.debugger.test.DebuggerTestTab"))
+	(widget_class_name "org.protege.owl.axiome.ui.AxiomeTab"))
 
 ([RicoRicoProject_ProjectKB_Class42] of  Property_List
 )
@@ -503,7 +529,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class44])
-	(widget_class_name "edu.stanford.smi.protegex.changes.ChangesTab"))
+	(widget_class_name "TGViztab.TGVizTab"))
 
 ([RicoRicoProject_ProjectKB_Class44] of  Property_List
 )
@@ -512,7 +538,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class46])
-	(widget_class_name "org.protege.owl.axiome.ui.AxiomeTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.properties.OWLPropertiesTab"))
 
 ([RicoRicoProject_ProjectKB_Class46] of  Property_List
 )
@@ -521,7 +547,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class48])
-	(widget_class_name "ca.uvic.csr.shrimp.jambalaya.JambalayaTab"))
+	(widget_class_name "uk.ac.man.ac.mig.coode.individuals.ui.OWLDLIndividualsTab"))
 
 ([RicoRicoProject_ProjectKB_Class48] of  Property_List
 )
@@ -530,13 +556,13 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class50])
-	(widget_class_name "TGViztab.TGVizTab"))
+	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.InstanceTreeTab"))
 
 ([RicoRicoProject_ProjectKB_Class5] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class6])
-	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalQueriesTab"))
+	(widget_class_name "edu.stanford.smi.protege.widget.ProtegePropertiesTab"))
 
 ([RicoRicoProject_ProjectKB_Class50] of  Property_List
 )
@@ -545,7 +571,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class52])
-	(widget_class_name "edu.stanford.smi.protegex.owl.ui.properties.OWLPropertiesTab"))
+	(widget_class_name "edu.stanford.smi.protegex.evaluation.MetaAnalysis"))
 
 ([RicoRicoProject_ProjectKB_Class52] of  Property_List
 )
@@ -554,7 +580,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class54])
-	(widget_class_name "uk.ac.man.ac.mig.coode.individuals.ui.OWLDLIndividualsTab"))
+	(widget_class_name "edu.stanford.smi.protegex.changes.changesKBViewTab.ChangesKBViewTab"))
 
 ([RicoRicoProject_ProjectKB_Class54] of  Property_List
 )
@@ -563,7 +589,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class56])
-	(widget_class_name "edu.stanford.smi.protegex.evaluation.MetaAnalysis"))
+	(widget_class_name "se.liu.ida.JessTab.JessTab"))
 
 ([RicoRicoProject_ProjectKB_Class56] of  Property_List
 )
@@ -572,7 +598,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class58])
-	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.InstanceTreeTab"))
+	(widget_class_name "edu.stanford.smi.protegex.changeanalysis.ChangeAnalysisTab"))
 
 ([RicoRicoProject_ProjectKB_Class58] of  Property_List
 )
@@ -581,7 +607,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class60])
-	(widget_class_name "edu.stanford.smi.protegex.changes.changesKBViewTab.ChangesKBViewTab"))
+	(widget_class_name "uk.ac.man.cs.mig.coode.owlviz.ui.OWLVizTab"))
 
 ([RicoRicoProject_ProjectKB_Class6] of  Property_List
 )
@@ -593,7 +619,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class62])
-	(widget_class_name "se.liu.ida.JessTab.JessTab"))
+	(widget_class_name "edu.stanford.smi.protegex.changes.stats.ChangeStatisticsTab"))
 
 ([RicoRicoProject_ProjectKB_Class62] of  Property_List
 )
@@ -602,7 +628,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class64])
-	(widget_class_name "edu.stanford.smi.protegex.changeanalysis.ChangeAnalysisTab"))
+	(widget_class_name "script.ProtegeScriptTab"))
 
 ([RicoRicoProject_ProjectKB_Class64] of  Property_List
 )
@@ -611,7 +637,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class66])
-	(widget_class_name "uk.ac.man.cs.mig.coode.owlviz.ui.OWLVizTab"))
+	(widget_class_name "edu.stanford.smi.protegex.chatPlugin.ChatTab"))
 
 ([RicoRicoProject_ProjectKB_Class66] of  Property_List
 )
@@ -620,7 +646,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class68])
-	(widget_class_name "edu.stanford.smi.protegex.changes.stats.ChangeStatisticsTab"))
+	(widget_class_name "edu.stanford.smi.protegex.fctab.FacetConstraintsTab"))
 
 ([RicoRicoProject_ProjectKB_Class68] of  Property_List
 )
@@ -629,13 +655,13 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class70])
-	(widget_class_name "script.ProtegeScriptTab"))
+	(widget_class_name "edu.stanford.smi.protegex.xml.tab.XMLTab"))
 
 ([RicoRicoProject_ProjectKB_Class7] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class8])
-	(widget_class_name "dfki.protege.ontoviz_tab.OntovizTab"))
+	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalQueriesTab"))
 
 ([RicoRicoProject_ProjectKB_Class70] of  Property_List
 )
@@ -644,7 +670,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class72])
-	(widget_class_name "edu.stanford.smi.protegex.chatPlugin.ChatTab"))
+	(widget_class_name "edu.stanford.smi.protegex.datamaster.DataMasterTab"))
 
 ([RicoRicoProject_ProjectKB_Class72] of  Property_List
 )
@@ -653,49 +679,23 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class74])
-	(widget_class_name "edu.stanford.smi.protegex.fctab.FacetConstraintsTab"))
+	(widget_class_name "ezpal.EZPalTab"))
 
 ([RicoRicoProject_ProjectKB_Class74] of  Property_List
 )
 
-([RicoRicoProject_ProjectKB_Class75] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [RicoRicoProject_ProjectKB_Class76])
-	(widget_class_name "edu.stanford.smi.protegex.xml.tab.XMLTab"))
-
-([RicoRicoProject_ProjectKB_Class76] of  Property_List
-)
-
-([RicoRicoProject_ProjectKB_Class77] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [RicoRicoProject_ProjectKB_Class78])
-	(widget_class_name "edu.stanford.smi.protegex.datamaster.DataMasterTab"))
-
-([RicoRicoProject_ProjectKB_Class78] of  Property_List
-)
-
-([RicoRicoProject_ProjectKB_Class79] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [RicoRicoProject_ProjectKB_Class80])
-	(widget_class_name "ezpal.EZPalTab"))
-
 ([RicoRicoProject_ProjectKB_Class8] of  Property_List
-)
-
-([RicoRicoProject_ProjectKB_Class80] of  Property_List
 )
 
 ([RicoRicoProject_ProjectKB_Class9] of  Widget
 
-	(is_hidden TRUE)
+	(is_hidden FALSE)
 	(property_list [RicoRicoProject_ProjectKB_Class10])
-	(widget_class_name "edu.stanford.smi.protegex.owl.ui.cls.OWLClassesTab"))
+	(widget_class_name "dfki.protege.ontoviz_tab.OntovizTab"))
 
 ([SLOTS_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.SlotsTab"))
 
 ([SOURCES] of  Property_List

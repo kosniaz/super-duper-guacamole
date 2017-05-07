@@ -1,43 +1,41 @@
-; Sat May 06 19:45:29 CEST 2017
+; Sun May 07 17:42:57 CEST 2017
 ; 
-;+ (version "3.4.8")
-;+ (build "Build 629")
+;+ (version "3.5")
+;+ (build "Build 663")
 
-([RicoRicoProject_Class2] of  Plate
+([RicoRicoProject_Class2] of  Dish
 
-	(isVegetarian TRUE)
-	(Name "Pasta_Al_rabiata")
-	(PlatePrice 10.0)
+	(DishName "Pasta_Al_rabiata")
+	(DishPrice 10.0)
 	(Style Classic))
 
-([RicoRicoProject_Class33] of  Plate
+([RicoRicoProject_Class33] of  Dish
 
-	(isVegetarian FALSE)
-	(Name "Pasta Alla Carbonara")
-	(PlatePrice 8.5)
+	(DishName "Pasta Alla Carbonara")
+	(DishPrice 8.5)
 	(Style Classic))
 
-([RicoRicoProject_Class36] of  Ingredients
+([RicoRicoProject_Class36] of  Ingredient
 
 	(IngredientName "Egg")
-	(IsInPlate [RicoRicoProject_Class33]))
+	(IsInDish [RicoRicoProject_Class33]))
 
-([RicoRicoProject_Class37] of  Ingredients
+([RicoRicoProject_Class37] of  Ingredient
 
 	(IngredientName "Bacon")
-	(IsInPlate [RicoRicoProject_Class33]))
+	(IsInDish [RicoRicoProject_Class33]))
 
-([RicoRicoProject_Class38] of  Ingredients
+([RicoRicoProject_Class38] of  Ingredient
 
 	(IngredientName "Black Pepper")
-	(IsInPlate [RicoRicoProject_Class33]))
+	(IsInDish [RicoRicoProject_Class33]))
 
-([RicoRicoProject_Class39] of  Ingredients
+([RicoRicoProject_Class39] of  Ingredient
 
 	(IngredientName "Parmigiano")
-	(IsInPlate [RicoRicoProject_Class33]))
+	(IsInDish [RicoRicoProject_Class33]))
 
-([RicoRicoProject_Class40] of  Ingredients
+([RicoRicoProject_Class40] of  Ingredient
 
 	(IngredientName "Pasta")
-	(IsInPlate [RicoRicoProject_Class33]))
+	(IsInDish [RicoRicoProject_Class33]))
