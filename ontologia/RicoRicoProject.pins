@@ -1,0 +1,43 @@
+; Sat May 06 19:45:29 CEST 2017
+; 
+;+ (version "3.4.8")
+;+ (build "Build 629")
+
+([RicoRicoProject_Class2] of  Plate
+
+	(isVegetarian TRUE)
+	(Name "Pasta_Al_rabiata")
+	(PlatePrice 10.0)
+	(Style Classic))
+
+([RicoRicoProject_Class33] of  Plate
+
+	(isVegetarian FALSE)
+	(Name "Pasta Alla Carbonara")
+	(PlatePrice 8.5)
+	(Style Classic))
+
+([RicoRicoProject_Class36] of  Ingredients
+
+	(IngredientName "Egg")
+	(IsInPlate [RicoRicoProject_Class33]))
+
+([RicoRicoProject_Class37] of  Ingredients
+
+	(IngredientName "Bacon")
+	(IsInPlate [RicoRicoProject_Class33]))
+
+([RicoRicoProject_Class38] of  Ingredients
+
+	(IngredientName "Black Pepper")
+	(IsInPlate [RicoRicoProject_Class33]))
+
+([RicoRicoProject_Class39] of  Ingredients
+
+	(IngredientName "Parmigiano")
+	(IsInPlate [RicoRicoProject_Class33]))
+
+([RicoRicoProject_Class40] of  Ingredients
+
+	(IngredientName "Pasta")
+	(IsInPlate [RicoRicoProject_Class33]))
