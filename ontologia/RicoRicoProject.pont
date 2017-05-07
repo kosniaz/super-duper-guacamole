@@ -1,4 +1,4 @@
-; Sun May 07 17:42:57 CEST 2017
+; Sun May 07 18:28:27 CEST 2017
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -68,7 +68,7 @@
 		(create-accessor read-write))
 	(single-slot Period
 		(type INSTANCE)
-;+		(allowed-classes Event)
+;+		(allowed-classes)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot FamilyEventType
@@ -111,10 +111,9 @@
 		(allowed-values Vegetarian Vegan)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot MenuCompatibility
-;+		(comment "En el caso que se pida una unica bebida por todo el menu")
-		(type INSTANCE)
-;+		(allowed-classes Menu)
+	(single-slot DishInfo
+;+		(comment "A brief (or detailed) description of the dish")
+		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot Season
@@ -125,12 +124,6 @@
 	(single-slot Style
 		(type SYMBOL)
 		(allowed-values Classic Modern Regional Gourmet)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Recommendation
-;+		(comment "Describe el menu que se propone para el evento indicado")
-		(type INSTANCE)
-;+		(allowed-classes Event)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot IngredientType
@@ -144,42 +137,9 @@
 ;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
-(defclass Event "Clase que describe los eventos"
-	(is-a USER)
-	(role concrete)
-	(single-slot Season
-		(type SYMBOL)
-		(allowed-values Spring Summer Autumn Winter)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot GuestsAmount
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass Family
-	(is-a Event)
-	(role concrete)
-	(single-slot FamilyEventType
-;+		(comment "Describes the type of family event")
-		(type SYMBOL)
-		(allowed-values Marriage Baptism Communion)
-;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass Congress "Eventos de tipo congreso"
-	(is-a Event)
-	(role concrete))
-
 (defclass Menu "Clase que describe los menus"
 	(is-a USER)
 	(role concrete)
-	(single-slot Recommendation
-;+		(comment "Describe el menu que se propone para el evento indicado")
-		(type INSTANCE)
-;+		(allowed-classes Event)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot DessertDish
 ;+		(comment "Recommended dessert for the menu")
 		(type INSTANCE)
@@ -225,6 +185,11 @@
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
+	(single-slot DishInfo
+;+		(comment "A brief (or detailed) description of the dish")
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(single-slot Compatibility
 		(type INSTANCE)
 ;+		(allowed-classes Dish)
@@ -264,12 +229,6 @@
 	(single-slot DrinkPrice
 		(type FLOAT)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot MenuCompatibility
-;+		(comment "En el caso que se pida una unica bebida por todo el menu")
-		(type INSTANCE)
-;+		(allowed-classes Menu)
-;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot DrinkType
 		(type SYMBOL)
