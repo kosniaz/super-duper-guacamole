@@ -1,320 +1,3 @@
-
-; Sat May 06 19:45:29 CEST 2017
-; 
-;+ (version "3.4.8")
-;+ (build "Build 629")
-
-
-(defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
-	(is-a USER)
-	(role abstract)
-	(single-slot Disponibility
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Recomendation
-;+		(comment "Descrivìbe el menu que se propone para el evento indicado")
-		(type INSTANCE)
-;+		(allowed-classes Event)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot N%C2%B0+commensales
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Compatibility
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot PlateCompatibility
-;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot isVegetarian
-;+		(comment "True if this dish is vegetarian")
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinksType
-		(type SYMBOL)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinkPrice
-		(type FLOAT)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot First
-;+		(comment "First plate of the menu;starter, appetizer")
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinkPerDish
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot RicoRicoProject_Class0
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot IngredientName
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot PlateType
-		(type SYMBOL)
-		(allowed-values Vegetarian)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Period
-		(type INSTANCE)
-;+		(allowed-classes Event)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot IngredientsType
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(multislot IsInPlate
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-		(create-accessor read-write))
-	(single-slot DrinkName
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot RicoRicoProject_Class27
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Tipe
-		(type SYMBOL)
-		(allowed-values Marriage Baptisme Communion)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot MenuCompatibility
-;+		(comment "En el caso que se pida una unica bebida por todo el menu")
-		(type INSTANCE)
-;+		(allowed-classes Menu)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot PlatePrice
-		(type FLOAT)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Name
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Seasons
-		(type SYMBOL)
-		(allowed-values Spring Summer Autumn Winter)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Style
-		(type SYMBOL)
-		(allowed-values Classic Modern Regional Gourmet)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Compose
-		(type INSTANCE)
-;+		(allowed-classes Menu)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(defclass Event "Clase que describe los eventos"
-	(is-a USER)
-	(role concrete)
-	(single-slot N%C2%B0+commensales
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass Family
-	(is-a Event)
-	(role concrete)
-	(single-slot Tipe
-		(type SYMBOL)
-		(allowed-values Marriage Baptisme Communion)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(defclass Congresses "Eventos de tipo congreso"
-	(is-a Event)
-	(role concrete))
-
-(defclass Menu "Clase que describe los menus"
-	(is-a USER)
-	(role concrete)
-	(single-slot First
-;+		(comment "First plate of the menu;starter, appetizer")
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Recomendation
-;+		(comment "Descrivìbe el menu que se propone para el evento indicado")
-		(type INSTANCE)
-;+		(allowed-classes Event)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinkPerDish
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass Plate "Describe los platos"
-	(is-a USER)
-	(role concrete)
-	(single-slot PlatePrice
-		(type FLOAT)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Name
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Style
-		(type SYMBOL)
-		(allowed-values Classic Modern Regional Gourmet)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot isVegetarian
-;+		(comment "True if this dish is vegetarian")
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Compatibility
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Compose
-		(type INSTANCE)
-;+		(allowed-classes Menu)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot PlateType
-		(type SYMBOL)
-		(allowed-values Vegetarian)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(defclass Drinks "Describe las babidas"
-	(is-a USER)
-	(role concrete)
-	(single-slot DrinkName
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinksType
-		(type SYMBOL)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot PlateCompatibility
-;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinkPrice
-		(type FLOAT)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot MenuCompatibility
-;+		(comment "En el caso que se pida una unica bebida por todo el menu")
-		(type INSTANCE)
-;+		(allowed-classes Menu)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(defclass Ingredients
-	(is-a USER)
-	(role concrete)
-	(multislot IsInPlate
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-		(create-accessor read-write))
-	(single-slot IngredientsType
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot IngredientName
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(defclass Epoch
-	(is-a USER)
-	(role concrete)
-	(single-slot Seasons
-		(type SYMBOL)
-		(allowed-values Spring Summer Autumn Winter)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Disponibility
-		(type INSTANCE)
-;+		(allowed-classes Plate)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Period
-		(type INSTANCE)
-;+		(allowed-classes Event)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(definstances sdg
-([RicoRicoProject_Class2] of  Plate
-
-	(isVegetarian TRUE)
-	(Name "Pasta_Al_rabiata")
-	(PlatePrice 10.0)
-	(Style Classic))
-
-([RicoRicoProject_Class33] of  Plate
-
-	(isVegetarian FALSE)
-	(Name "Pasta Alla Carbonara")
-	(PlatePrice 8.5)
-	(Style Classic))
-
-([RicoRicoProject_Class36] of  Ingredients
-
-	(IngredientName "Egg")
-	(IsInPlate [RicoRicoProject_Class33]))
-
-([RicoRicoProject_Class37] of  Ingredients
-
-	(IngredientName "Bacon")
-	(IsInPlate [RicoRicoProject_Class33]))
-
-([RicoRicoProject_Class38] of  Ingredients
-
-	(IngredientName "Black Pepper")
-	(IsInPlate [RicoRicoProject_Class33]))
-
-([RicoRicoProject_Class39] of  Ingredients
-
-	(IngredientName "Parmigiano")
-	(IsInPlate [RicoRicoProject_Class33]))
-
-([RicoRicoProject_Class40] of  Ingredients
-
-	(IngredientName "Pasta")
-	(IsInPlate [RicoRicoProject_Class33]))
-
-)
-
-
 ;begin
 
 
@@ -326,13 +9,13 @@
 
 (defmessage-handler Menu printName primary ()
   (printout t "First Dish: " crlf)
-  (send ?self:First printName)
+  (send ?self:FirstDish printName)
   (printout t crlf)
 )
 
-(defmessage-handler Plate printName primary ()
+(defmessage-handler Dish printName primary ()
   (printout t "Dish Name: ")
-  (bind ?name ?self:Name)
+  (bind ?name ?self:DishName)
   (printout t ?name) 
   (printout t crlf)
 )
@@ -392,6 +75,39 @@
 ;;;* QUERY RULES *
 ;;;***************
 
+(defrule determine-epoch "" 
+   (not (isEpoch ?))
+   (entered-state "info-gathering")
+   =>
+   (bind ?res (ask-question "In what season of the year are you planning to have the event? (spring/summer/autumn/winter)" spring summer autumn winter))
+   (assert (isEpoch ?res))
+)
+
+(defrule determine-event-type "" 
+   (not (isType ?))
+   (entered-state "info-gathering")
+   =>
+   (bind ?res (ask-question "What kind of event are you planning? (family/conference) " family congress))
+   (assert (isType ?res))
+)
+
+(defrule determine-number "" 
+   (not (numberOfPeople ?))
+   (entered-state "info-gathering")
+   =>
+   (bind ?res (ask-question "How many people are we expecting? (few/average/many) " few average many))
+   (assert (numberOfPeople ?res))
+)
+
+(defrule determine-expermental "" 
+   (not (sibarita ?))
+   (entered-state "info-gathering")
+   =>
+   (bind ?res (ask-question "Would you like to taste something experimental or exotic (yes/no)? " yes no))
+   (assert (sibarita ?res))
+)
+
+
 (defrule determine-vegan ""
    (not (isVeganVegeterian ?))
    (entered-state "info-gathering")
@@ -448,8 +164,8 @@
   =>
   (switch ?v
    (case vegan then (assert (the-system-has-failed)))
-   (case vegetarian then (send ?x put-First (find-instance ((?ins Plate)) (eq ?ins:isVegetarian TRUE) )) )
-   (case no then (send ?x put-First (find-instance ((?ins Plate)) (eq ?ins:isVegetarian FALSE))))
+   (case vegetarian then (send ?x put-FirstDish (find-instance ((?ins FirstDish)) (eq ?ins:isVegetarian TRUE) )) )
+   (case no then (send ?x put-FirstDish (find-instance ((?ins FirstDish)) (eq ?ins:isVegetarian FALSE))))
    )
    (assert (dishes-selected))
 )

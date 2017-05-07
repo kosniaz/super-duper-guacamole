@@ -1,3 +1,5 @@
+(load "../ontologia/RicoRicoProject.pont")
+(load-instances "../ontologia/RicoRicoProject.pins")
 (load sdg.clp)
 (reset)
 (run)
