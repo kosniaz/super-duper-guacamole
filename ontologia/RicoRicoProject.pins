@@ -1,7 +1,22 @@
-; Sun May 07 22:11:35 CEST 2017
+; Wed May 10 14:13:00 CEST 2017
 ; 
-;+ (version "3.5")
-;+ (build "Build 663")
+;+ (version "3.4.8")
+;+ (build "Build 629")
+
+([RicoRicoProject_Class10000] of  First
+
+	(DishInfo "Good one")
+	(DishName "Cesar Salad")
+	(DishPrice 2.0)
+	(Friendliness High))
+
+([RicoRicoProject_Class10001] of  First
+
+	(DishInfo "Sooo simple")
+	(DishName "Simple Salad")
+	(DishPrice 1.0)
+	(DishType Vegetarian)
+	(Friendliness High))
 
 ([RicoRicoProject_Class36] of  Ingredient
 

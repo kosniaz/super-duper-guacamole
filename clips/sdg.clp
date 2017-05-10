@@ -1,6 +1,5 @@
 ;begin
 
-
 ;;**********************
 ;;* message handlers
 ;;**********************
@@ -95,7 +94,7 @@
   (printout t crlf crlf)
   (printout t "The Menu Proposal System")
   (printout t crlf crlf)
-  (focus module-info-gathering)
+  (focus module-event-info-gathering)
 )
 
 ;;print result:
@@ -141,8 +140,15 @@
     (slot subtype)
     (slot guests)
     (slot season)
+    (slot children-percentage)
 )
 
+(deftemplate menu-restrictions "Event for which the recommendation shall be done"
+    (slot isVeganVegetarian)
+    (slot experimental)
+    (slot gourmet)
+
+)
 
 
 ;;;*******************************
@@ -157,10 +163,15 @@
 ;;; Initial fact
 (deffacts initial-facts
     (target-event
-        (type unkown)
+        (type unknown)
         (subtype unknown)
-        (guests unkown)
+        (guests unknown)
         (season unknown)
+    )
+    (menu-restrictions 
+	(isVeganVegetarian unknown)
+        (experimental unknown)
+ 	(gourmet unknown)
     )
 )
 
@@ -171,7 +182,7 @@
 
 ;;; Get the season in which the event is going to be done
 (defrule determine-event-season
-    ?e <-(target-event (season unkown))
+    ?e <-(target-event (season unknown))
 =>
     (bind ?res (ask-question "In what season of the year are you planning to have the event? (spring/summer/autumn/winter)" spring summer autumn winter))
     (modify ?e (season ?res))
@@ -179,7 +190,7 @@
 
 ;;; Get the generic type of the event
 (defrule determine-event-type
-    ?e <-(target-event (type unkown))
+    ?e <-(target-event (type unknown))
 =>
     (bind ?res (ask-question "What kind of event are you planning? (family/congress) " family congress))
     (modify ?e (type ?res))
@@ -187,7 +198,7 @@
 
 ;;; Get the amount of guests that will assist to the event, this will classify the amount in one of three categories: few/medium/many
 (defrule determine-event-guests
-    ?e <-(target-event (guests unkown))
+    ?e <-(target-event (guests unknown))
 =>
     (bind ?res (ask-integer-question "How many people are we expecting? (Range of people between 1 and 100000)" 1 100000))
     (if (< ?res 100) then
@@ -243,18 +254,16 @@
 )
 
 
-(defrule determine-expermental "" 
-   (not (sibarita ?))
-   (entered-state "info-gathering")
+(defrule determine-experimental "" 
+    ?ex <- (menu-restrictions (experimental unknown))
    =>
    (bind ?res (ask-question "Would you like to taste something experimental or exotic (yes/no)? " yes no))
-   (assert (sibarita ?res))
+   (modify ?ex (experimental ?res))
 )
 
 
 (defrule determine-vegan ""
    (not (isVeganVegeterian ?))
-   (entered-state "info-gathering")
    =>
    (if (yes-or-no-p "Are you vegetarian (yes/no)? ") 
        then 
@@ -306,34 +315,13 @@
 )
 
 
-(defrule determine-firstplate ""
-    (not (first-plate ?))
-    (entered-state "info-gathering")
-   =>
-  (if (yes-or-no-p "Is salad desired? (yes/no)")
-    then
-    (assert (first-plate salad))
-  else 
-    (assert (first-plate notsalad))))
-
 ;this rule is to be executed when there is no more information to be gathered
-(defrule done-with-questions ""
-   (declare (salience -2))
-   (not (menus-ready))
-  =>
-   (assert (menus-ready)))
-
 
 (defrule create-inicial-instance ""
    (declare (salience 10))
-   (entered-state "creating-menu")
   =>
    (make-instance [p] of Menu)
 )
-
-
-
-
 
 ;;; Once an abstract model is ready we go on to the refinement
 (defrule refine-solution
@@ -356,23 +344,19 @@
     (export ?ALL)
 )
 
-
 ;overly simplified first dish selection rule.
 ;careful, we need to have instances:
 (defrule select-first-dish ""
   ?x <- (object (is-a Menu))
-  (entered-state "creating-menu")
   (isVeganVegetarian ?v)
   =>
   (switch ?v
    (case vegan then (assert (the-system-has-failed)))
-   (case vegetarian then (send ?x put-FirstDish (find-instance ((?ins FirstDish)) (eq ?ins:isVegetarian TRUE) )) )
-   (case no then (send ?x put-FirstDish (find-instance ((?ins FirstDish)) (eq ?ins:isVegetarian FALSE))))
+   (case vegetarian then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:isVegetarian TRUE) )) )
+   (case no then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:isVegetarian FALSE))))
    )
    (assert (dishes-selected))
 )
-
-
 
 ;;; When we have a final solution, we print it
 (defrule print-built-solution
@@ -385,7 +369,7 @@
 ;;;* MODULE PRINT RECOMMENDATION *
 ;;;*******************************
 
-(defmodule module-refine-solution "Module to refine and build a final recommendation"
+(defmodule module-print-recommendation "Module to print our recommendation"
     (import MAIN ?ALL)
     (import module-event-info-gathering ?ALL)
     (import module-menu-info-gathering ?ALL)
@@ -395,18 +379,11 @@
     (export ?ALL)
 )
 
-
 (defrule announce-dishes ""
   ?x <- (object (is-a Menu))
-  (entered-state "creating-menu")
-  (dishes-selected)
-
  =>
  (send ?x printName)
  (halt))
 
 
 ;;;;;;;;;;;;; Message-handlers
-
-
-
