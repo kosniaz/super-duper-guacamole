@@ -1,5 +1,12 @@
 ;begin
 
+;Te gusta la alta cocina?
+;Que estilo te gusta?
+
+
+;preguntas tipo test de psicología (con respuestas de 1 a 10)
+;
+
 ;;**********************
 ;;* message handlers
 ;;**********************
@@ -94,6 +101,7 @@
   (printout t crlf crlf)
   (printout t "The Menu Proposal System")
   (printout t crlf crlf)
+  ;;(set-strategy random)
   (focus module-event-info-gathering)
 )
 
@@ -140,7 +148,7 @@
     (slot subtype)
     (slot guests)
     (slot season)
-    (slot children-percentage)
+    (slot children)
 )
 
 (deftemplate menu-restrictions "Event for which the recommendation shall be done"
@@ -150,6 +158,22 @@
 
 )
 
+(deftemplate abstract-info
+	(slot wants-to-impress)
+ 	(slot  guests )
+ 	(slot  children)
+	(slot  season )
+	(slot  experimental )
+	(slot  gourmet )
+)
+
+(deftemplate abstract-filters
+	(slot menu-is-gourmet ) 
+	(slot menu-is-experimental  ) 
+	(slot menu-is-kid-friendly ) 
+	(slot menu-is-of-season ) 
+	(slot menu-has-guests ) 
+)
 
 ;;;*******************************
 ;;;* MODULE EVENT INFO GATHERING *
@@ -161,43 +185,68 @@
 )
 
 ;;; Initial fact
+
 (deffacts initial-facts
+
     (target-event
         (type unknown)
-        (subtype unknown)
-        (guests unknown)
         (season unknown)
+	(guests unknown)
+	(subtype unknown)
+        (children unknown)
     )
+
     (menu-restrictions 
 	(isVeganVegetarian unknown)
         (experimental unknown)
  	(gourmet unknown)
     )
-)
 
+    (abstract-info 
+ 	(wants-to-impress unknown)
+ 	(guests unknown)
+ 	(children unknown)
+	(season unknown)
+	(experimental unknown)
+	(gourmet unknown)
+    )
+
+    (abstract-filters
+	(menu-is-gourmet unknown)
+	(menu-is-experimental  unknown)
+	(menu-is-kid-friendly unknown)
+	(menu-is-of-season unknown)
+	(menu-has-guests unknown)
+    )
+)
 
 ;;;***************
 ;;;* QUERY RULES *
 ;;;***************
 
 ;;; Get the season in which the event is going to be done
-(defrule determine-event-season
+(defrule determine-event-season ""
+    (not (season-determined))
     ?e <-(target-event (season unknown))
 =>
     (bind ?res (ask-question "In what season of the year are you planning to have the event? (spring/summer/autumn/winter)" spring summer autumn winter))
+    (assert (season-determined))
     (modify ?e (season ?res))
 )
 
 ;;; Get the generic type of the event
-(defrule determine-event-type
+(defrule determine-event-type ""
+    (not (type-determined))
     ?e <-(target-event (type unknown))
 =>
     (bind ?res (ask-question "What kind of event are you planning? (family/congress) " family congress))
+    (assert (type-determined))
     (modify ?e (type ?res))
 )
 
 ;;; Get the amount of guests that will assist to the event, this will classify the amount in one of three categories: few/medium/many
-(defrule determine-event-guests
+(defrule determine-event-guests ""
+    (not (guests-determined))
     ?e <-(target-event (guests unknown))
 =>
     (bind ?res (ask-integer-question "How many people are we expecting? (Range of people between 1 and 100000)" 1 100000))
@@ -210,24 +259,30 @@
             (modify ?e (guests many))
         )
     )
+    (assert (guests-determined))
     (modify ?e (guests ?res))
 )
 
 ;;; Get the "subtype" of event which depends on the type, this is for Family
-(defrule determine-event-subtype-family
+(defrule determine-event-subtype-family ""
+    (not (subtype-determined))
     ?e <- (target-event (type family) (subtype unknown))
 =>
     (bind ?res (ask-question "What family event are you organizing? (wedding/baptism/communion)" wedding baptism communion))
+    (assert  (subtype-determined))
     (modify ?e (subtype ?res))
-)
+    )
 
 ;;; Subtype definition for Congress
-(defrule determine-event-subtype-congress
+(defrule determine-event-subtype-congress "" 
+    (not (subtype-determined))
     ?e <- (target-event (type congress) (subtype unknown))
 =>
     (bind ?res (ask-question "Is it going to be a lunch or a dinner?" lunch dinner))
+    (assert  (subtype-determined))
     (modify ?e (subtype ?res))
 )
+
 
 ;;;*****************************************************************************************
 ;;;* More specific information for each type of event may be gathered in the final version *
@@ -241,8 +296,6 @@
     (focus module-menu-info-gathering)
 )
 
-
-
 ;;;******************************
 ;;;* MODULE MENU INFO GATHERING *
 ;;;******************************
@@ -252,7 +305,6 @@
     (import module-event-info-gathering ?ALL)
     (export ?ALL)
 )
-
 
 (defrule determine-experimental "" 
     ?ex <- (menu-restrictions (experimental unknown))
@@ -289,13 +341,78 @@
 
 (defmodule module-dish-info-gathering "Module to get specific information regarding the dishes"
     (import MAIN ?ALL)
-    (import module-event-info-gathering ?ALL)
-    (import module-menu-info-gathering ?ALL)
+    ;(import module-event-info-gathering ?ALL)
+    ;(import module-menu-info-gathering ?ALL)
     (export ?ALL)
 )
 
 
 ;;; Once all data about the dishes is gathered we can start to build a solution that will be refined later
+(defrule build-abstract-solution
+    (declare (salience -1))
+=>
+    (focus module-convert-to-abstract)
+)
+
+
+;;;******************************
+;;;* MODULE CONCRETE-TO-ABSTRACT *
+;;;******************************
+
+(defmodule module-convert-to-abstract "Module to create a stractured fact that contains the abstract data"
+    (import MAIN ?ALL)
+    (import module-event-info-gathering ?ALL)
+    (import module-menu-info-gathering ?ALL)
+    (import module-dish-info-gathering ?ALL)
+    (export ?ALL)
+)
+
+;(deftemplate target-event "Event for which the recommendation shall be done"
+  ;  (slot type)
+  ;  (slot subtype)
+  ;  (slot guests)
+  ;  (slot season)
+ ;   (slot children-percentage)
+;)
+
+
+;    (abstract-info 
+;	(wants-to-impress unknown)
+; 	(guests unknown)
+; 	(children unknown)
+;	(season unknown)
+;	(experimental unknown)
+;	(gourmet unknown)
+;    )
+
+    
+(defrule wants-to-impress ""
+     (not (determined-wants-to-impress))
+     ?x <- (abstract-info (wants-to-impress unknown))
+     (target-event (type congress)) 
+   =>
+    (assert (determined-wants-to-impress))
+    (modify ?x (wants-to-impress a-lot))
+)
+    
+(defrule wants-to-impress-a-little 
+     (not (determined-wants-to-impress))
+     ?x <- (abstract-info (wants-to-impress unknown))
+     (or (target-event (subtype baptism)) (target-event (subtype wedding)))
+   =>
+    (assert (determined-wants-to-impress))
+    (modify ?x (wants-to-impress a-bit))
+)
+
+(defrule doesnt-want-to-impress
+     (not (determined-wants-to-impress))
+     ?x <- (abstract-info (wants-to-impress unknown))
+     (or (target-event (subtype communion)))
+   =>
+    (assert (determined-wants-to-impress))
+    (modify ?x (wants-to-impress no))
+)
+
 (defrule build-abstract-solution
     (declare (salience -1))
 =>
@@ -311,6 +428,7 @@
     (import module-event-info-gathering ?ALL)
     (import module-menu-info-gathering ?ALL)
     (import module-dish-info-gathering ?ALL)
+    (import module-convert-to-abstract ?ALL)
     (export ?ALL)
 )
 
@@ -329,7 +447,6 @@
 =>
     (focus module-refine-solution)
 )
-
 
 ;;;*********************
 ;;;* MODULE REFINEMENT *
@@ -364,7 +481,6 @@
 =>
     (focus module-print-recommendation)
 )
-
 ;;;*******************************
 ;;;* MODULE PRINT RECOMMENDATION *
 ;;;*******************************
@@ -384,6 +500,5 @@
  =>
  (send ?x printName)
  (halt))
-
 
 ;;;;;;;;;;;;; Message-handlers
