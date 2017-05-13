@@ -3,331 +3,8 @@
 ;Que estilo te gusta?
 ;preguntas tipo test de psicología (con respuestas de 1 a 10)
 
-; Sat May 13 14:33:02 CEST 2017
-; 
-;+ (version "3.4.8")
-;+ (build "Build 629")
+;begin
 
-
-(defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
-	(is-a USER)
-	(role abstract)
-	(multislot Season
-;+		(comment "The seasons of the year in which the ingredient is available.")
-		(type SYMBOL)
-		(allowed-values Winter Summer Spring Autumn)
-		(cardinality 1 4)
-		(create-accessor read-write))
-	(single-slot SecondDish
-;+		(comment "Second recommendation for the menu; main dish")
-		(type INSTANCE)
-;+		(allowed-classes Second)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot FamilyEventType
-;+		(comment "Describes the type of family event")
-		(type SYMBOL)
-		(allowed-values Marriage Baptism Communion)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot IsInDish
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-		(create-accessor read-write))
-	(single-slot Disponibility
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot IngredientName
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot DrinkPrice
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot DishName
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Period
-		(type INSTANCE)
-;+		(allowed-classes)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DessertDish
-;+		(comment "Recommended dessert for the menu")
-		(type INSTANCE)
-;+		(allowed-classes Dessert)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot RicoRicoProject_Class27
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot IngredientType
-		(type SYMBOL)
-		(allowed-values Cow Pork Fruit Vegetable Fish Dairy)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Style
-		(type SYMBOL)
-		(allowed-values Classic Modern Regional Gourmet Experimental Fun)
-		(create-accessor read-write))
-	(single-slot DishPrice
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot DrinkName
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot FirstDish
-;+		(comment "First plate of the menu;starter, appetizer")
-		(type INSTANCE)
-;+		(allowed-classes First)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot DishCompatibility
-;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot RicoRicoProject_Class0
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DishInfo
-;+		(comment "A brief (or detailed) description of the dish")
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Compatibility
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Friendliness
-		(type SYMBOL)
-		(allowed-values Low High Average)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot DrinkType
-		(type SYMBOL)
-		(allowed-values Water Wine Sake Refreshment Juice)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(multislot MenuDrink
-;+		(comment "The drink/s selected for the menu")
-		(type INSTANCE)
-;+		(allowed-classes Drink)
-		(cardinality 1 3)
-		(create-accessor read-write))
-	(single-slot DishType
-		(type SYMBOL)
-		(allowed-values Vegetarian Vegan Fruitarian)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot RicoRicoProject_Class10005
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot MaxNum
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot GuestsAmount
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass Menu "Clase que describe los menus"
-	(is-a USER)
-	(role concrete)
-	(single-slot DessertDish
-;+		(comment "Recommended dessert for the menu")
-		(type INSTANCE)
-;+		(allowed-classes Dessert)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot FirstDish
-;+		(comment "First plate of the menu;starter, appetizer")
-		(type INSTANCE)
-;+		(allowed-classes First)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot SecondDish
-;+		(comment "Second recommendation for the menu; main dish")
-		(type INSTANCE)
-;+		(allowed-classes Second)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot MenuDrink
-;+		(comment "The drink/s selected for the menu")
-		(type INSTANCE)
-;+		(allowed-classes Drink)
-		(cardinality 1 3)
-		(create-accessor read-write)))
-
-(defclass Dish "Describe los platos"
-	(is-a USER)
-	(role abstract)
-	(multislot Style
-		(type SYMBOL)
-		(allowed-values Classic Modern Regional Gourmet Experimental Fun)
-		(create-accessor read-write))
-	(single-slot DishInfo
-;+		(comment "A brief (or detailed) description of the dish")
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DishName
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot DishPrice
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot MaxNum
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DishType
-		(type SYMBOL)
-		(allowed-values Vegetarian Vegan Fruitarian)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Compatibility
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot Friendliness
-		(type SYMBOL)
-		(allowed-values Low High Average)
-;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass First
-	(is-a Dish)
-	(role concrete))
-
-(defclass Second
-	(is-a Dish)
-	(role concrete))
-
-(defclass Dessert
-	(is-a Dish)
-	(role concrete))
-
-(defclass Drink "Describe las babidas"
-	(is-a USER)
-	(role concrete)
-	(single-slot DrinkType
-		(type SYMBOL)
-		(allowed-values Water Wine Sake Refreshment Juice)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinkPrice
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot DishCompatibility
-;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinkName
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(defclass Ingredient
-	(is-a USER)
-	(role concrete)
-	(single-slot IngredientName
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot Season
-;+		(comment "The seasons of the year in which the ingredient is available.")
-		(type SYMBOL)
-		(allowed-values Winter Summer Spring Autumn)
-		(cardinality 1 4)
-		(create-accessor read-write))
-	(single-slot IngredientType
-		(type SYMBOL)
-		(allowed-values Cow Pork Fruit Vegetable Fish Dairy)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot IsInDish
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-		(create-accessor read-write)))
-
-(definstances menu
-([RicoRicoProject_Class10000] of  First
-
-	(DishInfo "Good one")
-	(DishName "Cesar Salad")
-	(DishPrice 2.0)
-	(Friendliness High))
-
-([RicoRicoProject_Class10001] of  First
-
-	(DishInfo "Sooo simple")
-	(DishName "Simple Salad")
-	(DishPrice 1.0)
-	(DishType Vegetarian)
-	(Friendliness High))
-
-([RicoRicoProject_Class20000] of  First
-
-	(Compatibility [RicoRicoProject_Class10001])
-	(DishInfo "Pasta de origen Romana, en Italia, con huevos, bacon y  Parmigiano")
-	(DishName "Pasta Alla Carbonara")
-	(DishPrice 12.0)
-	(Friendliness High)
-	(Style Classic))
-
-([RicoRicoProject_Class36] of  Ingredient
-
-	(IngredientName "Egg")
-	(IngredientType Dairy)
-	(IsInDish [RicoRicoProject_Class20000])
-	(Season Winter Summer Spring Autumn))
-
-([RicoRicoProject_Class37] of  Ingredient
-
-	(IngredientName "Bacon")
-	(IngredientType Pork)
-	(IsInDish [RicoRicoProject_Class20000])
-	(Season Winter Summer Spring Autumn))
-
-([RicoRicoProject_Class38] of  Ingredient
-
-	(IngredientName "Black Pepper")
-	(IsInDish [RicoRicoProject_Class20000])
-	(Season Winter Summer Autumn Spring))
-
-([RicoRicoProject_Class39] of  Ingredient
-
-	(IngredientName "Parmigiano Reggiano")
-	(IngredientType Dairy)
-	(IsInDish [RicoRicoProject_Class20000])
-	(Season Winter Summer Spring Autumn))
-
-([RicoRicoProject_Class40] of  Ingredient
-
-	(IngredientName "Pasta")
-	(IsInDish [RicoRicoProject_Class20000])
-	(Season Winter Summer Spring Autumn))
-)
 
 ;;**********************
 ;;* message handlers
@@ -355,11 +32,34 @@
 
 ;; The following functions are used to parse the users' replies to questions.
 
+(deffunction random-slot ( ?li )
+(bind ?li (create$ ?li))
+(bind ?max (length ?li))
+(bind ?r (random 1 ?max))
+(bind ?ins (nth$ ?r ?li))
+(return ?ins)
+)
+
+(deffunction list-contains (?lista ?style) 
+(bind ?answer FALSE)
+(bind ?list ?lista)
+(loop-for-count (?i 1 (length ?list))
+   (bind ?v (nth$ ?i ?list))
+   (if (eq ?v ?style)then 
+          (bind ?answer TRUE)
+   )
+   (return ?answer)
+)
+) 
+
+
 (deffunction ask-question (?question $?allowed-values)
    (printout t ?question)
    (bind ?answer (read))
-   (if (lexemep ?answer) 
-       then (bind ?answer (lowcase ?answer)))
+   (if (lexemep ?answer)  
+       then (bind ?answer (lowcase ?answer))
+	    (if (eq ?answer d) then (bind ?answer (nth$ 1 ?allowed-values)))
+   )
    (while (not (member ?answer ?allowed-values)) do
       (printout t ?question)
       (bind ?answer (read))
@@ -800,6 +500,18 @@
 )
 
 
+(defrule only-experimental  ""
+	(abstract-info (wants-to-impress a-lot))
+	(abstract-info (experimental yes))
+	=>
+	;plato 1 y plato 2 deben ser experimentales
+	;hay que filtrar....
+	(bind ?il (find-all-instances ((?ins Second)) (eq (list-contains ?ins:Style Experimental) TRUE )))
+        (bind ?v (nth$ 1 ?il))
+ 	(send ?v printName)
+)
+	
+	
 
 
 (defrule create-inicial-instance ""
@@ -835,10 +547,15 @@
   ?x <- (object (is-a Menu))
   (isVeganVegetarian ?v)
   =>
-  (switch ?v
+  (if (eq ?v vegetarian) then 
+                              (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegetarian) ))
+ 		              (bind ?first (random-slot ?li))
+                              (send ?x put-FirstDish ?first)
+			 
+  ) 
+   (switch ?v 
    (case vegan then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:DishType Vegan) )) )
-   (case vegetarian then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:DishType Vegetarian) )) )
-   (case no then (send ?x put-FirstDish (find-instance ((?ins First)) (neq ?ins:DishType ruitarian))))
+   (case no then (send ?x put-FirstDish (find-instance ((?ins First)) TRUE)))
    )
    (assert (dishes-selected))
 )
