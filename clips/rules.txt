@@ -1,4 +1,10 @@
- (deftemplate target-event "Event for which the recommendation shall be done"
+Hello! This file describes how the program (could) work(s), until the point of the rule system. 
+
+These are the data structures that we will use :
+
+Info about the event:
+
+ (deftemplate target-event 
      (slot type)
      (slot subtype)
      (slot guests)
@@ -6,17 +12,27 @@
      (slot children-percentage)
  )
 
+Info about the menu:
 
-     (abstract-info
-        (wants-to-impress unknown)
-        (guests unknown)
-        (children unknown)
-        (season unknown)
-        (experimental unknown)
-        (gourmet unknown)
+(deftemplate menu-restrictions "Event for which the recommendation shall be done"
+    (slot isVeganVegetarian)
+    (slot experimental)
+    (slot gourmet)
+)
+
+Processed information, input to the abstract problem solver:
+
+ (deftemplate abstract-info
+        (slot wants-to-impress  )
+        (slot guests  )
+        (slot children  )
+        (slot season  )
+        (slot experimental  )
+        (slot gourmet  )
      )
+Rules:
 
- Kosmas:these rule are a cheap substitute of a Bayes Network. If there is time, we will properly implement one.
+ Note: these rule are a cheap substitute of a Bayes Network. If there is time, we can properly implement one.
  Rule 1: if (wants-to-impress=a lot and experimental=yes)-> only serve Experimental Food
  Rule 2: if (wants-to-impress=a lot and gourmet=yes)-> only serve Gourmet Food
  Rule 3: if (wants-to-impress=a bit and experimental=yes)-> one dish is Experimental
@@ -25,5 +41,6 @@
  Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
  Rule 10 : if (children=many) -> one dish has to be highly friendly
  Rule 11:  if (children=medium) or (children=few)-> one dish has to be averagely friendly
+
 
 

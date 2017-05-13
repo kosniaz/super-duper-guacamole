@@ -1,11 +1,7 @@
-;begin
 
 ;Te gusta la alta cocina?
 ;Que estilo te gusta?
-
-
 ;preguntas tipo test de psicología (con respuestas de 1 a 10)
-;
 
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
@@ -301,8 +297,6 @@
 	)
 )
 
->>>>>>> ef7025da5f83637afbe5fb00a032c9e2e95be881
-
 ;;**********************
 ;;* message handlers
 ;;**********************
@@ -397,7 +391,7 @@
   (printout t crlf crlf)
   (printout t "The Menu Proposal System")
   (printout t crlf crlf)
-  ;;(set-strategy random)
+  (set-strategy random)
   (focus module-event-info-gathering)
 )
 
@@ -451,7 +445,6 @@
     (slot isVeganVegetarian)
     (slot experimental)
     (slot gourmet)
-
 )
 
 (deftemplate abstract-info
@@ -520,6 +513,8 @@
 ;;;* QUERY RULES *
 ;;;***************
 
+
+
 ;;; Get the season in which the event is going to be done
 (defrule determine-event-season ""
     (not (season-determined))
@@ -546,15 +541,6 @@
     ?e <-(target-event (guests unknown))
 =>
     (bind ?res (ask-integer-question "How many people are we expecting? (Range of people between 1 and 100000)" 1 100000))
-    (if (< ?res 100) then
-        (modify ?e (guests few))
-    else
-        (if (< ?res 300) then
-            (modify ?e (guests medium))
-        else
-            (modify ?e (guests many))
-        )
-    )
     (assert (guests-determined))
     (modify ?e (guests ?res))
 )
@@ -580,9 +566,11 @@
 )
 
 (defrule determine-children-amount
+        (not (determined-children))
 	?e <- (target-event (children unknown))
 =>
 	(bind ?res (ask-question "How many children are coming to the event? (none/few/medium/many)" none few medium many))
+	(assert (determined-children))
 	(modify ?e (children ?res))
 )
 
@@ -591,7 +579,7 @@
 ;;;*****************************************************************************************
 
 
-;;; Once all data about the event is gathered
+;;; Once all data about the event is gatheredetermined-childrend
 (defrule start-menu-questions
     (declare (salience -1))
 =>
@@ -611,9 +599,11 @@
 (defrule determine-experimental "" 
     ?ex <- (menu-restrictions (experimental unknown))
    =>
-   (bind ?res (ask-question "Would you like to taste something experimental or exotic (yes/no)? " yes no))
+   (bind ?res (ask-question "Would you like to taste something experimental? " yes no))
    (modify ?ex (experimental ?res))
 )
+
+;kosmas: possible question: are the guests good friends of event organizer))
 
 
 (defrule determine-vegan ""
@@ -669,25 +659,9 @@
     (export ?ALL)
 )
 
-;(deftemplate target-event "Event for which the recommendation shall be done"
-  ;  (slot type)
-  ;  (slot subtype)
-  ;  (slot guests)
-  ;  (slot season)
- ;   (slot children-percentage)
-;)
+;Kosmas:here we determine the value of the abstract data slot wants-to-impress: 
+;the use of many rules is not necessary, it can be done in one. 
 
-
-;    (abstract-info 
-;	(wants-to-impress unknown)
-; 	(guests unknown)
-; 	(children unknown)
-;	(season unknown)
-;	(experimental unknown)
-;	(gourmet unknown)
-;    )
-
-    
 (defrule wants-to-impress ""
      (not (determined-wants-to-impress))
      ?x <- (abstract-info (wants-to-impress unknown))
@@ -714,6 +688,55 @@
     (assert (determined-wants-to-impress))
     (modify ?x (wants-to-impress no))
 )
+;Kosmas: I put here the conversion of the number of guests to a discrete value.
+(defrule abstract-guests ""
+     (not (determined-abstract-guests))
+     ?x <- (abstract-info (guests unknown))
+     (target-event (guests ?g))
+    =>
+    (assert (determined-abstract-guests))
+    (if (< ?g 100) then
+        (printout t "DEBUG: You hear a voice \"Not many people in this party..\" " crlf)
+        (modify ?x (guests few))
+    else
+        (if (< ?g 300) then
+            (modify ?x (guests medium))
+        else
+            (modify ?x (guests many))
+        )
+    )
+)
+
+
+;we only copy the value, no conversion is made here.
+(defrule abstract-children ""
+     (not (determined-abstract-children))
+     ?x<- (abstract-info (children unknown))
+     (target-event (children ?child))
+   =>
+     (assert (determined-abstract-children))
+     (modify  ?x (children ?child))
+) 
+
+;we only copy the value, no conversion is made here.
+(defrule abstract-season ""
+     (not (determined-abstract-season))
+     ?x<- (abstract-info (season unknown))
+     (target-event (season ?seas))
+   =>
+     (assert (determined-abstract-season))
+     (modify  ?x (season ?seas))
+)
+
+;we only copy the value, no conversion is made here.
+(defrule abstract-experimental ""
+     (not (determined-abstract-experimental))
+     ?x<- (abstract-info (experimental unknown))
+     (menu-restrictions (experimental ?exp))
+   =>
+     (assert (determined-abstract-experimental))
+     (modify  ?x (experimental ?exp))
+)
 
 (defrule build-abstract-solution
     (declare (salience -1))
@@ -725,6 +748,16 @@
 ;;;* MODULE ABSTRACT SOLUTION *
 ;;;****************************
 
+;Kosmas:these rules are a cheap substitute of a Bayes Network. If there is time, we will properly implement one.
+;Rule 1: if (wants-to-impress=a lot and experimental=yes)-> only serve Experimental Food
+;Rule 2: if (wants-to-impress=a lot and gourmet=yes)-> only serve Gourmet Food
+;Rule 3: if (wants-to-impress=a bit and experimental=yes)-> one dish is Experimental 
+;Rule 4: if (wants-to-impress=a bit and gourmet=yes)-> one dish is Gourmet 
+;Rule 5: if (wants-to-impress=a bit) -> one dish is to Gourmet or Experimental
+;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
+;Rule 10 : if (children=many) -> one dish has to be highly friendly
+;Rule 11:  if (children=medium) or (children=few)-> one dish has to be averagely friendly
+
 (defmodule module-build-abstract-solution "Module to build an abstract solution based on the abstract data extracted from the input"
     (import MAIN ?ALL)
     (import module-event-info-gathering ?ALL)
@@ -735,13 +768,14 @@
 )
 
 
-;this rule is to be executed when there is no more information to be gathered
+
 
 (defrule create-inicial-instance ""
    (declare (salience 10))
   =>
    (make-instance [p] of Menu)
 )
+
 
 ;;; Once an abstract model is ready we go on to the refinement
 (defrule refine-solution
@@ -770,9 +804,9 @@
   (isVeganVegetarian ?v)
   =>
   (switch ?v
-   (case vegan then (assert (the-system-has-failed)))
-   (case vegetarian then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:isVegetarian TRUE) )) )
-   (case no then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:isVegetarian FALSE))))
+   (case vegan then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:DishType Vegan) )) )
+   (case vegetarian then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:DishType Vegetarian) )) )
+   (case no then (send ?x put-FirstDish (find-instance ((?ins First)) (neq ?ins:DishType ruitarian))))
    )
    (assert (dishes-selected))
 )
