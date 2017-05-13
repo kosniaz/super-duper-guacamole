@@ -1,4 +1,4 @@
-; Sat May 13 15:27:46 CEST 2017
+; Sat May 13 18:45:11 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -9,7 +9,8 @@
 	(DishInfo "Good one")
 	(DishName "Cesar Salad")
 	(DishPrice 2.0)
-	(Friendliness High))
+	(Friendliness High)
+	(Style Modern))
 
 ([RicoRicoProject_Class10001] of  First
 
@@ -114,7 +115,7 @@
 	(DishPrice 10.0)
 	(Friendliness Average)
 	(MaxNum 2000)
-	(Style Regional Classic))
+	(Style Regional))
 
 ([RicoRicoProject_Class20012] of  Ingredient
 
@@ -194,7 +195,10 @@
 		[RicoRicoProject_Class10000]
 		[RicoRicoProject_Class10001]
 		[RicoRicoProject_Class20006]
-		[RicoRicoProject_Class20011])
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class30007]
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class30011])
 	(DrinkName "White Wine")
 	(DrinkPrice 2.0)
 	(DrinkType Wine))
@@ -284,6 +288,127 @@
 	(IngredientType Dairy)
 	(IsInDish [RicoRicoProject_Class20015])
 	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30000] of  First
+
+	(Compatibility [RicoRicoProject_Class20006])
+	(DishInfo "TIpical french tartar")
+	(DishName "Tartar de tierna")
+	(DishPrice 5.0)
+	(Friendliness Low)
+	(MaxNum 100)
+	(Style Regional Gourmet))
+
+([RicoRicoProject_Class30001] of  Ingredient
+
+	(IngredientName "Cow Meat")
+	(IngredientType Meat)
+	(IsInDish [RicoRicoProject_Class30000])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30002] of  Second
+
+	(Compatibility [RicoRicoProject_Class20009])
+	(DishInfo "Plato experimental creado por la RicoRico")
+	(DishName "Plato Combinado de la casa")
+	(DishPrice 12.0)
+	(DishType Vegan)
+	(Friendliness Low)
+	(Style Experimental))
+
+([RicoRicoProject_Class30003] of  Ingredient
+
+	(IngredientName "Aguacate")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class30002])
+	(Season Autumn Winter))
+
+([RicoRicoProject_Class30004] of  Ingredient
+
+	(IngredientName "Cebolla")
+	(IngredientType Vegetable)
+	(IsInDish
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class30002])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30005] of  Ingredient
+
+	(IngredientName "Garbanzos")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class30002])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30006] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30002])
+	(DishInfo "Tarta ideal para los ninos")
+	(DishName "Tarta de Nata con Dibujos")
+	(DishPrice 4.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(MaxNum 200)
+	(Style Fun))
+
+([RicoRicoProject_Class30007] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30008])
+	(DishInfo "Sushi tipico de Japon ideal para charlar")
+	(DishName "Sushi de Salmon")
+	(DishPrice 6.0)
+	(Friendliness Average)
+	(MaxNum 50)
+	(Style Modern Regional Fun))
+
+([RicoRicoProject_Class30008] of  Second
+
+	(Compatibility [RicoRicoProject_Class30007])
+	(DishName "Filete de Merluza y Arroz")
+	(DishPrice 5.0)
+	(Friendliness Average)
+	(Style Classic))
+
+([RicoRicoProject_Class30009] of  Ingredient
+
+	(IngredientName "Merluza")
+	(IngredientType Fish)
+	(IsInDish [RicoRicoProject_Class30008])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30010] of  Ingredient
+
+	(IngredientName "Arroz")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class30008])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30011] of  Second
+
+	(Compatibility [RicoRicoProject_Class20009])
+	(DishInfo "Experimental dish with insects")
+	(DishName "Hamburguesa con Grillos")
+	(DishPrice 15.0)
+	(Friendliness Low)
+	(MaxNum 25)
+	(Style Modern Experimental))
+
+([RicoRicoProject_Class30012] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30002])
+	(DishName "Crema Catalana")
+	(DishPrice 3.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(Style Classic Fun Regional))
 
 ([RicoRicoProject_Class36] of  Ingredient
 

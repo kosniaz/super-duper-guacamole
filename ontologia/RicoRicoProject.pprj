@@ -1,4 +1,4 @@
-; Sat May 13 15:17:20 CEST 2017
+; Sat May 13 18:45:11 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,14 +20,14 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[RicoRicoProject_ProjectKB_Class20135]
-		[RicoRicoProject_ProjectKB_Class20136]
-		[RicoRicoProject_ProjectKB_Class20137]
-		[RicoRicoProject_ProjectKB_Class20138]
-		[RicoRicoProject_ProjectKB_Class20139]
-		[RicoRicoProject_ProjectKB_Class20140]
-		[RicoRicoProject_ProjectKB_Class20141]
-		[RicoRicoProject_ProjectKB_Class20142]))
+		[RicoRicoProject_ProjectKB_Class10112]
+		[RicoRicoProject_ProjectKB_Class10113]
+		[RicoRicoProject_ProjectKB_Class10114]
+		[RicoRicoProject_ProjectKB_Class10115]
+		[RicoRicoProject_ProjectKB_Class10116]
+		[RicoRicoProject_ProjectKB_Class10117]
+		[RicoRicoProject_ProjectKB_Class10118]
+		[RicoRicoProject_ProjectKB_Class10119]))
 
 ([CLSES_TAB] of  Widget
 
@@ -79,9 +79,9 @@
 ([KB_273644_Class1] of  Map
 
 	(entries
-		[RicoRicoProject_ProjectKB_Class20143]
-		[RicoRicoProject_ProjectKB_Class20144]
-		[RicoRicoProject_ProjectKB_Class20145]))
+		[RicoRicoProject_ProjectKB_Class10120]
+		[RicoRicoProject_ProjectKB_Class10121]
+		[RicoRicoProject_ProjectKB_Class10122]))
 
 ([KB_273644_Class100] of  Property_List
 )
@@ -175,7 +175,7 @@
 ([KB_273644_Class99] of  Property_List
 )
 
-([KB_706257_Class3] of  Map
+([KB_275751_Class3] of  Map
 )
 
 ([LAYOUT_PROPERTIES] of  Property_List
@@ -262,8 +262,8 @@
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
 		[INSTANCE_ANNOTATION_FORM_WIDGET]
-		[STANDARD_FACET_FORM_WIDGET]
 		[STANDARD_SLOT_FORM_WIDGET]
+		[STANDARD_FACET_FORM_WIDGET]
 		[PAL_FORM_WIDGET]
 		[STANDARD_CLASS_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
@@ -370,32 +370,66 @@
 ([RicoRicoProject_ProjectKB_Class10011] of  Property_List
 )
 
-([RicoRicoProject_ProjectKB_Class10025] of  Widget
+([RicoRicoProject_ProjectKB_Class10112] of  String
 
-	(height 60)
-	(is_hidden FALSE)
-	(name "Compatibility")
-	(property_list [RicoRicoProject_ProjectKB_Class10026])
-	(widget_class_name "edu.stanford.smi.protege.widget.InstanceFieldWidget")
-	(width 200)
-	(x 200)
-	(y 0))
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
 
-([RicoRicoProject_ProjectKB_Class10026] of  Property_List
+([RicoRicoProject_ProjectKB_Class10113] of  String
 
-	(properties
-		[RicoRicoProject_ProjectKB_Class10027]
-		[RicoRicoProject_ProjectKB_Class10028]))
+	(name "Drink")
+	(string_value "DrinkName"))
 
-([RicoRicoProject_ProjectKB_Class10027] of  Boolean
+([RicoRicoProject_ProjectKB_Class10114] of  String
 
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-View References to Value"))
+	(name "First")
+	(string_value "DishName"))
 
-([RicoRicoProject_ProjectKB_Class10028] of  Boolean
+([RicoRicoProject_ProjectKB_Class10115] of  String
 
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-Delete Instance"))
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([RicoRicoProject_ProjectKB_Class10116] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([RicoRicoProject_ProjectKB_Class10117] of  String
+
+	(name "Ingredient")
+	(string_value "IngredientName"))
+
+([RicoRicoProject_ProjectKB_Class10118] of  String
+
+	(name "Second")
+	(string_value "DishName"))
+
+([RicoRicoProject_ProjectKB_Class10119] of  String
+
+	(name "Dessert")
+	(string_value "DishName"))
+
+([RicoRicoProject_ProjectKB_Class10120] of  Map_Entry
+
+	(key "add_name_on_instance_form")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([RicoRicoProject_ProjectKB_Class10121] of  Map_Entry
+
+	(key "change_tracking_active")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([RicoRicoProject_ProjectKB_Class10122] of  Map_Entry
+
+	(key "suppress_instance_counting")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
 
 ([RicoRicoProject_ProjectKB_Class107] of  String
 
@@ -448,162 +482,6 @@
 
 ([RicoRicoProject_ProjectKB_Class20] of  Property_List
 )
-
-([RicoRicoProject_ProjectKB_Class20031] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "MaxNum")
-	(property_list [RicoRicoProject_ProjectKB_Class20032])
-	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
-	(width 200)
-	(x 0)
-	(y 240))
-
-([RicoRicoProject_ProjectKB_Class20032] of  Property_List
-)
-
-([RicoRicoProject_ProjectKB_Class20079] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "Compatibility")
-	(property_list [RicoRicoProject_ProjectKB_Class20080])
-	(widget_class_name "edu.stanford.smi.protege.widget.InstanceFieldWidget")
-	(width 200)
-	(x 200)
-	(y 60))
-
-([RicoRicoProject_ProjectKB_Class20080] of  Property_List
-
-	(properties
-		[RicoRicoProject_ProjectKB_Class20081]
-		[RicoRicoProject_ProjectKB_Class20082]))
-
-([RicoRicoProject_ProjectKB_Class20081] of  Boolean
-
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-View References to Value"))
-
-([RicoRicoProject_ProjectKB_Class20082] of  Boolean
-
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-Delete Instance"))
-
-([RicoRicoProject_ProjectKB_Class20100] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "Compatibility")
-	(property_list [RicoRicoProject_ProjectKB_Class20101])
-	(widget_class_name "edu.stanford.smi.protege.widget.InstanceFieldWidget")
-	(width 200)
-	(x 200)
-	(y 60))
-
-([RicoRicoProject_ProjectKB_Class20101] of  Property_List
-
-	(properties
-		[RicoRicoProject_ProjectKB_Class20102]
-		[RicoRicoProject_ProjectKB_Class20103]))
-
-([RicoRicoProject_ProjectKB_Class20102] of  Boolean
-
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-View References to Value"))
-
-([RicoRicoProject_ProjectKB_Class20103] of  Boolean
-
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-Delete Instance"))
-
-([RicoRicoProject_ProjectKB_Class20125] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "DishCompatibility")
-	(property_list [RicoRicoProject_ProjectKB_Class20126])
-	(widget_class_name "edu.stanford.smi.protege.widget.InstanceFieldWidget")
-	(width 200)
-	(x 0)
-	(y 120))
-
-([RicoRicoProject_ProjectKB_Class20126] of  Property_List
-
-	(properties
-		[RicoRicoProject_ProjectKB_Class20127]
-		[RicoRicoProject_ProjectKB_Class20128]))
-
-([RicoRicoProject_ProjectKB_Class20127] of  Boolean
-
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-View References to Value"))
-
-([RicoRicoProject_ProjectKB_Class20128] of  Boolean
-
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-Delete Instance"))
-
-([RicoRicoProject_ProjectKB_Class20135] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([RicoRicoProject_ProjectKB_Class20136] of  String
-
-	(name "Drink")
-	(string_value "DrinkName"))
-
-([RicoRicoProject_ProjectKB_Class20137] of  String
-
-	(name "First")
-	(string_value "DishName"))
-
-([RicoRicoProject_ProjectKB_Class20138] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([RicoRicoProject_ProjectKB_Class20139] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([RicoRicoProject_ProjectKB_Class20140] of  String
-
-	(name "Ingredient")
-	(string_value "IngredientName"))
-
-([RicoRicoProject_ProjectKB_Class20141] of  String
-
-	(name "Second")
-	(string_value "DishName"))
-
-([RicoRicoProject_ProjectKB_Class20142] of  String
-
-	(name "Dessert")
-	(string_value "DishName"))
-
-([RicoRicoProject_ProjectKB_Class20143] of  Map_Entry
-
-	(key "add_name_on_instance_form")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
-([RicoRicoProject_ProjectKB_Class20144] of  Map_Entry
-
-	(key "change_tracking_active")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
-([RicoRicoProject_ProjectKB_Class20145] of  Map_Entry
-
-	(key "suppress_instance_counting")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
 
 ([RicoRicoProject_ProjectKB_Class21] of  Widget
 
