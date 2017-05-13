@@ -1,10 +1,11 @@
-; Sat May 13 14:33:02 CEST 2017
+; Sat May 13 15:27:46 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
 
 ([RicoRicoProject_Class10000] of  First
 
+	(Compatibility [RicoRicoProject_Class10001])
 	(DishInfo "Good one")
 	(DishName "Cesar Salad")
 	(DishPrice 2.0)
@@ -12,33 +13,295 @@
 
 ([RicoRicoProject_Class10001] of  First
 
+	(Compatibility [RicoRicoProject_Class20000])
 	(DishInfo "Sooo simple")
 	(DishName "Simple Salad")
 	(DishPrice 1.0)
 	(DishType Vegetarian)
-	(Friendliness High))
+	(Friendliness High)
+	(Style Classic))
 
-([RicoRicoProject_Class20000] of  First
+([RicoRicoProject_Class20000] of  Second
 
 	(Compatibility [RicoRicoProject_Class10001])
 	(DishInfo "Pasta de origen Romana, en Italia, con huevos, bacon y  Parmigiano")
 	(DishName "Pasta Alla Carbonara")
-	(DishPrice 12.0)
+	(DishPrice 10.0)
 	(Friendliness High)
 	(Style Classic))
+
+([RicoRicoProject_Class20003] of  Ingredient
+
+	(IngredientName "Lettuce")
+	(IngredientType Vegetable)
+	(IsInDish
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20004] of  Ingredient
+
+	(IngredientName "Chicken")
+	(IngredientType Meat)
+	(IsInDish [RicoRicoProject_Class10000])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20005] of  Second
+
+	(Compatibility [RicoRicoProject_Class10001])
+	(DishInfo "Italian dish with tomato souce and bacon")
+	(DishName "Pasta Alla Amatriciana")
+	(DishPrice 9.0)
+	(Friendliness Average)
+	(Style Classic Regional))
+
+([RicoRicoProject_Class20006] of  Second
+
+	(Compatibility [RicoRicoProject_Class10001])
+	(DishName "Pizza Margherita")
+	(DishPrice 6.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(MaxNum 500)
+	(Style Classic))
+
+([RicoRicoProject_Class20007] of  Ingredient
+
+	(IngredientName "Tomato souce")
+	(IngredientType Vegetable)
+	(IsInDish
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20006])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20008] of  Ingredient
+
+	(IngredientName "Mozzarella")
+	(IngredientType Dairy)
+	(IsInDish [RicoRicoProject_Class20006])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20009] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Ice cream with many tastes")
+	(DishName "Helado")
+	(DishPrice 2.0)
+	(Friendliness High)
+	(Style Classic))
+
+([RicoRicoProject_Class20010] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Tipical italian dessert")
+	(DishName "Tiramisù")
+	(DishPrice 4.0)
+	(Friendliness Average)
+	(Style Regional Gourmet))
+
+([RicoRicoProject_Class20011] of  Second
+
+	(Compatibility
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001])
+	(DishInfo "Tipical greek dish")
+	(DishName "Moussakà")
+	(DishPrice 10.0)
+	(Friendliness Average)
+	(MaxNum 2000)
+	(Style Regional Classic))
+
+([RicoRicoProject_Class20012] of  Ingredient
+
+	(IngredientName "Berenjena")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class20011])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20013] of  Ingredient
+
+	(IngredientName "Pork Meat")
+	(IngredientType Meat)
+	(IsInDish [RicoRicoProject_Class20011])
+	(Season Autumn Winter Summer Spring))
+
+([RicoRicoProject_Class20014] of  Ingredient
+
+	(IngredientName "Potatos")
+	(IngredientType Vegetable)
+	(IsInDish
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class20025])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20015] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006])
+	(DishName "Tabla de queso y jamon")
+	(DishPrice 12.0)
+	(Friendliness High)
+	(Style Gourmet Fun))
+
+([RicoRicoProject_Class20016] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Tipical spanish dish")
+	(DishName "Tortilla")
+	(DishPrice 3.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(MaxNum 1000)
+	(Style Classic Regional))
+
+([RicoRicoProject_Class20017] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Tipical french dessert")
+	(DishName "Crepes")
+	(DishPrice 3.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(MaxNum 1150)
+	(Style Regional Classic))
+
+([RicoRicoProject_Class20018] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016])
+	(DrinkName "Red Wine")
+	(DrinkPrice 2.0)
+	(DrinkType Wine))
+
+([RicoRicoProject_Class20019] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class20010]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class20011])
+	(DrinkName "White Wine")
+	(DrinkPrice 2.0)
+	(DrinkType Wine))
+
+([RicoRicoProject_Class20020] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class20017]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class20010])
+	(DrinkName "Coca Cola")
+	(DrinkPrice 2.0)
+	(DrinkType Refreshment))
+
+([RicoRicoProject_Class20021] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class20017]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class20010])
+	(DrinkName "Water")
+	(DrinkPrice 1.0)
+	(DrinkType Water))
+
+([RicoRicoProject_Class20022] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class20017]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016])
+	(DrinkName "Fanta")
+	(DrinkPrice 2.0)
+	(DrinkType Refreshment))
+
+([RicoRicoProject_Class20023] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20006])
+	(DrinkName "Ice Tea")
+	(DrinkPrice 2.0)
+	(DrinkType Refreshment))
+
+([RicoRicoProject_Class20025] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Tipical spanish dish")
+	(DishName "Croquetas")
+	(DishPrice 6.0)
+	(Friendliness High)
+	(MaxNum 800)
+	(Style Regional Classic))
+
+([RicoRicoProject_Class20026] of  Ingredient
+
+	(IngredientName "Jamon")
+	(IngredientType Meat)
+	(IsInDish
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class20015])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20027] of  Ingredient
+
+	(IngredientName "Cheese")
+	(IngredientType Dairy)
+	(IsInDish [RicoRicoProject_Class20015])
+	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class36] of  Ingredient
 
 	(IngredientName "Egg")
 	(IngredientType Dairy)
-	(IsInDish [RicoRicoProject_Class20000])
+	(IsInDish
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class20017])
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class37] of  Ingredient
 
 	(IngredientName "Bacon")
-	(IngredientType Pork)
-	(IsInDish [RicoRicoProject_Class20000])
+	(IngredientType Meat)
+	(IsInDish
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20005])
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class38] of  Ingredient
@@ -51,11 +314,14 @@
 
 	(IngredientName "Parmigiano Reggiano")
 	(IngredientType Dairy)
-	(IsInDish [RicoRicoProject_Class20000])
+	(IsInDish
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20011])
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class40] of  Ingredient
 
 	(IngredientName "Pasta")
+	(IngredientType Other)
 	(IsInDish [RicoRicoProject_Class20000])
 	(Season Winter Summer Spring Autumn))
