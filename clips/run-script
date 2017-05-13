@@ -1,5 +1,5 @@
+(load "../ontologia/RicoRicoProject.pont")
 (load sdg.clp)
 (reset)
-(set-strategy breadth
-)
+(load-instances "../ontologia/RicoRicoProject.pins")
 (run)
