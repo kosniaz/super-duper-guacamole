@@ -1,4 +1,4 @@
-; Wed May 10 14:13:00 CEST 2017
+; Sat May 13 14:33:02 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -18,22 +18,44 @@
 	(DishType Vegetarian)
 	(Friendliness High))
 
+([RicoRicoProject_Class20000] of  First
+
+	(Compatibility [RicoRicoProject_Class10001])
+	(DishInfo "Pasta de origen Romana, en Italia, con huevos, bacon y  Parmigiano")
+	(DishName "Pasta Alla Carbonara")
+	(DishPrice 12.0)
+	(Friendliness High)
+	(Style Classic))
+
 ([RicoRicoProject_Class36] of  Ingredient
 
-	(IngredientName "Egg"))
+	(IngredientName "Egg")
+	(IngredientType Dairy)
+	(IsInDish [RicoRicoProject_Class20000])
+	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class37] of  Ingredient
 
-	(IngredientName "Bacon"))
+	(IngredientName "Bacon")
+	(IngredientType Pork)
+	(IsInDish [RicoRicoProject_Class20000])
+	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class38] of  Ingredient
 
-	(IngredientName "Black Pepper"))
+	(IngredientName "Black Pepper")
+	(IsInDish [RicoRicoProject_Class20000])
+	(Season Winter Summer Autumn Spring))
 
 ([RicoRicoProject_Class39] of  Ingredient
 
-	(IngredientName "Parmigiano"))
+	(IngredientName "Parmigiano Reggiano")
+	(IngredientType Dairy)
+	(IsInDish [RicoRicoProject_Class20000])
+	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class40] of  Ingredient
 
-	(IngredientName "Pasta"))
+	(IngredientName "Pasta")
+	(IsInDish [RicoRicoProject_Class20000])
+	(Season Winter Summer Spring Autumn))

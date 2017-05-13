@@ -1,4 +1,4 @@
-; Wed May 10 14:12:42 CEST 2017
+; Sat May 13 14:33:02 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,10 +20,11 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[RicoRicoProject_ProjectKB_Class10031]
-		[RicoRicoProject_ProjectKB_Class10032]
-		[RicoRicoProject_ProjectKB_Class10033]
-		[RicoRicoProject_ProjectKB_Class10034]))
+		[RicoRicoProject_ProjectKB_Class20056]
+		[RicoRicoProject_ProjectKB_Class20057]
+		[RicoRicoProject_ProjectKB_Class20058]
+		[RicoRicoProject_ProjectKB_Class20059]
+		[RicoRicoProject_ProjectKB_Class20060]))
 
 ([CLSES_TAB] of  Widget
 
@@ -75,9 +76,9 @@
 ([KB_273644_Class1] of  Map
 
 	(entries
-		[RicoRicoProject_ProjectKB_Class10035]
-		[RicoRicoProject_ProjectKB_Class10036]
-		[RicoRicoProject_ProjectKB_Class10037]))
+		[RicoRicoProject_ProjectKB_Class20061]
+		[RicoRicoProject_ProjectKB_Class20062]
+		[RicoRicoProject_ProjectKB_Class20063]))
 
 ([KB_273644_Class100] of  Property_List
 )
@@ -171,7 +172,7 @@
 ([KB_273644_Class99] of  Property_List
 )
 
-([KB_945316_Class3] of  Map
+([KB_706257_Class3] of  Map
 )
 
 ([LAYOUT_PROPERTIES] of  Property_List
@@ -258,10 +259,10 @@
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
 		[INSTANCE_ANNOTATION_FORM_WIDGET]
-		[STANDARD_CLASS_FORM_WIDGET]
-		[STANDARD_SLOT_FORM_WIDGET]
 		[STANDARD_FACET_FORM_WIDGET]
-		[PAL_FORM_WIDGET])
+		[STANDARD_SLOT_FORM_WIDGET]
+		[PAL_FORM_WIDGET]
+		[STANDARD_CLASS_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
@@ -334,7 +335,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class10005])
-	(widget_class_name "org.algernon.kb.okbc.protege.plugins.AlgernonTab"))
+	(widget_class_name "edu.stanford.smi.RemoteKBTab.WordNetTab"))
 
 ([RicoRicoProject_ProjectKB_Class10005] of  Property_List
 )
@@ -343,7 +344,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class10007])
-	(widget_class_name "edu.stanford.smi.RemoteKBTab.WordNetTab"))
+	(widget_class_name "org.protege.owl.mm.protege3.MappingMasterTab"))
 
 ([RicoRicoProject_ProjectKB_Class10007] of  Property_List
 )
@@ -352,7 +353,7 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class10009])
-	(widget_class_name "org.protege.owl.mm.protege3.MappingMasterTab"))
+	(widget_class_name "edu.stanford.smi.RemoteKBTab.UMLSTab"))
 
 ([RicoRicoProject_ProjectKB_Class10009] of  Property_List
 )
@@ -361,51 +362,10 @@
 
 	(is_hidden TRUE)
 	(property_list [RicoRicoProject_ProjectKB_Class10011])
-	(widget_class_name "edu.stanford.smi.RemoteKBTab.UMLSTab"))
+	(widget_class_name "org.algernon.kb.okbc.protege.plugins.AlgernonTab"))
 
 ([RicoRicoProject_ProjectKB_Class10011] of  Property_List
 )
-
-([RicoRicoProject_ProjectKB_Class10031] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([RicoRicoProject_ProjectKB_Class10032] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([RicoRicoProject_ProjectKB_Class10033] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([RicoRicoProject_ProjectKB_Class10034] of  String
-
-	(name "Ingredient")
-	(string_value "IngredientName"))
-
-([RicoRicoProject_ProjectKB_Class10035] of  Map_Entry
-
-	(key "suppress_instance_counting")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
-([RicoRicoProject_ProjectKB_Class10036] of  Map_Entry
-
-	(key "add_name_on_instance_form")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
-
-([RicoRicoProject_ProjectKB_Class10037] of  Map_Entry
-
-	(key "change_tracking_active")
-	(key_class "java.lang.String")
-	(value "false")
-	(value_class "java.lang.String"))
 
 ([RicoRicoProject_ProjectKB_Class107] of  String
 
@@ -458,6 +418,66 @@
 
 ([RicoRicoProject_ProjectKB_Class20] of  Property_List
 )
+
+([RicoRicoProject_ProjectKB_Class20031] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "MaxNum")
+	(property_list [RicoRicoProject_ProjectKB_Class20032])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 240))
+
+([RicoRicoProject_ProjectKB_Class20032] of  Property_List
+)
+
+([RicoRicoProject_ProjectKB_Class20056] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([RicoRicoProject_ProjectKB_Class20057] of  String
+
+	(name "First")
+	(string_value "DishName"))
+
+([RicoRicoProject_ProjectKB_Class20058] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([RicoRicoProject_ProjectKB_Class20059] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([RicoRicoProject_ProjectKB_Class20060] of  String
+
+	(name "Ingredient")
+	(string_value "IngredientName"))
+
+([RicoRicoProject_ProjectKB_Class20061] of  Map_Entry
+
+	(key "add_name_on_instance_form")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([RicoRicoProject_ProjectKB_Class20062] of  Map_Entry
+
+	(key "change_tracking_active")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([RicoRicoProject_ProjectKB_Class20063] of  Map_Entry
+
+	(key "suppress_instance_counting")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
 
 ([RicoRicoProject_ProjectKB_Class21] of  Widget
 
