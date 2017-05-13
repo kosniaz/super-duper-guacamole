@@ -1,8 +1,7 @@
 
 ;Te gusta la alta cocina?
 ;Que estilo te gusta?
-;preguntas tipo test de psicologÃ­a (con respuestas de 1 a 10)
-
+;preguntas tipo test de psicología (con respuestas de 1 a 10)
 ; Sat May 13 14:33:02 CEST 2017
 ; 
 ;+ (version "3.4.8")
@@ -329,24 +328,9 @@
 	(Season Winter Summer Spring Autumn))
 )
 
-;;**********************
-;;* message handlers
-;;**********************
-(defmodule MAIN
-    (export ?ALL)
-)
 
-(defmessage-handler Menu printName primary ()
-  (printout t "First Dish: " crlf)
-  (send ?self:FirstDish printName)
-  (printout t crlf)
-)
-
-(defmessage-handler Dish printName primary ()
-  (printout t "Dish Name: ")
-  (bind ?name ?self:DishName)
-  (printout t ?name) 
-  (printout t crlf)
+(defmodule MAIN ""
+ (export ?ALL)
 )
 
 ;;****************
@@ -375,10 +359,10 @@
 
 
 (deffunction ask-integer-question (?pregunta ?rangini ?rangfi)
-    (format t "%s [%d, %d] " ?pregunta ?rangini ?rangfi)
+    (format t "¿%s? [%d, %d] " ?pregunta ?rangini ?rangfi)
     (bind ?respuesta (read))
     (while (not(and(> ?respuesta ?rangini)(< ?respuesta ?rangfi))) do
-    (format t "Â¿%s? [%d, %d] " ?pregunta ?rangini ?rangfi)
+    (format t "¿%s? [%d, %d] " ?pregunta ?rangini ?rangfi)
     (bind ?respuesta (read))
     )
     ?respuesta
@@ -477,6 +461,7 @@
     (slot isVeganVegetarian)
     (slot experimental)
     (slot gourmet)
+
 )
 
 (deftemplate abstract-info
@@ -572,7 +557,7 @@
     (not (guests-determined))
     ?e <-(target-event (guests unknown))
 =>
-    (bind ?res (ask-integer-question "How many people are we expecting? (Range of people between 1 and 100000) " 1 100000))
+    (bind ?res (ask-integer-question "How many people are we expecting? (Range of people between 1 and 100000)" 1 100000))
     (assert (guests-determined))
     (modify ?e (guests ?res))
 )
@@ -691,6 +676,34 @@
     (export ?ALL)
 )
 
+;(deftemplate target-event "Event for which the recommendation shall be done"
+  ;  (slot type)
+  ;  (slot subtype)
+  ;  (slot guests)
+  ;  (slot season)
+ ;   (slot children-percentage)
+;)
+
+
+;    (abstract-info 
+;	(wants-to-impress unknown)
+; 	(guests unknown)
+; 	(children unknown)
+;	(season unknown)
+;	(experimental unknown)
+;	(gourmet unknown)
+;    )
+
+;Kosmas:these rule are a cheap substitute of a Bayes Network. If there is time, we will properly implement one.
+;Rule 1: if (wants-to-impress=a lot and experimental=yes)-> only serve Experimental Food
+;Rule 2: if (wants-to-impress=a lot and gourmet=yes)-> only serve Gourmet Food
+;Rule 3: if (wants-to-impress=a bit and experimental=yes)-> one dish is Experimental 
+;Rule 4: if (wants-to-impress=a bit and gourmet=yes)-> one dish is Gourmet 
+;Rule 5: if (wants-to-impress=a bit) -> one dish is to Gourmet or Experimental
+;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
+;Rule 10 : if (children=many) -> one dish has to be highly friendly
+;Rule 11:  if (children=medium) or (children=few)-> one dish has to be averagely friendly
+
 ;Kosmas:here we determine the value of the abstract data slot wants-to-impress: 
 ;the use of many rules is not necessary, it can be done in one. 
 
@@ -728,7 +741,7 @@
     =>
     (assert (determined-abstract-guests))
     (if (< ?g 100) then
-        (printout t "DEBUG: You hear a voice \"Not many people in this party..\" " crlf)
+        (printout t "STORY: You hear a voice: Not many people in this party.. " crlf)
         (modify ?x (guests few))
     else
         (if (< ?g 300) then
@@ -780,16 +793,6 @@
 ;;;* MODULE ABSTRACT SOLUTION *
 ;;;****************************
 
-;Kosmas:these rules are a cheap substitute of a Bayes Network. If there is time, we will properly implement one.
-;Rule 1: if (wants-to-impress=a lot and experimental=yes)-> only serve Experimental Food
-;Rule 2: if (wants-to-impress=a lot and gourmet=yes)-> only serve Gourmet Food
-;Rule 3: if (wants-to-impress=a bit and experimental=yes)-> one dish is Experimental 
-;Rule 4: if (wants-to-impress=a bit and gourmet=yes)-> one dish is Gourmet 
-;Rule 5: if (wants-to-impress=a bit) -> one dish is to Gourmet or Experimental
-;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
-;Rule 10 : if (children=many) -> one dish has to be highly friendly
-;Rule 11:  if (children=medium) or (children=few)-> one dish has to be averagely friendly
-
 (defmodule module-build-abstract-solution "Module to build an abstract solution based on the abstract data extracted from the input"
     (import MAIN ?ALL)
     (import module-event-info-gathering ?ALL)
@@ -801,26 +804,13 @@
 
 
 
+;this rule is to be executed when there is no more information to be gathered
 
 (defrule create-inicial-instance ""
    (declare (salience 10))
   =>
    (make-instance [p] of Menu)
-)
-
-
-;;; Once an abstract model is ready we go on to the refinement
-(defrule refine-solution
-    (declare (salience -1))
-=>
-    (focus module-refine-solution)
-)
-
-;;;*********************
-;;;* MODULE REFINEMENT *
-;;;*********************
-
-(defmodule module-refine-solution "Module to refine and build a final recommendation"
+defmodule module-refine-solution "Module to refine and build a final recommendation"
     (import MAIN ?ALL)
     (import module-event-info-gathering ?ALL)
     (import module-menu-info-gathering ?ALL)
@@ -870,4 +860,3 @@
  (halt))
 
 ;;;;;;;;;;;;; Message-handlers
-
