@@ -27,3 +27,4 @@
  Rule 11:  if (children=medium) or (children=few)-> one dish has to be averagely friendly
 
 
+Seba: no se todavia si esta bien
