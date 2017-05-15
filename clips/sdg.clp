@@ -1,3 +1,726 @@
+; Sat May 13 18:45:11 CEST 2017
+; 
+;+ (version "3.4.8")
+;+ (build "Build 629")
+
+
+(defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
+	(is-a USER)
+	(role abstract)
+	(multislot Season
+;+		(comment "The seasons of the year in which the ingredient is available.")
+		(type SYMBOL)
+		(allowed-values Winter Summer Spring Autumn)
+		(cardinality 1 4)
+		(create-accessor read-write))
+	(single-slot SecondDish
+;+		(comment "Second recommendation for the menu; main dish")
+		(type INSTANCE)
+;+		(allowed-classes Second)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Disponibility
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot IsInDish
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+		(create-accessor read-write))
+	(single-slot FamilyEventType
+;+		(comment "Describes the type of family event")
+		(type SYMBOL)
+		(allowed-values Marriage Baptism Communion)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot DrinkPrice
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot IngredientName
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot DishName
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot DessertDish
+;+		(comment "Recommended dessert for the menu")
+		(type INSTANCE)
+;+		(allowed-classes Dessert)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Period
+		(type INSTANCE)
+;+		(allowed-classes)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot RicoRicoProject_Class27
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot IngredientType
+		(type SYMBOL)
+		(allowed-values Fruit Vegetable Fish Dairy Meat Other)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Style
+		(type SYMBOL)
+		(allowed-values Classic Modern Regional Gourmet Experimental Fun)
+		(create-accessor read-write))
+	(single-slot DishPrice
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot DrinkName
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot RicoRicoProject_Class20024
+		(type SYMBOL)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot FirstDish
+;+		(comment "First plate of the menu;starter, appetizer")
+		(type INSTANCE)
+;+		(allowed-classes First)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot DishCompatibility
+;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+		(create-accessor read-write))
+	(single-slot RicoRicoProject_Class0
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DishInfo
+;+		(comment "A brief (or detailed) description of the dish")
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot Compatibility
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+		(create-accessor read-write))
+	(single-slot Friendliness
+		(type SYMBOL)
+		(allowed-values Low High Average)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot DrinkType
+		(type SYMBOL)
+		(allowed-values Water Wine Sake Refreshment Juice)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DishType
+		(type SYMBOL)
+		(allowed-values Vegetarian Vegan Fruitarian)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot MenuDrink
+;+		(comment "The drink/s selected for the menu")
+		(type INSTANCE)
+;+		(allowed-classes Drink)
+		(cardinality 1 3)
+		(create-accessor read-write))
+	(single-slot RicoRicoProject_Class10005
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot MaxNum
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot GuestsAmount
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write)))
+
+(defclass Menu "Clase que describe los menus"
+	(is-a USER)
+	(role concrete)
+	(single-slot DessertDish
+;+		(comment "Recommended dessert for the menu")
+		(type INSTANCE)
+;+		(allowed-classes Dessert)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot FirstDish
+;+		(comment "First plate of the menu;starter, appetizer")
+		(type INSTANCE)
+;+		(allowed-classes First)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot SecondDish
+;+		(comment "Second recommendation for the menu; main dish")
+		(type INSTANCE)
+;+		(allowed-classes Second)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot MenuDrink
+;+		(comment "The drink/s selected for the menu")
+		(type INSTANCE)
+;+		(allowed-classes Drink)
+		(cardinality 1 3)
+		(create-accessor read-write)))
+
+(defclass Dish "Describe los platos"
+	(is-a USER)
+	(role abstract)
+	(multislot Style
+		(type SYMBOL)
+		(allowed-values Classic Modern Regional Gourmet Experimental Fun)
+		(create-accessor read-write))
+	(single-slot DishName
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot DishInfo
+;+		(comment "A brief (or detailed) description of the dish")
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DishPrice
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot MaxNum
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DishType
+		(type SYMBOL)
+		(allowed-values Vegetarian Vegan Fruitarian)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot Compatibility
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+		(create-accessor read-write))
+	(single-slot Friendliness
+		(type SYMBOL)
+		(allowed-values Low High Average)
+;+		(cardinality 1 1)
+		(create-accessor read-write)))
+
+(defclass First
+	(is-a Dish)
+	(role concrete))
+
+(defclass Second
+	(is-a Dish)
+	(role concrete))
+
+(defclass Dessert
+	(is-a Dish)
+	(role concrete))
+
+(defclass Drink "Describe las babidas"
+	(is-a USER)
+	(role concrete)
+	(single-slot DrinkPrice
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot DrinkType
+		(type SYMBOL)
+		(allowed-values Water Wine Sake Refreshment Juice)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DrinkName
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot DishCompatibility
+;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+		(create-accessor read-write)))
+
+(defclass Ingredient
+	(is-a USER)
+	(role concrete)
+	(single-slot IngredientName
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot Season
+;+		(comment "The seasons of the year in which the ingredient is available.")
+		(type SYMBOL)
+		(allowed-values Winter Summer Spring Autumn)
+		(cardinality 1 4)
+		(create-accessor read-write))
+	(single-slot IngredientType
+		(type SYMBOL)
+		(allowed-values Fruit Vegetable Fish Dairy Meat Other)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot IsInDish
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+		(create-accessor read-write)))
+
+(definstances menu
+
+
+([RicoRicoProject_Class10000] of  First
+
+	(Compatibility [RicoRicoProject_Class10001])
+	(DishInfo "Good one")
+	(DishName "Cesar Salad")
+	(DishPrice 2.0)
+	(Friendliness High)
+	(Style Modern))
+
+([RicoRicoProject_Class10001] of  First
+
+	(Compatibility [RicoRicoProject_Class20000])
+	(DishInfo "Sooo simple")
+	(DishName "Simple Salad")
+	(DishPrice 1.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(Style Classic))
+
+([RicoRicoProject_Class20000] of  Second
+
+	(Compatibility [RicoRicoProject_Class10001])
+	(DishInfo "Pasta de origen Romana, en Italia, con huevos, bacon y  Parmigiano")
+	(DishName "Pasta Alla Carbonara")
+	(DishPrice 10.0)
+	(Friendliness High)
+	(Style Classic))
+
+([RicoRicoProject_Class20003] of  Ingredient
+
+	(IngredientName "Lettuce")
+	(IngredientType Vegetable)
+	(IsInDish
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20004] of  Ingredient
+
+	(IngredientName "Chicken")
+	(IngredientType Meat)
+	(IsInDish [RicoRicoProject_Class10000])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20005] of  Second
+
+	(Compatibility [RicoRicoProject_Class10001])
+	(DishInfo "Italian dish with tomato souce and bacon")
+	(DishName "Pasta Alla Amatriciana")
+	(DishPrice 9.0)
+	(Friendliness Average)
+	(Style Classic Regional))
+
+([RicoRicoProject_Class20006] of  Second
+
+	(Compatibility [RicoRicoProject_Class10001])
+	(DishName "Pizza Margherita")
+	(DishPrice 6.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(MaxNum 500)
+	(Style Classic))
+
+([RicoRicoProject_Class20007] of  Ingredient
+
+	(IngredientName "Tomato souce")
+	(IngredientType Vegetable)
+	(IsInDish
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20006])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20008] of  Ingredient
+
+	(IngredientName "Mozzarella")
+	(IngredientType Dairy)
+	(IsInDish [RicoRicoProject_Class20006])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20009] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Ice cream with many tastes")
+	(DishName "Helado")
+	(DishPrice 2.0)
+	(Friendliness High)
+	(Style Classic))
+
+([RicoRicoProject_Class20010] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Tipical italian dessert")
+	(DishName "Tiramisù")
+	(DishPrice 4.0)
+	(Friendliness Average)
+	(Style Regional Gourmet))
+
+([RicoRicoProject_Class20011] of  Second
+
+	(Compatibility
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001])
+	(DishInfo "Tipical greek dish")
+	(DishName "Moussakà")
+	(DishPrice 10.0)
+	(Friendliness Average)
+	(MaxNum 2000)
+	(Style Regional))
+
+([RicoRicoProject_Class20012] of  Ingredient
+
+	(IngredientName "Berenjena")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class20011])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20013] of  Ingredient
+
+	(IngredientName "Pork Meat")
+	(IngredientType Meat)
+	(IsInDish [RicoRicoProject_Class20011])
+	(Season Autumn Winter Summer Spring))
+
+([RicoRicoProject_Class20014] of  Ingredient
+
+	(IngredientName "Potatos")
+	(IngredientType Vegetable)
+	(IsInDish
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class20025])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20015] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006])
+	(DishName "Tabla de queso y jamon")
+	(DishPrice 12.0)
+	(Friendliness High)
+	(Style Gourmet Fun))
+
+([RicoRicoProject_Class20016] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Tipical spanish dish")
+	(DishName "Tortilla")
+	(DishPrice 3.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(MaxNum 1000)
+	(Style Classic Regional))
+
+([RicoRicoProject_Class20017] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Tipical french dessert")
+	(DishName "Crepes")
+	(DishPrice 3.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(MaxNum 1150)
+	(Style Regional Classic))
+
+([RicoRicoProject_Class20018] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016])
+	(DrinkName "Red Wine")
+	(DrinkPrice 2.0)
+	(DrinkType Wine))
+
+([RicoRicoProject_Class20019] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class20010]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class30007]
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class30011])
+	(DrinkName "White Wine")
+	(DrinkPrice 2.0)
+	(DrinkType Wine))
+
+([RicoRicoProject_Class20020] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class20017]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class20010])
+	(DrinkName "Coca Cola")
+	(DrinkPrice 2.0)
+	(DrinkType Refreshment))
+
+([RicoRicoProject_Class20021] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class20017]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class20010])
+	(DrinkName "Water")
+	(DrinkPrice 1.0)
+	(DrinkType Water))
+
+([RicoRicoProject_Class20022] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class20017]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016])
+	(DrinkName "Fanta")
+	(DrinkPrice 2.0)
+	(DrinkType Refreshment))
+
+([RicoRicoProject_Class20023] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20006])
+	(DrinkName "Ice Tea")
+	(DrinkPrice 2.0)
+	(DrinkType Refreshment))
+
+([RicoRicoProject_Class20025] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006])
+	(DishInfo "Tipical spanish dish")
+	(DishName "Croquetas")
+	(DishPrice 6.0)
+	(Friendliness High)
+	(MaxNum 800)
+	(Style Regional Classic))
+
+([RicoRicoProject_Class20026] of  Ingredient
+
+	(IngredientName "Jamon")
+	(IngredientType Meat)
+	(IsInDish
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class20015])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class20027] of  Ingredient
+
+	(IngredientName "Cheese")
+	(IngredientType Dairy)
+	(IsInDish [RicoRicoProject_Class20015])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30000] of  First
+
+	(Compatibility [RicoRicoProject_Class20006])
+	(DishInfo "TIpical french tartar")
+	(DishName "Tartar de tierna")
+	(DishPrice 5.0)
+	(Friendliness Low)
+	(MaxNum 100)
+	(Style Regional Gourmet))
+
+([RicoRicoProject_Class30001] of  Ingredient
+
+	(IngredientName "Cow Meat")
+	(IngredientType Meat)
+	(IsInDish [RicoRicoProject_Class30000])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30002] of  Second
+
+	(Compatibility [RicoRicoProject_Class20009])
+	(DishInfo "Plato experimental creado por la RicoRico")
+	(DishName "Plato Combinado de la casa")
+	(DishPrice 12.0)
+	(DishType Vegan)
+	(Friendliness Low)
+	(Style Experimental))
+
+([RicoRicoProject_Class30003] of  Ingredient
+
+	(IngredientName "Aguacate")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class30002])
+	(Season Autumn Winter))
+
+([RicoRicoProject_Class30004] of  Ingredient
+
+	(IngredientName "Cebolla")
+	(IngredientType Vegetable)
+	(IsInDish
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class30002])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30005] of  Ingredient
+
+	(IngredientName "Garbanzos")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class30002])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30006] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30002])
+	(DishInfo "Tarta ideal para los ninos")
+	(DishName "Tarta de Nata con Dibujos")
+	(DishPrice 4.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(MaxNum 200)
+	(Style Fun))
+
+([RicoRicoProject_Class30007] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30008])
+	(DishInfo "Sushi tipico de Japon ideal para charlar")
+	(DishName "Sushi de Salmon")
+	(DishPrice 6.0)
+	(Friendliness Average)
+	(MaxNum 50)
+	(Style Modern Regional Fun))
+
+([RicoRicoProject_Class30008] of  Second
+
+	(Compatibility [RicoRicoProject_Class30007])
+	(DishName "Filete de Merluza y Arroz")
+	(DishPrice 5.0)
+	(Friendliness Average)
+	(Style Classic))
+
+([RicoRicoProject_Class30009] of  Ingredient
+
+	(IngredientName "Merluza")
+	(IngredientType Fish)
+	(IsInDish [RicoRicoProject_Class30008])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30010] of  Ingredient
+
+	(IngredientName "Arroz")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class30008])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class30011] of  Second
+
+	(Compatibility [RicoRicoProject_Class20009])
+	(DishInfo "Experimental dish with insects")
+	(DishName "Hamburguesa con Grillos")
+	(DishPrice 15.0)
+	(Friendliness Low)
+	(MaxNum 25)
+	(Style Modern Experimental))
+
+([RicoRicoProject_Class30012] of  Dessert
+
+	(Compatibility
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30002])
+	(DishName "Crema Catalana")
+	(DishPrice 3.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(Style Classic Fun Regional))
+
+([RicoRicoProject_Class36] of  Ingredient
+
+	(IngredientName "Egg")
+	(IngredientType Dairy)
+	(IsInDish
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class20017])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class37] of  Ingredient
+
+	(IngredientName "Bacon")
+	(IngredientType Meat)
+	(IsInDish
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20005])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class38] of  Ingredient
+
+	(IngredientName "Black Pepper")
+	(IsInDish [RicoRicoProject_Class20000])
+	(Season Winter Summer Autumn Spring))
+
+([RicoRicoProject_Class39] of  Ingredient
+
+	(IngredientName "Parmigiano Reggiano")
+	(IngredientType Dairy)
+	(IsInDish
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20011])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40] of  Ingredient
+
+	(IngredientName "Pasta")
+	(IngredientType Other)
+	(IsInDish [RicoRicoProject_Class20000])
+	(Season Winter Summer Spring Autumn))
+
+
+)
+
+
+
 
 ;Te gusta la alta cocina?
 ;Que estilo te gusta?
@@ -551,13 +1274,18 @@
                               (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegetarian) ))
  		              (bind ?first (random-slot ?li))
                               (send ?x put-FirstDish ?first)
-			 
   ) 
-   (switch ?v 
-   (case vegan then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:DishType Vegan) )) )
-   (case no then (send ?x put-FirstDish (find-instance ((?ins First)) TRUE)))
-   )
-   (assert (dishes-selected))
+  (if (eq ?v vegan) then
+                              (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegan) ))
+ 		              (bind ?first (random-slot ?li))
+                              (send ?x put-FirstDish ?first)
+  ) 
+  (if (eq ?v no) then
+                              (bind ?li (find-all-instances ((?ins First)) TRUE ))
+ 		              (bind ?first (random-slot ?li))
+                              (send ?x put-FirstDish ?first)
+  ) 
+  (assert (dishes-selected))
 )
 
 ;;; When we have a final solution, we print it
