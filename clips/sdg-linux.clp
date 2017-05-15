@@ -1,6 +1,7 @@
 ;Te gusta la alta cocina?
 ;Que estilo te gusta?
 ;preguntas tipo test de psicología (con respuestas de 1 a 10)
+;religion!
 
 ;begin
 
@@ -11,6 +12,10 @@
 (defmodule MAIN
     (export ?ALL)
 )
+(defglobal ?*firsts* = FALSE)
+(defglobal ?*seconds* = FALSE )
+(defglobal ?*drinks* = FALSE )
+
 
 (defmessage-handler Menu printName primary ()
   (printout t "First Dish: " crlf)
@@ -29,7 +34,56 @@
 ;;* DEFFUNCTIONS *
 ;;****************
 
-;; The following functions are used to parse the users' replies to questions.
+
+(deffunction filtrar-multi-por (?li ?sl ?const)
+	(bind ?encontrado FALSE)
+	(if (neq ?li FALSE) then	
+		(bind ?li (create$ ?li))
+
+		(if (> (length ?li) 0) then
+			(loop-for-count (?i 1 (length ?li))
+				(bind $?v (send (nth$ ?i ?li) ?sl))
+				(if (member$ ?const $?v) then
+				 (if (eq ?encontrado FALSE) then
+				   (bind ?encontrado TRUE)
+				   (bind ?ins (nth$ ?i ?li))
+				  else
+				   (bind ?ins (create$ ?ins (nth$ ?i ?li)))
+				 )
+				)
+			)
+		)
+	)
+	(if (eq ?encontrado FALSE) then
+		(bind ?ins FALSE)
+	)
+	(return ?ins)
+)
+
+(deffunction filtrar-single-por (?li ?sl ?const)
+	(bind ?encontrado FALSE)
+	(if (neq ?li FALSE) then	
+		(bind ?li (create$ ?li))
+
+		(if (> (length ?li) 0) then
+			(loop-for-count (?i 1 (length ?li))
+				(bind $?v (send (nth$ ?i ?li) ?sl))
+				(if (eq ?const $?v) then
+				 (if (eq ?encontrado FALSE) then
+				   (bind ?encontrado TRUE)
+				   (bind ?ins (nth$ ?i ?li))
+				  else
+				   (bind ?ins (create$ ?ins (nth$ ?i ?li)))
+				 )
+				)
+			)
+		)
+	)
+	(if (eq ?encontrado FALSE) then
+		(bind ?ins FALSE)
+	)
+	(return ?ins)
+)
 
 (deffunction random-slot ( ?li )
 (bind ?li (create$ ?li))
@@ -50,6 +104,17 @@
    (return ?answer)
 )
 ) 
+
+(deffunction imprime-todo (?v)
+(if (> (length$ ?v) 0) then
+(loop-for-count (?i 1 (length ?v))
+(send (nth$ ?i ?v) print)
+(printout t crlf)
+)
+)
+)
+
+;; The following functions are used to parse the users' replies to questions.
 
 
 (deffunction ask-question (?question $?allowed-values)
@@ -455,6 +520,7 @@
      ?x<- (abstract-info (season unknown))
      (target-event (season ?seas))
    =>
+     
      (assert (determined-abstract-season))
      (modify  ?x (season ?seas))
 )
@@ -480,14 +546,13 @@
 ;;;****************************
 
 ;Kosmas:these rules are a cheap substitute of a Bayes Network. If there is time, we will properly implement one.
-;Rule 1: if (wants-to-impress=a lot and experimental=yes)-> only serve Experimental Food
-;Rule 2: if (wants-to-impress=a lot and gourmet=yes)-> only serve Gourmet Food
-;Rule 3: if (wants-to-impress=a bit and experimental=yes)-> one dish is Experimental 
-;Rule 4: if (wants-to-impress=a bit and gourmet=yes)-> one dish is Gourmet 
-;Rule 5: if (wants-to-impress=a bit) -> one dish is to Gourmet or Experimental
+;Rule 1:  if (wants-to-impress=a lot and experimental)-> only serve Experimental Food
+;Rule 3: if (wants-to-impress=a bit and experimental=yes)-> main dish is Experimental 
+;Rule 4: if (wants-to-impress=a bit and gourmet=yes)-> main dish is Gourmet 
+;Rule 5: if (wants-to-impress=a bit) -> main dish is to Gourmet or Experimental
 ;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
-;Rule 10 : if (children=many) -> one dish has to be highly friendly
-;Rule 11:  if (children=medium) or (children=few)-> one dish has to be averagely friendly
+;Rule 10 : if (children=many) -> main dish has to be highly friendly
+;Rule 11:  if (children=medium) or (children=few)-> main dish has to be averagely friendly
 
 (defmodule module-build-abstract-solution "Module to build an abstract solution based on the abstract data extracted from the input"
     (import MAIN ?ALL)
@@ -499,19 +564,89 @@
 )
 
 
+;to start solution build, we begin with these data structures.
+(defrule initialize-data-structures ""
+	(declare (salience 10))
+	(not (data-structs-intialized))
+	=>
+	(bind ?*firsts* (find-all-instances ((?ins First)) TRUE))
+	(bind ?*seconds* (find-all-instances ((?ins Second)) TRUE))
+	(bind ?*drinks* (find-all-instances ((?ins Drink)) TRUE))	
+	(assert (data-structs-initialized))
+)	
+
+;Rule 1: if (wants-to-impress=a lot and experimental=yes)-> only serve Experimental Food
 (defrule only-experimental  ""
 	(abstract-info (wants-to-impress a-lot))
 	(abstract-info (experimental yes))
 	=>
 	;plato 1 y plato 2 deben ser experimentales
 	;hay que filtrar....
-	(bind ?il (find-all-instances ((?ins Second)) (eq (list-contains ?ins:Style Experimental) TRUE )))
-        (bind ?v (nth$ 1 ?il))
- 	(send ?v printName)
+	(bind ?*seconds* (filtrar-multi-por ?*seconds* get-Style Experimental ))
+	(bind ?*firsts*(filtrar-multi-por ?*firsts*    get-Style Experimental ))
+	;(printout t "DEBUG: Only experimental second dishes:" crlf)
+	;(imprime-todo ?*seconds*)
 )
 	
-	
 
+;Rule 3: if (wants-to-impress=a bit and experimental=yes)-> main dish is Experimental 
+(defrule mainly-experimental ""
+	(abstract-info (wants-to-impress a-bit))
+	(abstract-info (experimental yes))
+	=>
+	(bind ?*seconds*(filtrar-multi-por ?*seconds* get-Style Experimental))
+)
+;Rule 5: if (wants-to-impress=a bit) -> first dish is Experimental
+(defrule a-bit-experimental ""
+	(abstract-info (wants-to-impress a-bit))
+	(abstract-info (experimental no))
+	=>
+	(bind ?*firsts*(filtrar-multi-por ?*firsts* get-Style Experimental))
+)
+
+
+;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
+;(defrule season-is-x ""
+;	(abstract-info (season ?x))
+;	=>
+;	(switch ?x
+;	(case summer then (bind ?epoch Summer))
+;	(case winter then (bind ?epoch Winter))
+;	(case autumn then (bind ?epoch Autumn))
+;	(case spring then (bind ?epoch Spring))
+;	)
+;	(bind ?*firsts* (filtrar-multi-por ?*firsts* get-Season ?epoch))
+;	;(printout t "DEBUG: Only seasonal second dishes:" crlf)
+;	;(imprime-todo ?*seconds*)
+;)
+
+;Rule 10 : if (children=many) -> main dish has to be highly friendly
+(defrule children-are-many ""
+	(abstract-info (children many))
+	=>
+	(bind ?*seconds*(filtrar-single-por ?*seconds* get-Friendliness High))
+	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
+	;(imprime-todo ?*seconds*)
+)
+
+;Rule 11:  if (children=medium) or (children=few)-> main dish has to be averagely friendly
+(defrule children-are-medium ""
+	(or (abstract-info (children medium)) (abstract-info (children few)))
+	=>
+	(bind ?*seconds*(filtrar-single-por ?*seconds* get-Friendliness Average ))
+	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
+	;(imprime-todo ?*seconds*)
+)
+
+(defrule print-abstract-results ""
+	(declare (salience -1))
+=>
+	(printout t "DEBUG: Possible First Dishes, at the end of the heuristic selection:" crlf)
+	(imprime-todo ?*firsts*)
+
+	(printout t "DEBUG: Possible Second Dishes, at the end of the heuristic selection:" crlf)
+	(imprime-todo ?*seconds*)
+)
 
 (defrule create-inicial-instance ""
    (declare (salience 10))
@@ -522,7 +657,7 @@
 
 ;;; Once an abstract model is ready we go on to the refinement
 (defrule refine-solution
-    (declare (salience -1))
+    (declare (salience -2))
 =>
     (focus module-refine-solution)
 )
@@ -591,4 +726,3 @@
  (halt))
 
 ;;;;;;;;;;;;; Message-handlers
-
