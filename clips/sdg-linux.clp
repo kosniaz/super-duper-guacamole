@@ -1,4 +1,3 @@
-
 ;Te gusta la alta cocina?
 ;Que estilo te gusta?
 ;preguntas tipo test de psicología (con respuestas de 1 a 10)
@@ -551,13 +550,18 @@
                               (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegetarian) ))
  		              (bind ?first (random-slot ?li))
                               (send ?x put-FirstDish ?first)
-			 
   ) 
-   (switch ?v 
-   (case vegan then (send ?x put-FirstDish (find-instance ((?ins First)) (eq ?ins:DishType Vegan) )) )
-   (case no then (send ?x put-FirstDish (find-instance ((?ins First)) TRUE)))
-   )
-   (assert (dishes-selected))
+  (if (eq ?v vegan) then
+                              (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegan) ))
+ 		              (bind ?first (random-slot ?li))
+                              (send ?x put-FirstDish ?first)
+  ) 
+  (if (eq ?v no) then
+                              (bind ?li (find-all-instances ((?ins First)) TRUE ))
+ 		              (bind ?first (random-slot ?li))
+                              (send ?x put-FirstDish ?first)
+  ) 
+  (assert (dishes-selected))
 )
 
 ;;; When we have a final solution, we print it
