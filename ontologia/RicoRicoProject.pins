@@ -1,4 +1,4 @@
-; Sat May 13 18:45:11 CEST 2017
+; Tue May 16 16:44:12 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -10,6 +10,9 @@
 	(DishName "Cesar Salad")
 	(DishPrice 2.0)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class20003]
+		[RicoRicoProject_Class40019])
 	(Style Modern))
 
 ([RicoRicoProject_Class10001] of  First
@@ -20,6 +23,7 @@
 	(DishPrice 1.0)
 	(DishType Vegetarian)
 	(Friendliness High)
+	(Ingredients [RicoRicoProject_Class20003])
 	(Style Classic))
 
 ([RicoRicoProject_Class20000] of  Second
@@ -29,11 +33,17 @@
 	(DishName "Pasta Alla Carbonara")
 	(DishPrice 10.0)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class40]
+		[RicoRicoProject_Class37]
+		[RicoRicoProject_Class36]
+		[RicoRicoProject_Class39]
+		[RicoRicoProject_Class38])
 	(Style Classic))
 
 ([RicoRicoProject_Class20003] of  Ingredient
 
-	(IngredientName "Lettuce")
+	(IngredientName "Lechuga")
 	(IngredientType Vegetable)
 	(IsInDish
 		[RicoRicoProject_Class10000]
@@ -54,6 +64,11 @@
 	(DishName "Pasta Alla Amatriciana")
 	(DishPrice 9.0)
 	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class37]
+		[RicoRicoProject_Class38]
+		[RicoRicoProject_Class40]
+		[RicoRicoProject_Class20007])
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class20006] of  Second
@@ -63,12 +78,15 @@
 	(DishPrice 6.0)
 	(DishType Vegetarian)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class20008]
+		[RicoRicoProject_Class20007])
 	(MaxNum 500)
 	(Style Classic))
 
 ([RicoRicoProject_Class20007] of  Ingredient
 
-	(IngredientName "Tomato souce")
+	(IngredientName "Salsa de Tomate")
 	(IngredientType Vegetable)
 	(IsInDish
 		[RicoRicoProject_Class20005]
@@ -114,6 +132,12 @@
 	(DishName "Moussakà")
 	(DishPrice 10.0)
 	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class20012]
+		[RicoRicoProject_Class40003]
+		[RicoRicoProject_Class20014]
+		[RicoRicoProject_Class20013]
+		[RicoRicoProject_Class30004])
 	(MaxNum 2000)
 	(Style Regional))
 
@@ -126,14 +150,14 @@
 
 ([RicoRicoProject_Class20013] of  Ingredient
 
-	(IngredientName "Pork Meat")
+	(IngredientName "Carne de Cerdo")
 	(IngredientType Meat)
 	(IsInDish [RicoRicoProject_Class20011])
 	(Season Autumn Winter Summer Spring))
 
 ([RicoRicoProject_Class20014] of  Ingredient
 
-	(IngredientName "Potatos")
+	(IngredientName "Patata")
 	(IngredientType Vegetable)
 	(IsInDish
 		[RicoRicoProject_Class20011]
@@ -150,6 +174,9 @@
 	(DishName "Tabla de queso y jamon")
 	(DishPrice 12.0)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class40003]
+		[RicoRicoProject_Class20026])
 	(Style Gourmet Fun))
 
 ([RicoRicoProject_Class20016] of  First
@@ -162,6 +189,9 @@
 	(DishPrice 3.0)
 	(DishType Vegetarian)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class36]
+		[RicoRicoProject_Class20014])
 	(MaxNum 1000)
 	(Style Classic Regional))
 
@@ -270,6 +300,7 @@
 	(DishName "Croquetas")
 	(DishPrice 6.0)
 	(Friendliness High)
+	(Ingredients [RicoRicoProject_Class20014])
 	(MaxNum 800)
 	(Style Regional Classic))
 
@@ -296,12 +327,13 @@
 	(DishName "Tartar de tierna")
 	(DishPrice 5.0)
 	(Friendliness Low)
+	(Ingredients [RicoRicoProject_Class30001])
 	(MaxNum 100)
 	(Style Regional Gourmet))
 
 ([RicoRicoProject_Class30001] of  Ingredient
 
-	(IngredientName "Cow Meat")
+	(IngredientName "Carne de Vaca")
 	(IngredientType Meat)
 	(IsInDish [RicoRicoProject_Class30000])
 	(Season Winter Summer Spring Autumn))
@@ -314,6 +346,11 @@
 	(DishPrice 12.0)
 	(DishType Vegan)
 	(Friendliness Low)
+	(Ingredients
+		[RicoRicoProject_Class30003]
+		[RicoRicoProject_Class30004]
+		[RicoRicoProject_Class30001]
+		[RicoRicoProject_Class30005])
 	(Style Experimental))
 
 ([RicoRicoProject_Class30003] of  Ingredient
@@ -362,8 +399,12 @@
 	(DishName "Sushi de Salmon")
 	(DishPrice 6.0)
 	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class30010]
+		[RicoRicoProject_Class40018]
+		[RicoRicoProject_Class40017])
 	(MaxNum 50)
-	(Style Modern Regional Fun))
+	(Style Modern Regional))
 
 ([RicoRicoProject_Class30008] of  Second
 
@@ -371,6 +412,9 @@
 	(DishName "Filete de Merluza y Arroz")
 	(DishPrice 5.0)
 	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class30010]
+		[RicoRicoProject_Class30009])
 	(Style Classic))
 
 ([RicoRicoProject_Class30009] of  Ingredient
@@ -394,6 +438,9 @@
 	(DishName "Hamburguesa con Grillos")
 	(DishPrice 15.0)
 	(Friendliness Low)
+	(Ingredients
+		[RicoRicoProject_Class30001]
+		[RicoRicoProject_Class40016])
 	(MaxNum 25)
 	(Style Modern Experimental))
 
@@ -408,11 +455,12 @@
 	(DishPrice 3.0)
 	(DishType Vegetarian)
 	(Friendliness High)
+	(Ingredients [RicoRicoProject_Class36])
 	(Style Classic Fun Regional))
 
 ([RicoRicoProject_Class36] of  Ingredient
 
-	(IngredientName "Egg")
+	(IngredientName "Huevo")
 	(IngredientType Dairy)
 	(IsInDish
 		[RicoRicoProject_Class20000]
@@ -431,7 +479,8 @@
 
 ([RicoRicoProject_Class38] of  Ingredient
 
-	(IngredientName "Black Pepper")
+	(IngredientName "Pimienta Negra")
+	(IngredientType Other)
 	(IsInDish [RicoRicoProject_Class20000])
 	(Season Winter Summer Autumn Spring))
 
@@ -441,7 +490,8 @@
 	(IngredientType Dairy)
 	(IsInDish
 		[RicoRicoProject_Class20000]
-		[RicoRicoProject_Class20011])
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class40000])
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class40] of  Ingredient
@@ -450,3 +500,189 @@
 	(IngredientType Other)
 	(IsInDish [RicoRicoProject_Class20000])
 	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40000] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class20011])
+	(DishInfo "Plato de gastronomia moleculàr")
+	(DishName "Gofres de Parmigiano y Apionabos")
+	(DishPrice 8.0)
+	(DishType Vegetarian)
+	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class40005]
+		[RicoRicoProject_Class39])
+	(Style Experimental))
+
+([RicoRicoProject_Class40002] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class30002])
+	(DishInfo "Plato de gastronomia molecular")
+	(DishName "Bignè de harina de castañas y queso")
+	(DishPrice 6.0)
+	(DishType Vegetarian)
+	(Friendliness Low)
+	(Ingredients
+		[RicoRicoProject_Class40004]
+		[RicoRicoProject_Class40003])
+	(MaxNum 500)
+	(Style Experimental Gourmet))
+
+([RicoRicoProject_Class40003] of  Ingredient
+
+	(IngredientName "Queso")
+	(IngredientType Dairy)
+	(IsInDish [RicoRicoProject_Class40002])
+	(Season Autumn Winter Spring Summer))
+
+([RicoRicoProject_Class40004] of  Ingredient
+
+	(IngredientName "Castaña")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class40002])
+	(Season Autumn))
+
+([RicoRicoProject_Class40005] of  Ingredient
+
+	(IngredientName "Apionabos")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class40000])
+	(Season Autumn))
+
+([RicoRicoProject_Class40006] of  Second
+
+	(Compatibility
+		[RicoRicoProject_Class30012]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class30006])
+	(DishName "Arroz con Curry y Pasas")
+	(DishPrice 6.0)
+	(DishType Vegan)
+	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class30010]
+		[RicoRicoProject_Class40007]
+		[RicoRicoProject_Class40020])
+	(Style Experimental))
+
+([RicoRicoProject_Class40007] of  Ingredient
+
+	(IngredientName "Pasa")
+	(IngredientType Fruit)
+	(IsInDish [RicoRicoProject_Class40006])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40008] of  Dessert
+
+	(DishName "Ensalada de fruta")
+	(DishPrice 2.0)
+	(DishType Vegan)
+	(Friendliness High)
+	(Style Classic))
+
+([RicoRicoProject_Class40009] of  Ingredient
+
+	(IngredientName "Fresa")
+	(IngredientType Fruit)
+	(IsInDish [RicoRicoProject_Class40008])
+	(Season Summer Spring))
+
+([RicoRicoProject_Class40010] of  Ingredient
+
+	(IngredientName "Melocotón")
+	(IngredientType Fruit)
+	(IsInDish [RicoRicoProject_Class40008])
+	(Season Summer))
+
+([RicoRicoProject_Class40011] of  Ingredient
+
+	(IngredientName "Banana")
+	(IngredientType Fruit)
+	(IsInDish [RicoRicoProject_Class40008])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40013] of  Second
+
+	(Compatibility [RicoRicoProject_Class10000])
+	(DishInfo "Ideal para niños, la forma de la comida será la de Chuewbecca, famoso personaje de Star Wars")
+	(DishName "Noodles Chewbecca")
+	(DishPrice 6.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class40014]
+		[RicoRicoProject_Class30010]
+		[RicoRicoProject_Class37])
+	(MaxNum 200)
+	(Style Fun))
+
+([RicoRicoProject_Class40014] of  Ingredient
+
+	(IngredientName "Noodle")
+	(IngredientType Other)
+	(IsInDish [RicoRicoProject_Class40013])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40016] of  Ingredient
+
+	(IngredientName "Grillos")
+	(IngredientType Other)
+	(Season Summer Winter Spring Autumn))
+
+([RicoRicoProject_Class40017] of  Ingredient
+
+	(IngredientName "Salmon")
+	(IngredientType Fish)
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40018] of  Ingredient
+
+	(IngredientName "Alga")
+	(IngredientType Vegetable)
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40019] of  Ingredient
+
+	(IngredientName "Pollo")
+	(IngredientType Meat)
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40020] of  Ingredient
+
+	(IngredientName "Curry")
+	(IngredientType Other)
+	(Season Autumn Winter Summer Spring))
+
+([RicoRicoProject_Class40021] of  Second
+
+	(Compatibility
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016])
+	(DishName "Pasta con Cuatro Quesos")
+	(DishPrice 5.0)
+	(DishType Vegetarian)
+	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class40]
+		[RicoRicoProject_Class40003])
+	(Style Experimental))
+
+([RicoRicoProject_Class40022] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30002])
+	(DrinkName "Champagne")
+	(DrinkPrice 12.0)
+	(DrinkType Wine))
