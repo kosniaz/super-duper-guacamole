@@ -34,14 +34,29 @@ Rules:
 
  Note: these rule are a cheap substitute of a Bayes Network. If there is time, we can properly implement one.
  Rule 1: if (wants-to-impress=a lot and experimental=yes)-> only serve Experimental Food
- Rule 2: if (wants-to-impress=a lot and gourmet=yes)-> only serve Gourmet Food
  Rule 3: if (wants-to-impress=a bit and experimental=yes)-> one dish is Experimental
- Rule 4: if (wants-to-impress=a bit and gourmet=yes)-> one dish is Gourmet
  Rule 5: if (wants-to-impress=a bit) -> one dish is to Gourmet or Experimental
  Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
  Rule 10 : if (children=many) -> one dish has to be highly friendly
  Rule 11:  if (children=medium) or (children=few)-> one dish has to be averagely friendly
 
 
-Seba: no se todavia si esta bien
+15/5/17
+kosmas
+
+Goals: 
+.Deal with the drinks (perhaps determine afterwards, in accordance with the Second Dish
+.Deal with the money problem: Ask for a budget, then sort all the possible menu there can be (there should not be many, after
+all we've deleted lots of dishes). Then we send the cheapest ones, the middle price, and the most-expensive ones (but still 
+within budget)
+Alternatively: we could judge if client is rich or poor and filter the dishes using that metric (i.e. if is poor only 
+consider dishes costing < 6 per person)
+and then in the refinement part we make three menus, one with the lowest possible plates
+						     one with random values until we get something that's 
+						     more expensive than cheapest+(1/4)*(budget-cheapest).
+						     one with random values until we get something that's more expensive than 							  cheapest+(3/4)*(budget-cheapest) (but still within budget). If there is 						       no such menu, then it's ok.
+.allergies! (refinenment)
+.
+
+
 

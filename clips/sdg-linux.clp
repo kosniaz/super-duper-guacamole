@@ -1,4 +1,4 @@
-;Te gusta la alta cocina?
+;secondsTe gusta la alta cocina?
 ;Que estilo te gusta?
 ;preguntas tipo test de psicología (con respuestas de 1 a 10)
 ;religion!
@@ -33,6 +33,45 @@
 ;;****************
 ;;* DEFFUNCTIONS *
 ;;****************
+(deffunction check-plate-for-season (?plate ?epoch) " "
+  (bind $?ing (send ?plate get-Ingredients) );?
+  (if (> (length $?ing) 0 ) then
+   (loop-for-count (?i 1 (length $?ing)) 
+ 	 (bind ?current (nth$ ?i $?ing))
+         (if (not (member$ ?epoch (send ?current get-Season))) then 
+	   (return FALSE)
+	 )
+   )
+   (return TRUE)
+  else 
+   (return FALSE)
+  )
+)
+        	
+;(return-plates-of-season 
+(deffunction return-plates-of-season (?plates ?epoch) 
+	(bind ?encontrado FALSE)
+	(if (neq ?plates FALSE) then	
+		(bind ?plates (create$ ?plates))
+
+		(if (> (length ?plates) 0) then
+			(loop-for-count (?i 1 (length ?plates))
+				(if (check-plate-for-season (nth$ ?i ?plates) ?epoch) then
+				 (if (eq ?encontrado FALSE) then
+				   (bind ?encontrado TRUE)
+				   (bind ?ins (nth$ ?i ?plates))
+				  else
+				   (bind ?ins (create$ ?ins (nth$ ?i ?plates)))
+				 )
+				)
+			)
+		)
+	)
+	(if (eq ?encontrado FALSE) then
+		(bind ?ins FALSE)
+	)
+	(return ?ins)
+)
 
 
 (deffunction filtrar-multi-por (?li ?sl ?const)
@@ -83,6 +122,16 @@
 		(bind ?ins FALSE)
 	)
 	(return ?ins)
+)
+
+(deffunction filtrar-single-por-group (?li ?sl $?const)
+	(bind ?result (create$))
+	(loop-for-count (?i 1 (length $?const))
+		(bind ?current (nth$ ?i $?const))
+		(bind ?lista (filtrar-single-por ?li ?sl ?current))
+		(bind ?result (insert$ ?result 1 ?lista))
+	)
+	(return ?result)
 )
 
 (deffunction random-slot ( ?li )
@@ -584,6 +633,8 @@
 	;hay que filtrar....
 	(bind ?*seconds* (filtrar-multi-por ?*seconds* get-Style Experimental ))
 	(bind ?*firsts*(filtrar-multi-por ?*firsts*    get-Style Experimental ))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 1 - no more seconds" crlf) (halt))	
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 1 - no more firsts" crlf) (halt))	
 	;(printout t "DEBUG: Only experimental second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
@@ -595,6 +646,7 @@
 	(abstract-info (experimental yes))
 	=>
 	(bind ?*seconds*(filtrar-multi-por ?*seconds* get-Style Experimental))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 3 - no more seconds" crlf) (halt))	
 )
 ;Rule 5: if (wants-to-impress=a bit) -> first dish is Experimental
 (defrule a-bit-experimental ""
@@ -602,29 +654,36 @@
 	(abstract-info (experimental no))
 	=>
 	(bind ?*firsts*(filtrar-multi-por ?*firsts* get-Style Experimental))
+	(if (eq (length$ ?*firsts*) 0) then (printout t "Rule 5 - no more firsts" crlf) (halt))	
 )
 
 
 ;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
-;(defrule season-is-x ""
-;	(abstract-info (season ?x))
-;	=>
-;	(switch ?x
-;	(case summer then (bind ?epoch Summer))
-;	(case winter then (bind ?epoch Winter))
-;	(case autumn then (bind ?epoch Autumn))
-;	(case spring then (bind ?epoch Spring))
-;	)
-;	(bind ?*firsts* (filtrar-multi-por ?*firsts* get-Season ?epoch))
-;	;(printout t "DEBUG: Only seasonal second dishes:" crlf)
-;	;(imprime-todo ?*seconds*)
-;)
+(defrule season-is-x ""
+	(abstract-info (season ?x))
+	=>
+	(switch ?x
+	(case summer then (bind ?epoch Summer))
+	(case winter then (bind ?epoch Winter))
+	(case autumn then (bind ?epoch Autumn))
+	(case spring then (bind ?epoch Spring))
+	)
+	(bind ?*firsts* (return-plates-of-season ?*firsts* ?epoch))
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 6 - no more firsts" crlf) (halt))	
+	;(printout t "DEBUG: Only seasonal first dishes:" crlf)
+	;(imprime-todo ?*firsts*)
+	(bind ?*seconds* (return-plates-of-season ?*seconds* ?epoch))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 6 - no more seconds" crlf) (halt))	
+	;(printout t "DEBUG: Only seasonal second dishes:" crlf)
+	;(imprime-todo ?*seconds*)
+)
 
 ;Rule 10 : if (children=many) -> main dish has to be highly friendly
 (defrule children-are-many ""
 	(abstract-info (children many))
 	=>
 	(bind ?*seconds*(filtrar-single-por ?*seconds* get-Friendliness High))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 10 - no more seconds" crlf) (halt))	
 	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
@@ -633,7 +692,8 @@
 (defrule children-are-medium ""
 	(or (abstract-info (children medium)) (abstract-info (children few)))
 	=>
-	(bind ?*seconds*(filtrar-single-por ?*seconds* get-Friendliness Average ))
+	(bind ?*seconds*(filtrar-single-por-group ?*seconds* get-Friendliness Average High ))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 11 - no more seconds" crlf) (halt))	
 	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
@@ -642,10 +702,12 @@
 	(declare (salience -1))
 =>
 	(printout t "DEBUG: Possible First Dishes, at the end of the heuristic selection:" crlf)
-	(imprime-todo ?*firsts*)
+	(if (eq ?*firsts* FALSE) then (printout t "No firsts available." crlf)(halt)
+	else (imprime-todo ?*firsts*))
 
 	(printout t "DEBUG: Possible Second Dishes, at the end of the heuristic selection:" crlf)
-	(imprime-todo ?*seconds*)
+	(if (eq ?*seconds* FALSE) then (printout t "No seconds available." crlf)(halt)
+	else (imprime-todo ?*seconds*))
 )
 
 (defrule create-inicial-instance ""
@@ -685,6 +747,7 @@
                               (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegetarian) ))
  		              (bind ?first (random-slot ?li))
                               (send ?x put-FirstDish ?first)
+			      
   ) 
   (if (eq ?v vegan) then
                               (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegan) ))

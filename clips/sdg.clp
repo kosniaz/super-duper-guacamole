@@ -1,4 +1,4 @@
-;Sat May 13 18:45:11 CEST 2017
+; Tue May 16 16:44:12 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -11,7 +11,7 @@
 ;+		(comment "The seasons of the year in which the ingredient is available.")
 		(type SYMBOL)
 		(allowed-values Winter Summer Spring Autumn)
-	(cardinality 1 4)
+		(cardinality 1 4)
 		(create-accessor read-write))
 	(single-slot SecondDish
 ;+		(comment "Second recommendation for the menu; main dish")
@@ -19,43 +19,43 @@
 ;+		(allowed-classes Second)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Disponibility
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(multislot IsInDish
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-		(create-accessor read-write))
 	(single-slot FamilyEventType
 ;+		(comment "Describes the type of family event")
 		(type SYMBOL)
 		(allowed-values Marriage Baptism Communion)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot DrinkPrice
-		(type FLOAT)
-;+		(cardinality 1 1)
+	(multislot IsInDish
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+		(create-accessor read-write))
+	(single-slot Disponibility
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot IngredientName
 		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot DrinkPrice
+		(type FLOAT)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot DishName
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
+	(single-slot Period
+		(type INSTANCE)
+;+		(allowed-classes)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(single-slot DessertDish
 ;+		(comment "Recommended dessert for the menu")
 		(type INSTANCE)
 ;+		(allowed-classes Dessert)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Period
-		(type INSTANCE)
-;+		(allowed-classes)
-;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot RicoRicoProject_Class27
 		(type STRING)
@@ -77,6 +77,10 @@
 	(single-slot DrinkName
 		(type STRING)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot Ingredients
+		(type INSTANCE)
+;+		(allowed-classes Ingredient)
 		(create-accessor read-write))
 	(single-slot RicoRicoProject_Class20024
 		(type SYMBOL)
@@ -117,16 +121,16 @@
 		(allowed-values Water Wine Sake Refreshment Juice)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot DishType
-		(type SYMBOL)
-		(allowed-values Vegetarian Vegan Fruitarian)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(multislot MenuDrink
 ;+		(comment "The drink/s selected for the menu")
 		(type INSTANCE)
 ;+		(allowed-classes Drink)
 		(cardinality 1 3)
+		(create-accessor read-write))
+	(single-slot DishType
+		(type SYMBOL)
+		(allowed-values Vegetarian Vegan Fruitarian)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot RicoRicoProject_Class10005
 		(type STRING)
@@ -176,14 +180,14 @@
 		(type SYMBOL)
 		(allowed-values Classic Modern Regional Gourmet Experimental Fun)
 		(create-accessor read-write))
-	(single-slot DishName
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(single-slot DishInfo
 ;+		(comment "A brief (or detailed) description of the dish")
 		(type STRING)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot DishName
+		(type STRING)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot DishPrice
 		(type FLOAT)
@@ -192,6 +196,10 @@
 	(single-slot MaxNum
 		(type INTEGER)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot Ingredients
+		(type INSTANCE)
+;+		(allowed-classes Ingredient)
 		(create-accessor read-write))
 	(single-slot DishType
 		(type SYMBOL)
@@ -223,23 +231,23 @@
 (defclass Drink "Describe las babidas"
 	(is-a USER)
 	(role concrete)
-	(single-slot DrinkPrice
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(single-slot DrinkType
 		(type SYMBOL)
 		(allowed-values Water Wine Sake Refreshment Juice)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot DrinkName
-		(type STRING)
-;+		(cardinality 0 1)
+	(single-slot DrinkPrice
+		(type FLOAT)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot DishCompatibility
 ;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
 		(type INSTANCE)
 ;+		(allowed-classes Dish)
+		(create-accessor read-write))
+	(single-slot DrinkName
+		(type STRING)
+;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
 (defclass Ingredient
@@ -265,8 +273,8 @@
 ;+		(allowed-classes Dish)
 		(create-accessor read-write)))
 
-(definstances menu
 
+(definstances menu
 
 ([RicoRicoProject_Class10000] of  First
 
@@ -275,6 +283,9 @@
 	(DishName "Cesar Salad")
 	(DishPrice 2.0)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class20003]
+		[RicoRicoProject_Class40019])
 	(Style Modern))
 
 ([RicoRicoProject_Class10001] of  First
@@ -285,6 +296,7 @@
 	(DishPrice 1.0)
 	(DishType Vegetarian)
 	(Friendliness High)
+	(Ingredients [RicoRicoProject_Class20003])
 	(Style Classic))
 
 ([RicoRicoProject_Class20000] of  Second
@@ -294,11 +306,17 @@
 	(DishName "Pasta Alla Carbonara")
 	(DishPrice 10.0)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class40]
+		[RicoRicoProject_Class37]
+		[RicoRicoProject_Class36]
+		[RicoRicoProject_Class39]
+		[RicoRicoProject_Class38])
 	(Style Classic))
 
 ([RicoRicoProject_Class20003] of  Ingredient
 
-	(IngredientName "Lettuce")
+	(IngredientName "Lechuga")
 	(IngredientType Vegetable)
 	(IsInDish
 		[RicoRicoProject_Class10000]
@@ -319,6 +337,11 @@
 	(DishName "Pasta Alla Amatriciana")
 	(DishPrice 9.0)
 	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class37]
+		[RicoRicoProject_Class38]
+		[RicoRicoProject_Class40]
+		[RicoRicoProject_Class20007])
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class20006] of  Second
@@ -328,12 +351,15 @@
 	(DishPrice 6.0)
 	(DishType Vegetarian)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class20008]
+		[RicoRicoProject_Class20007])
 	(MaxNum 500)
 	(Style Classic))
 
 ([RicoRicoProject_Class20007] of  Ingredient
 
-	(IngredientName "Tomato souce")
+	(IngredientName "Salsa de Tomate")
 	(IngredientType Vegetable)
 	(IsInDish
 		[RicoRicoProject_Class20005]
@@ -379,6 +405,12 @@
 	(DishName "Moussakà")
 	(DishPrice 10.0)
 	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class20012]
+		[RicoRicoProject_Class40003]
+		[RicoRicoProject_Class20014]
+		[RicoRicoProject_Class20013]
+		[RicoRicoProject_Class30004])
 	(MaxNum 2000)
 	(Style Regional))
 
@@ -391,14 +423,14 @@
 
 ([RicoRicoProject_Class20013] of  Ingredient
 
-	(IngredientName "Pork Meat")
+	(IngredientName "Carne de Cerdo")
 	(IngredientType Meat)
 	(IsInDish [RicoRicoProject_Class20011])
 	(Season Autumn Winter Summer Spring))
 
 ([RicoRicoProject_Class20014] of  Ingredient
 
-	(IngredientName "Potatos")
+	(IngredientName "Patata")
 	(IngredientType Vegetable)
 	(IsInDish
 		[RicoRicoProject_Class20011]
@@ -415,6 +447,9 @@
 	(DishName "Tabla de queso y jamon")
 	(DishPrice 12.0)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class40003]
+		[RicoRicoProject_Class20026])
 	(Style Gourmet Fun))
 
 ([RicoRicoProject_Class20016] of  First
@@ -427,6 +462,9 @@
 	(DishPrice 3.0)
 	(DishType Vegetarian)
 	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class36]
+		[RicoRicoProject_Class20014])
 	(MaxNum 1000)
 	(Style Classic Regional))
 
@@ -535,6 +573,7 @@
 	(DishName "Croquetas")
 	(DishPrice 6.0)
 	(Friendliness High)
+	(Ingredients [RicoRicoProject_Class20014])
 	(MaxNum 800)
 	(Style Regional Classic))
 
@@ -561,12 +600,13 @@
 	(DishName "Tartar de tierna")
 	(DishPrice 5.0)
 	(Friendliness Low)
+	(Ingredients [RicoRicoProject_Class30001])
 	(MaxNum 100)
 	(Style Regional Gourmet))
 
 ([RicoRicoProject_Class30001] of  Ingredient
 
-	(IngredientName "Cow Meat")
+	(IngredientName "Carne de Vaca")
 	(IngredientType Meat)
 	(IsInDish [RicoRicoProject_Class30000])
 	(Season Winter Summer Spring Autumn))
@@ -579,6 +619,11 @@
 	(DishPrice 12.0)
 	(DishType Vegan)
 	(Friendliness Low)
+	(Ingredients
+		[RicoRicoProject_Class30003]
+		[RicoRicoProject_Class30004]
+		[RicoRicoProject_Class30001]
+		[RicoRicoProject_Class30005])
 	(Style Experimental))
 
 ([RicoRicoProject_Class30003] of  Ingredient
@@ -627,8 +672,12 @@
 	(DishName "Sushi de Salmon")
 	(DishPrice 6.0)
 	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class30010]
+		[RicoRicoProject_Class40018]
+		[RicoRicoProject_Class40017])
 	(MaxNum 50)
-	(Style Modern Regional Fun))
+	(Style Modern Regional))
 
 ([RicoRicoProject_Class30008] of  Second
 
@@ -636,6 +685,9 @@
 	(DishName "Filete de Merluza y Arroz")
 	(DishPrice 5.0)
 	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class30010]
+		[RicoRicoProject_Class30009])
 	(Style Classic))
 
 ([RicoRicoProject_Class30009] of  Ingredient
@@ -659,6 +711,9 @@
 	(DishName "Hamburguesa con Grillos")
 	(DishPrice 15.0)
 	(Friendliness Low)
+	(Ingredients
+		[RicoRicoProject_Class30001]
+		[RicoRicoProject_Class40016])
 	(MaxNum 25)
 	(Style Modern Experimental))
 
@@ -673,11 +728,12 @@
 	(DishPrice 3.0)
 	(DishType Vegetarian)
 	(Friendliness High)
+	(Ingredients [RicoRicoProject_Class36])
 	(Style Classic Fun Regional))
 
 ([RicoRicoProject_Class36] of  Ingredient
 
-	(IngredientName "Egg")
+	(IngredientName "Huevo")
 	(IngredientType Dairy)
 	(IsInDish
 		[RicoRicoProject_Class20000]
@@ -696,7 +752,8 @@
 
 ([RicoRicoProject_Class38] of  Ingredient
 
-	(IngredientName "Black Pepper")
+	(IngredientName "Pimienta Negra")
+	(IngredientType Other)
 	(IsInDish [RicoRicoProject_Class20000])
 	(Season Winter Summer Autumn Spring))
 
@@ -706,7 +763,8 @@
 	(IngredientType Dairy)
 	(IsInDish
 		[RicoRicoProject_Class20000]
-		[RicoRicoProject_Class20011])
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class40000])
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class40] of  Ingredient
@@ -716,10 +774,204 @@
 	(IsInDish [RicoRicoProject_Class20000])
 	(Season Winter Summer Spring Autumn))
 
+([RicoRicoProject_Class40000] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class20011])
+	(DishInfo "Plato de gastronomia moleculàr")
+	(DishName "Gofres de Parmigiano y Apionabos")
+	(DishPrice 8.0)
+	(DishType Vegetarian)
+	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class40005]
+		[RicoRicoProject_Class39])
+	(Style Experimental))
+
+([RicoRicoProject_Class40002] of  First
+
+	(Compatibility
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class30002])
+	(DishInfo "Plato de gastronomia molecular")
+	(DishName "Bignè de harina de castañas y queso")
+	(DishPrice 6.0)
+	(DishType Vegetarian)
+	(Friendliness Low)
+	(Ingredients
+		[RicoRicoProject_Class40004]
+		[RicoRicoProject_Class40003])
+	(MaxNum 500)
+	(Style Experimental Gourmet))
+
+([RicoRicoProject_Class40003] of  Ingredient
+
+	(IngredientName "Queso")
+	(IngredientType Dairy)
+	(IsInDish [RicoRicoProject_Class40002])
+	(Season Autumn Winter Spring Summer))
+
+([RicoRicoProject_Class40004] of  Ingredient
+
+	(IngredientName "Castaña")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class40002])
+	(Season Autumn))
+
+([RicoRicoProject_Class40005] of  Ingredient
+
+	(IngredientName "Apionabos")
+	(IngredientType Vegetable)
+	(IsInDish [RicoRicoProject_Class40000])
+	(Season Autumn))
+
+([RicoRicoProject_Class40006] of  Second
+
+	(Compatibility
+		[RicoRicoProject_Class30012]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class30006])
+	(DishName "Arroz con Curry y Pasas")
+	(DishPrice 6.0)
+	(DishType Vegan)
+	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class30010]
+		[RicoRicoProject_Class40007]
+		[RicoRicoProject_Class40020])
+	(Style Experimental))
+
+([RicoRicoProject_Class40007] of  Ingredient
+
+	(IngredientName "Pasa")
+	(IngredientType Fruit)
+	(IsInDish [RicoRicoProject_Class40006])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40008] of  Dessert
+
+	(DishName "Ensalada de fruta")
+	(DishPrice 2.0)
+	(DishType Vegan)
+	(Friendliness High)
+	(Style Classic))
+
+([RicoRicoProject_Class40009] of  Ingredient
+
+	(IngredientName "Fresa")
+	(IngredientType Fruit)
+	(IsInDish [RicoRicoProject_Class40008])
+	(Season Summer Spring))
+
+([RicoRicoProject_Class40010] of  Ingredient
+
+	(IngredientName "Melocotón")
+	(IngredientType Fruit)
+	(IsInDish [RicoRicoProject_Class40008])
+	(Season Summer))
+
+([RicoRicoProject_Class40011] of  Ingredient
+
+	(IngredientName "Banana")
+	(IngredientType Fruit)
+	(IsInDish [RicoRicoProject_Class40008])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40013] of  Second
+
+	(Compatibility [RicoRicoProject_Class10000])
+	(DishInfo "Ideal para niños, la forma de la comida será la de Chuewbecca, famoso personaje de Star Wars")
+	(DishName "Noodles Chewbecca")
+	(DishPrice 6.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class40014]
+		[RicoRicoProject_Class30010]
+		[RicoRicoProject_Class37])
+	(MaxNum 200)
+	(Style Fun))
+
+([RicoRicoProject_Class40014] of  Ingredient
+
+	(IngredientName "Noodle")
+	(IngredientType Other)
+	(IsInDish [RicoRicoProject_Class40013])
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40016] of  Ingredient
+
+	(IngredientName "Grillos")
+	(IngredientType Other)
+	(Season Summer Winter Spring Autumn))
+
+([RicoRicoProject_Class40017] of  Ingredient
+
+	(IngredientName "Salmon")
+	(IngredientType Fish)
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40018] of  Ingredient
+
+	(IngredientName "Alga")
+	(IngredientType Vegetable)
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40019] of  Ingredient
+
+	(IngredientName "Pollo")
+	(IngredientType Meat)
+	(Season Winter Summer Spring Autumn))
+
+([RicoRicoProject_Class40020] of  Ingredient
+
+	(IngredientName "Curry")
+	(IngredientType Other)
+	(Season Autumn Winter Summer Spring))
+
+([RicoRicoProject_Class40021] of  Second
+
+	(Compatibility
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class20016])
+	(DishName "Pasta con Cuatro Quesos")
+	(DishPrice 5.0)
+	(DishType Vegetarian)
+	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class40]
+		[RicoRicoProject_Class40003])
+	(Style Experimental))
+
+([RicoRicoProject_Class40022] of  Drink
+
+	(DishCompatibility
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30002])
+	(DrinkName "Champagne")
+	(DrinkPrice 12.0)
+	(DrinkType Wine))
+ 
+
 
 )
 
+;secondsTe gusta la alta cocina?
+;Que estilo te gusta?
+;preguntas tipo test de psicología (con respuestas de 1 a 10)
+;religion!
+
 ;begin
+
+
 ;;**********************
 ;;* message handlers
 ;;**********************
@@ -747,6 +999,45 @@
 ;;****************
 ;;* DEFFUNCTIONS *
 ;;****************
+(deffunction check-plate-for-season (?plate ?epoch) " "
+  (bind $?ing (send ?plate get-Ingredients) );?
+  (if (> (length $?ing) 0 ) then
+   (loop-for-count (?i 1 (length $?ing)) 
+ 	 (bind ?current (nth$ ?i $?ing))
+         (if (not (member$ ?epoch (send ?current get-Season))) then 
+	   (return FALSE)
+	 )
+   )
+   (return TRUE)
+  else 
+   (return FALSE)
+  )
+)
+        	
+;(return-plates-of-season 
+(deffunction return-plates-of-season (?plates ?epoch) 
+	(bind ?encontrado FALSE)
+	(if (neq ?plates FALSE) then	
+		(bind ?plates (create$ ?plates))
+
+		(if (> (length ?plates) 0) then
+			(loop-for-count (?i 1 (length ?plates))
+				(if (check-plate-for-season (nth$ ?i ?plates) ?epoch) then
+				 (if (eq ?encontrado FALSE) then
+				   (bind ?encontrado TRUE)
+				   (bind ?ins (nth$ ?i ?plates))
+				  else
+				   (bind ?ins (create$ ?ins (nth$ ?i ?plates)))
+				 )
+				)
+			)
+		)
+	)
+	(if (eq ?encontrado FALSE) then
+		(bind ?ins FALSE)
+	)
+	(return ?ins)
+)
 
 
 (deffunction filtrar-multi-por (?li ?sl ?const)
@@ -797,6 +1088,16 @@
 		(bind ?ins FALSE)
 	)
 	(return ?ins)
+)
+
+(deffunction filtrar-single-por-group (?li ?sl $?const)
+	(bind ?result (create$))
+	(loop-for-count (?i 1 (length $?const))
+		(bind ?current (nth$ ?i $?const))
+		(bind ?lista (filtrar-single-por ?li ?sl ?current))
+		(bind ?result (insert$ ?result 1 ?lista))
+	)
+	(return ?result)
 )
 
 (deffunction random-slot ( ?li )
@@ -1298,6 +1599,8 @@
 	;hay que filtrar....
 	(bind ?*seconds* (filtrar-multi-por ?*seconds* get-Style Experimental ))
 	(bind ?*firsts*(filtrar-multi-por ?*firsts*    get-Style Experimental ))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 1 - no more seconds" crlf) (halt))	
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 1 - no more firsts" crlf) (halt))	
 	;(printout t "DEBUG: Only experimental second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
@@ -1309,6 +1612,7 @@
 	(abstract-info (experimental yes))
 	=>
 	(bind ?*seconds*(filtrar-multi-por ?*seconds* get-Style Experimental))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 3 - no more seconds" crlf) (halt))	
 )
 ;Rule 5: if (wants-to-impress=a bit) -> first dish is Experimental
 (defrule a-bit-experimental ""
@@ -1316,29 +1620,36 @@
 	(abstract-info (experimental no))
 	=>
 	(bind ?*firsts*(filtrar-multi-por ?*firsts* get-Style Experimental))
+	(if (eq  ?*firsts* FALSE) then (printout t "Rule 5 - no more firsts" crlf) (halt))	
 )
 
 
 ;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
-;(defrule season-is-x ""
-;	(abstract-info (season ?x))
-;	=>
-;	(switch ?x
-;	(case summer then (bind ?epoch Summer))
-;	(case winter then (bind ?epoch Winter))
-;	(case autumn then (bind ?epoch Autumn))
-;	(case spring then (bind ?epoch Spring))
-;	)
-;	(bind ?*firsts* (filtrar-multi-por ?*firsts* get-Season ?epoch))
-;	;(printout t "DEBUG: Only seasonal second dishes:" crlf)
-;	;(imprime-todo ?*seconds*)
-;)
+(defrule season-is-x ""
+	(abstract-info (season ?x))
+	=>
+	(switch ?x
+	(case summer then (bind ?epoch Summer))
+	(case winter then (bind ?epoch Winter))
+	(case autumn then (bind ?epoch Autumn))
+	(case spring then (bind ?epoch Spring))
+	)
+	(bind ?*firsts* (return-plates-of-season ?*firsts* ?epoch))
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 6 - no more firsts" crlf) (halt))	
+	;(printout t "DEBUG: Only seasonal first dishes:" crlf)
+	;(imprime-todo ?*firsts*)
+	(bind ?*seconds* (return-plates-of-season ?*seconds* ?epoch))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 6 - no more seconds" crlf) (halt))	
+	;(printout t "DEBUG: Only seasonal second dishes:" crlf)
+	;(imprime-todo ?*seconds*)
+)
 
 ;Rule 10 : if (children=many) -> main dish has to be highly friendly
 (defrule children-are-many ""
 	(abstract-info (children many))
 	=>
 	(bind ?*seconds*(filtrar-single-por ?*seconds* get-Friendliness High))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 10 - no more seconds" crlf) (halt))	
 	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
@@ -1347,7 +1658,8 @@
 (defrule children-are-medium ""
 	(or (abstract-info (children medium)) (abstract-info (children few)))
 	=>
-	(bind ?*seconds*(filtrar-single-por ?*seconds* get-Friendliness Average ))
+	(bind ?*seconds*(filtrar-single-por-group ?*seconds* get-Friendliness Average High ))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 11 - no more seconds" crlf) (halt))	
 	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
@@ -1355,12 +1667,13 @@
 (defrule print-abstract-results ""
 	(declare (salience -1))
 =>
-	
 	(printout t "DEBUG: Possible First Dishes, at the end of the heuristic selection:" crlf)
-	(imprime-todo ?*firsts*)
+	(if (eq ?*firsts* FALSE) then (printout t "No firsts available." crlf)(halt)
+	else (imprime-todo ?*firsts*))
 
 	(printout t "DEBUG: Possible Second Dishes, at the end of the heuristic selection:" crlf)
-	(imprime-todo ?*seconds*)
+	(if (eq ?*seconds* FALSE) then (printout t "No seconds available." crlf)(halt)
+	else (imprime-todo ?*seconds*))
 )
 
 (defrule create-inicial-instance ""
@@ -1400,6 +1713,7 @@
                               (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegetarian) ))
  		              (bind ?first (random-slot ?li))
                               (send ?x put-FirstDish ?first)
+			      
   ) 
   (if (eq ?v vegan) then
                               (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegan) ))
