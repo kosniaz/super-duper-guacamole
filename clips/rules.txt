@@ -45,7 +45,7 @@ Rules:
 kosmas
 
 Goals: 
-.Deal with the drinks (perhaps determine afterwards, in accordance with the Second Dish
+.Deal with the drinks (One for each dish)
 .Deal with the money problem: Ask for a budget, then sort all the possible menu there can be (there should not be many, after
 all we've deleted lots of dishes). Then we send the cheapest ones, the middle price, and the most-expensive ones (but still 
 within budget)
@@ -56,7 +56,10 @@ and then in the refinement part we make three menus, one with the lowest possibl
 						     more expensive than cheapest+(1/4)*(budget-cheapest).
 						     one with random values until we get something that's more expensive than 							  cheapest+(3/4)*(budget-cheapest) (but still within budget). If there is 						       no such menu, then it's ok.
 .allergies! (refinenment)
+.compatibilades 
+.compa
 .
 
 
+first 
 

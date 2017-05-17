@@ -1,4 +1,4 @@
-;secondsTe gusta la alta cocina?
+1;secondsTe gusta la alta cocina?
 ;Que estilo te gusta?
 ;preguntas tipo test de psicología (con respuestas de 1 a 10)
 ;religion!
@@ -33,6 +33,29 @@
 ;;****************
 ;;* DEFFUNCTIONS *
 ;;****************
+(deffunction keep-cheaper-than (?plates ?price) 
+	(bind ?encontrado FALSE)
+	(if (neq ?plates FALSE) then	
+		(bind ?plates (create$ ?plates))
+
+		(if (> (length ?plates) 0) then
+			(loop-for-count (?i 1 (length ?plates))
+				(if (< (send (nth$ ?i ?plates) get-DishPrice) ?price) then ;if the condition is true, we keep the plate
+				 (if (eq ?encontrado FALSE) then
+				   (bind ?encontrado TRUE)
+				   (bind ?ins (nth$ ?i ?plates))
+				  else
+				   (bind ?ins (create$ ?ins (nth$ ?i ?plates)))
+				 )
+				)
+			)
+		)
+	)
+	(if (eq ?encontrado FALSE) then
+		(bind ?ins FALSE)
+	)
+	(return ?ins)
+)
 (deffunction check-plate-for-season (?plate ?epoch) " "
   (bind $?ing (send ?plate get-Ingredients) );?
   (if (> (length $?ing) 0 ) then
@@ -47,8 +70,7 @@
    (return FALSE)
   )
 )
-        	
-;(return-plates-of-season 
+
 (deffunction return-plates-of-season (?plates ?epoch) 
 	(bind ?encontrado FALSE)
 	(if (neq ?plates FALSE) then	
@@ -279,6 +301,7 @@
 ;;;* TEMPLATES *
 ;;;*************
 (deftemplate target-event "Event for which the recommendation shall be done"
+    (slot budget-per-person)
     (slot type)
     (slot subtype)
     (slot guests)
@@ -293,6 +316,7 @@
 )
 
 (deftemplate abstract-info
+	(slot poor-or-rich )
 	(slot wants-to-impress)
  	(slot  guests )
  	(slot  children)
@@ -321,8 +345,8 @@
 ;;; Initial fact
 
 (deffacts initial-facts
-
     (target-event
+	(budget-per-person unknown)
         (type unknown)
         (season unknown)
 	(guests unknown)
@@ -337,6 +361,7 @@
     )
 
     (abstract-info 
+	(poor-or-rich unknown)
  	(wants-to-impress unknown)
  	(guests unknown)
  	(children unknown)
@@ -358,17 +383,33 @@
 ;;;* QUERY RULES *
 ;;;***************
 
+;get budget
+(defrule determine-budget ""
+    (guests-determined)
+    (not (budget-determined))
+    ?e <-(target-event (budget-per-person unknown))
+    (target-event (guests ?num))
+=>
+    (bind ?res (ask-integer-question "What is your budget in total, in euros? (between 1 and 1000000) " 1 1000000))
+    (assert (budget-determined))
+    (bind ?bpp (div ?res ?num))
+    (modify ?e (budget-per-person ?bpp))
+    (printout t "DEBUG: Budget per person is ")
+    (printout t ?bpp )
+    (printout t " euros" crlf)
+)
+
+
+;kosmas: pensamientos mal escritos
+;3 el problema esta solucionado
+;refinamiento
+;
+;menu mas barato 
+;random
+;menu mas caro
 
 
 ;;; Get the season in which the event is going to be done
-(defrule determine-event-season ""
-    (not (season-determined))
-    ?e <-(target-event (season unknown))
-=>
-    (bind ?res (ask-question "In what season of the year are you planning to have the event? (spring/summer/autumn/winter)" spring summer autumn winter))
-    (assert (season-determined))
-    (modify ?e (season ?res))
-)
 
 ;;; Get the generic type of the event
 (defrule determine-event-type ""
@@ -450,6 +491,18 @@
 
 ;kosmas: possible question: are the guests good friends of event organizer))
 
+(defrule determine-event-season ""
+    (not (season-determined))
+    ?e <-(target-event (season unknown))
+=>
+   (if (yes-or-no-p "Are you in favor of using only fresh food (yes/no)? ") then 
+    (bind ?res (ask-question "In what season of the year are you planning to have the event? (spring/summer/autumn/winter)" spring summer autumn winter))
+    (assert (season-determined))
+    (modify ?e (season ?res))
+   else 
+    (modify ?e (season dont-care))
+   )
+)
 
 (defrule determine-vegan ""
    (not (isVeganVegeterian ?))
@@ -506,6 +559,21 @@
 
 ;Kosmas:here we determine the value of the abstract data slot wants-to-impress: 
 ;the use of many rules is not necessary, it can be done in one. 
+
+
+;3-6
+
+;poor-or-rich unknown
+
+(defrule determine-poor-or-rich "" 
+	(not (determined-poor-or-rich))
+         ?x <- (abstract-info (poor-or-rich unknown))
+         (target-event (budget-per-person ?bud))
+      =>
+	(if (< ?bud  40) then (modify ?x (poor-or-rich poor)) (printout t "DEBUG: Poor " crlf) 
+	else (modify ?x (poor-or-rich rich))) 
+    	(assert (determined-poor-or-rich))
+)
 
 (defrule wants-to-impress ""
      (not (determined-wants-to-impress))
@@ -633,8 +701,8 @@
 	;hay que filtrar....
 	(bind ?*seconds* (filtrar-multi-por ?*seconds* get-Style Experimental ))
 	(bind ?*firsts*(filtrar-multi-por ?*firsts*    get-Style Experimental ))
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 1 - no more seconds" crlf) (halt))	
-	(if (eq ?*firsts* FALSE) then (printout t "Rule 1 - no more firsts" crlf) (halt))	
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 1 (experimental superhigh) - no more seconds" crlf) (halt))	
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 1 (experimental superhigh)- no more firsts" crlf) (halt))	
 	;(printout t "DEBUG: Only experimental second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
@@ -646,7 +714,7 @@
 	(abstract-info (experimental yes))
 	=>
 	(bind ?*seconds*(filtrar-multi-por ?*seconds* get-Style Experimental))
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 3 - no more seconds" crlf) (halt))	
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 3 (experimental high)- no more seconds" crlf) (halt))	
 )
 ;Rule 5: if (wants-to-impress=a bit) -> first dish is Experimental
 (defrule a-bit-experimental ""
@@ -654,13 +722,14 @@
 	(abstract-info (experimental no))
 	=>
 	(bind ?*firsts*(filtrar-multi-por ?*firsts* get-Style Experimental))
-	(if (eq (length$ ?*firsts*) 0) then (printout t "Rule 5 - no more firsts" crlf) (halt))	
+	(if (eq (length$ ?*firsts*) 0) then (printout t "Rule 5 (experimental)- no more firsts" crlf) (halt))	
 )
 
 
 ;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
 (defrule season-is-x ""
 	(abstract-info (season ?x))
+	(not (abstract-info (season dont-care)))
 	=>
 	(switch ?x
 	(case summer then (bind ?epoch Summer))
@@ -669,11 +738,11 @@
 	(case spring then (bind ?epoch Spring))
 	)
 	(bind ?*firsts* (return-plates-of-season ?*firsts* ?epoch))
-	(if (eq ?*firsts* FALSE) then (printout t "Rule 6 - no more firsts" crlf) (halt))	
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 6 (season) - no more firsts" crlf) (halt))	
 	;(printout t "DEBUG: Only seasonal first dishes:" crlf)
 	;(imprime-todo ?*firsts*)
 	(bind ?*seconds* (return-plates-of-season ?*seconds* ?epoch))
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 6 - no more seconds" crlf) (halt))	
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 6 (season) - no more seconds" crlf) (halt))	
 	;(printout t "DEBUG: Only seasonal second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
@@ -683,7 +752,7 @@
 	(abstract-info (children many))
 	=>
 	(bind ?*seconds*(filtrar-single-por ?*seconds* get-Friendliness High))
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 10 - no more seconds" crlf) (halt))	
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 10 (children)- no more seconds" crlf) (halt))	
 	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
@@ -693,10 +762,22 @@
 	(or (abstract-info (children medium)) (abstract-info (children few)))
 	=>
 	(bind ?*seconds*(filtrar-single-por-group ?*seconds* get-Friendliness Average High ))
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 11 - no more seconds" crlf) (halt))	
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 11 (children)- no more seconds" crlf) (halt))	
 	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
 )
+
+;Rule 12: if (poor-or-rich=poor) -> exclude expensive first (>8)  and seconds  (>13)
+
+(defrule remove-expensive-plates ""
+	(abstract-info (poor-or-rich poor))
+	=>
+	(bind ?*firsts* (keep-cheaper-than ?*firsts* 8))
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 12 (money) - no more firsts." crlf)(halt))
+	(bind ?*seconds* (keep-cheaper-than ?*seconds* 13))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 12 (money)- no more seconds" crlf) (halt))	
+)		
+
 
 (defrule print-abstract-results ""
 	(declare (salience -1))
@@ -787,5 +868,3 @@
  =>
  (send ?x printName)
  (halt))
-
-;;;;;;;;;;;;; Message-handlers
