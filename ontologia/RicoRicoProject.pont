@@ -1,4 +1,4 @@
-; Wed May 17 14:11:13 CEST 2017
+; Wed May 17 16:44:47 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -124,7 +124,7 @@
 		(create-accessor read-write))
 	(single-slot DrinkType
 		(type SYMBOL)
-		(allowed-values Water Wine Sake Refreshment Juice)
+		(allowed-values Water Wine Sake Refreshment Juice Other Beer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot DishType
@@ -255,7 +255,7 @@
 		(create-accessor read-write))
 	(single-slot DrinkType
 		(type SYMBOL)
-		(allowed-values Water Wine Sake Refreshment Juice)
+		(allowed-values Water Wine Sake Refreshment Juice Other Beer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot DrinkName
@@ -285,8 +285,4 @@
 		(type SYMBOL)
 		(allowed-values Fruit Vegetable Fish Dairy Meat Other)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot IsInDish
-		(type INSTANCE)
-;+		(allowed-classes Dish)
 		(create-accessor read-write)))
