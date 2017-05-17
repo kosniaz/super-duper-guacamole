@@ -1,4 +1,4 @@
-; Tue May 16 16:44:12 CEST 2017
+; Wed May 17 14:11:13 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -19,43 +19,49 @@
 ;+		(allowed-classes Second)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
+	(single-slot Disponibility
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot IsInDish
+		(type INSTANCE)
+;+		(allowed-classes Dish)
+		(create-accessor read-write))
 	(single-slot FamilyEventType
 ;+		(comment "Describes the type of family event")
 		(type SYMBOL)
 		(allowed-values Marriage Baptism Communion)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(multislot IsInDish
+	(multislot IncompatibilityW2
+;+		(comment "Exprime la incompatibilidad de un primero respecto al segundo")
 		(type INSTANCE)
-;+		(allowed-classes Dish)
-		(create-accessor read-write))
-	(single-slot Disponibility
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot IngredientName
-		(type STRING)
-;+		(cardinality 1 1)
+;+		(allowed-classes Second)
+		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
 	(single-slot DrinkPrice
 		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot IngredientName
+		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot DishName
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Period
-		(type INSTANCE)
-;+		(allowed-classes)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot DessertDish
 ;+		(comment "Recommended dessert for the menu")
 		(type INSTANCE)
 ;+		(allowed-classes Dessert)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Period
+		(type INSTANCE)
+;+		(allowed-classes)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot RicoRicoProject_Class27
 		(type STRING)
@@ -121,16 +127,21 @@
 		(allowed-values Water Wine Sake Refreshment Juice)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
+	(single-slot DishType
+		(type SYMBOL)
+		(allowed-values Vegetarian Vegan Fruitarian)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(multislot MenuDrink
 ;+		(comment "The drink/s selected for the menu")
 		(type INSTANCE)
 ;+		(allowed-classes Drink)
 		(cardinality 1 3)
 		(create-accessor read-write))
-	(single-slot DishType
-		(type SYMBOL)
-		(allowed-values Vegetarian Vegan Fruitarian)
-;+		(cardinality 0 1)
+	(multislot IncompatibilityDW2
+		(type INSTANCE)
+;+		(allowed-classes Second)
+		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
 	(single-slot RicoRicoProject_Class10005
 		(type STRING)
@@ -180,14 +191,14 @@
 		(type SYMBOL)
 		(allowed-values Classic Modern Regional Gourmet Experimental Fun)
 		(create-accessor read-write))
+	(single-slot DishName
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot DishInfo
 ;+		(comment "A brief (or detailed) description of the dish")
 		(type STRING)
 ;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DishName
-		(type STRING)
-;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot DishPrice
 		(type FLOAT)
@@ -197,18 +208,14 @@
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(multislot Ingredients
-		(type INSTANCE)
-;+		(allowed-classes Ingredient)
-		(create-accessor read-write))
 	(single-slot DishType
 		(type SYMBOL)
 		(allowed-values Vegetarian Vegan Fruitarian)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(multislot Compatibility
+	(multislot Ingredients
 		(type INSTANCE)
-;+		(allowed-classes Dish)
+;+		(allowed-classes Ingredient)
 		(create-accessor read-write))
 	(single-slot Friendliness
 		(type SYMBOL)
@@ -218,7 +225,13 @@
 
 (defclass First
 	(is-a Dish)
-	(role concrete))
+	(role concrete)
+	(multislot IncompatibilityW2
+;+		(comment "Exprime la incompatibilidad de un primero respecto al segundo")
+		(type INSTANCE)
+;+		(allowed-classes Second)
+		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write)))
 
 (defclass Second
 	(is-a Dish)
@@ -226,28 +239,33 @@
 
 (defclass Dessert
 	(is-a Dish)
-	(role concrete))
+	(role concrete)
+	(multislot IncompatibilityDW2
+		(type INSTANCE)
+;+		(allowed-classes Second)
+		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write)))
 
 (defclass Drink "Describe las babidas"
 	(is-a USER)
 	(role concrete)
+	(single-slot DrinkPrice
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot DrinkType
 		(type SYMBOL)
 		(allowed-values Water Wine Sake Refreshment Juice)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot DrinkPrice
-		(type FLOAT)
-;+		(cardinality 1 1)
+	(single-slot DrinkName
+		(type STRING)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(multislot DishCompatibility
 ;+		(comment "Relacion que describe la compatibilidad de las bebidas con los platos")
 		(type INSTANCE)
 ;+		(allowed-classes Dish)
-		(create-accessor read-write))
-	(single-slot DrinkName
-		(type STRING)
-;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
 (defclass Ingredient
