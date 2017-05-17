@@ -1,4 +1,4 @@
-1;secondsTe gusta la alta cocina?
+
 ;Que estilo te gusta?
 ;preguntas tipo test de psicología (con respuestas de 1 a 10)
 ;religion!
@@ -14,12 +14,47 @@
 )
 (defglobal ?*firsts* = FALSE)
 (defglobal ?*seconds* = FALSE )
+(defglobal ?*desserts* = FALSE )
 (defglobal ?*drinks* = FALSE )
 
 
-(defmessage-handler Menu printName primary ()
-  (printout t "First Dish: " crlf)
+(defmessage-handler Menu printInfo primary ()
+  (printout t "First Dish: " )
   (send ?self:FirstDish printName)
+  (send ?self:FirstDish printPrice)
+  (printout t "Second Dish: " )
+  (send ?self:SecondDish printName)
+  (send ?self:SecondDish printPrice)
+  (printout t "Dessert: " )
+  (send ?self:DessertDish printName) 
+  (send ?self:DessertDish printPrice) 
+  (printout t "Drink : ") 
+  (send (nth$ 1 ?self:MenuDrink) printName) 
+  (send (nth$ 1 ?self:MenuDrink) printPrice) ;TODO: fix this multislot shit
+  (printout t "Total Price : ") 
+  (bind ?sum (+ (send ?self:FirstDish get-DishPrice)  (send ?self:SecondDish get-DishPrice)
+  (send ?self:DessertDish get-DishPrice)(send (nth$ 1 ?self:MenuDrink) get-DrinkPrice)))
+  (printout t ?sum)
+  (printout t crlf)
+
+)
+(defmessage-handler Drink printPrice primary ()
+  (printout t "Price: ")
+  (bind ?name ?self:DrinkPrice)
+  (printout t ?name) 
+  (printout t crlf)
+)
+
+(defmessage-handler Drink printName primary ()
+  (printout t "Drink Name: ")
+  (bind ?name ?self:DrinkName)
+  (printout t ?name) 
+  (printout t crlf)
+)
+(defmessage-handler Dish printPrice primary ()
+  (printout t "Price: ")
+  (bind ?name ?self:DishPrice)
+  (printout t ?name) 
   (printout t crlf)
 )
 
@@ -30,14 +65,86 @@
   (printout t crlf)
 )
 
+(defmessage-handler Dish get-DishPricee primary ()
+  (bind ?price ?self:DishPrice)
+  (return ?price)
+)
+
+
 ;;****************
 ;;* DEFFUNCTIONS *
 ;;****************
+
+(deffunction eliminar-incompatible-firsts(?li ?sl ?const)
+	(bind ?encontrado FALSE)
+	(if (neq ?li FALSE) then	
+		(bind ?li (create$ ?li))
+
+		(if (> (length ?li) 0) then
+			(loop-for-count (?i 1 (length ?li))
+				(bind $?v (send (nth$ ?i ?li) ?sl))
+				(if (not (member$ ?const $?v)) then
+				 (if (eq ?encontrado FALSE) then
+				   (bind ?encontrado TRUE)
+				   (bind ?ins (nth$ ?i ?li))
+				  else
+				   (bind ?ins (create$ ?ins (nth$ ?i ?li)))
+				 )
+				)
+			)
+		)
+	)
+	(if (eq ?encontrado FALSE) then
+		(bind ?ins FALSE)
+	)
+	(return ?ins)
+)
+
+
+(deffunction minimum-slot (?li ?sl ?init)
+ (bind ?min ?init)
+ (if (eq ?li FALSE) then (halt))
+ (loop-for-count (?i 1 (length ?li))
+   (bind ?curr (send (nth$ ?i ?li) ?sl))
+   (bind ?minim (send ?min ?sl))
+   (if (< ?curr ?minim)
+     then 
+          (bind ?min (nth$ ?i ?li))
+   )
+  )
+  (return ?min)
+)
+
+(deffunction keep-drinks-cheaper-than (?drinks ?price) 
+	(bind ?encontrado FALSE)
+	(if (neq ?drinks FALSE) then	
+		(bind ?drinks (create$ ?drinks))
+		(printout t "Entrado" crlf)
+		(if (> (length ?drinks) 0) then
+			(loop-for-count (?i 1 (length ?drinks))
+				(if (< (send (nth$ ?i ?drinks) get-DrinkPrice) ?price) then ;if the condition is true, we keep the plate
+				 (if (eq ?encontrado FALSE) then
+				   (bind ?encontrado TRUE)
+				   (bind ?ins (nth$ ?i ?drinks))
+				  else
+				   (bind ?ins (create$ ?ins (nth$ ?i ?drinks)))
+				 )
+				)
+			)
+		)
+	)
+	(if (eq ?encontrado FALSE) then
+		(bind ?ins FALSE)
+	)
+	(return ?ins)
+)
+
+
 (deffunction keep-cheaper-than (?plates ?price) 
 	(bind ?encontrado FALSE)
 	(if (neq ?plates FALSE) then	
 		(bind ?plates (create$ ?plates))
-
+		(printout t "Entrado" crlf)
 		(if (> (length ?plates) 0) then
 			(loop-for-count (?i 1 (length ?plates))
 				(if (< (send (nth$ ?i ?plates) get-DishPrice) ?price) then ;if the condition is true, we keep the plate
@@ -96,7 +203,7 @@
 )
 
 
-(deffunction filtrar-multi-por (?li ?sl ?const)
+(deffunction filtrar-multi-por (?li ?sl ?const )
 	(bind ?encontrado FALSE)
 	(if (neq ?li FALSE) then	
 		(bind ?li (create$ ?li))
@@ -176,10 +283,49 @@
 )
 ) 
 
+
+(deffunction create-random-menu () "" 
+	(bind ?list ?*seconds*)
+	(bind ?min (random-slot ?list))
+
+	(bind ?possiblefirsts ?*firsts*)
+	(bind ?possiblefirsts (eliminar-incompatible-firsts ?possiblefirsts get-IncompatibilityW2 ?min))
+	(bind ?min1 (random-slot ?possiblefirsts))
+		
+	(bind ?possibledesserts ?*desserts*)
+	(bind ?possibledesserts (eliminar-incompatible-firsts ?possibledesserts get-IncompatibilityDW2 ?min))
+        
+	(bind ?minDe (random-slot ?possibledesserts))
+	
+	(bind ?minDr (random-slot ?*drinks*))
+	
+        (bind ?ins (make-instance [cheap-menu] of Menu))		
+	(send ?ins put-FirstDish ?min1 )
+	(send ?ins put-SecondDish ?min) 
+	(send ?ins put-DessertDish ?minDe)
+        (send ?ins put-MenuDrink (create$ ?minDr))
+	
+	(printout t "Proudly announcing our random menu!!" crlf)
+	(send ?ins printInfo)
+        (printout t crlf)
+	(assert (cheap-menu-created))
+)
+
+
 (deffunction imprime-todo (?v)
 (if (> (length$ ?v) 0) then
 (loop-for-count (?i 1 (length ?v))
 (send (nth$ ?i ?v) print)
+(printout t crlf)
+)
+)
+)
+
+(deffunction print-plates-list(?v)
+(if (and (> (length$ ?v) 0) (neq ?v FALSE)) then
+(loop-for-count (?i 1 (length ?v))
+(bind ?name (send (nth$ ?i ?v) get-DishName))
+(printout t ?name)	
 (printout t crlf)
 )
 )
@@ -570,7 +716,7 @@
          ?x <- (abstract-info (poor-or-rich unknown))
          (target-event (budget-per-person ?bud))
       =>
-	(if (< ?bud  40) then (modify ?x (poor-or-rich poor)) (printout t "DEBUG: Poor " crlf) 
+	(if (< ?bud  28) then (modify ?x (poor-or-rich poor)) (printout t "DEBUG: Poor " crlf) 
 	else (modify ?x (poor-or-rich rich))) 
     	(assert (determined-poor-or-rich))
 )
@@ -688,6 +834,7 @@
 	=>
 	(bind ?*firsts* (find-all-instances ((?ins First)) TRUE))
 	(bind ?*seconds* (find-all-instances ((?ins Second)) TRUE))
+	(bind ?*desserts*(find-all-instances ((?ins Dessert)) TRUE))
 	(bind ?*drinks* (find-all-instances ((?ins Drink)) TRUE))	
 	(assert (data-structs-initialized))
 )	
@@ -767,15 +914,19 @@
 	;(imprime-todo ?*seconds*)
 )
 
-;Rule 12: if (poor-or-rich=poor) -> exclude expensive first (>8)  and seconds  (>13)
+;Rule 12: if (poor-or-rich=poor) -> exclude expensive first (>8) and seconds (>13)
 
 (defrule remove-expensive-plates ""
 	(abstract-info (poor-or-rich poor))
 	=>
-	(bind ?*firsts* (keep-cheaper-than ?*firsts* 8))
+	(bind ?*firsts* (keep-cheaper-than ?*firsts* 7))
 	(if (eq ?*firsts* FALSE) then (printout t "Rule 12 (money) - no more firsts." crlf)(halt))
-	(bind ?*seconds* (keep-cheaper-than ?*seconds* 13))
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 12 (money)- no more seconds" crlf) (halt))	
+	(bind ?*seconds* (keep-cheaper-than ?*seconds* 12))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 13 (money)- no more seconds" crlf) (halt))	
+	(bind ?*desserts* (keep-cheaper-than ?*desserts* 6 ))
+	(if (eq ?*desserts* FALSE) then (printout t "Rule 12 (money)- no more desserts" crlf) (halt))	
+	(bind ?*drinks* (keep-drinks-cheaper-than ?*drinks* 6))
+	(if (eq ?*drinks* FALSE) then (printout t "Rule 12 (money)- no more drinks" crlf) (halt))	
 )		
 
 
@@ -784,11 +935,11 @@
 =>
 	(printout t "DEBUG: Possible First Dishes, at the end of the heuristic selection:" crlf)
 	(if (eq ?*firsts* FALSE) then (printout t "No firsts available." crlf)(halt)
-	else (imprime-todo ?*firsts*))
+	else (print-plates-list ?*firsts*))
 
 	(printout t "DEBUG: Possible Second Dishes, at the end of the heuristic selection:" crlf)
 	(if (eq ?*seconds* FALSE) then (printout t "No seconds available." crlf)(halt)
-	else (imprime-todo ?*seconds*))
+	else (print-plates-list ?*seconds*))
 )
 
 (defrule create-inicial-instance ""
@@ -814,9 +965,22 @@
     (import module-event-info-gathering ?ALL)
     (import module-menu-info-gathering ?ALL)
     (import module-dish-info-gathering ?ALL)
+    (import module-convert-to-abstract ?ALL)
     (import module-build-abstract-solution ?ALL)
     (export ?ALL)
 )
+
+(defrule create-cheap-menu ""
+	(not (cheap-menu-created))
+	=>
+	(create-random-menu )	
+	(create-random-menu ) 	
+	(create-random-menu )	
+	(create-random-menu )	
+	(create-random-menu )	
+	(create-random-menu )	
+	(assert (cheap-menu-created))
+) 
 
 ;overly simplified first dish selection rule.
 ;careful, we need to have instances:
@@ -864,7 +1028,7 @@
 )
 
 (defrule announce-dishes ""
-  ?x <- (object (is-a Menu))
+ ; ?x <- (object (is-a Menu))
  =>
- (send ?x printName)
+ ;(send ?x printInfo)
  (halt))
