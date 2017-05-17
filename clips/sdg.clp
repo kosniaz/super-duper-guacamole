@@ -1288,7 +1288,8 @@
 
 (deffacts initial-facts
 
-    (target-event
+    (target-events
+	(budget-per-person unknown)
         (type unknown)
         (season unknown)
 	(guests unknown)
@@ -1303,6 +1304,7 @@
     )
 
     (abstract-info 
+	(poor-or-rich unknown)
  	(wants-to-impress unknown)
  	(guests unknown)
  	(children unknown)
@@ -1312,6 +1314,7 @@
     )
 
     (abstract-filters
+	(menu-cheap unknown)
 	(menu-is-gourmet unknown)
 	(menu-is-experimental  unknown)
 	(menu-is-kid-friendly unknown)
@@ -1323,6 +1326,21 @@
 ;;;***************
 ;;;* QUERY RULES *
 ;;;***************
+
+(defrule determine-budget""
+    (guests-determined)
+    (not (budget-determined))
+    ?e <-(target-event (budget unknown))
+    (target-event (guests ?num))
+=>
+    (bind ?res (ask-integer-question "What is your budget in total, in euros? (between 1 and 1000000) " 1 1000000))
+    (assert (budget-determined))
+    (bind ?bpp (div ?res ?num))
+    (modify ?e (budget-per-person ?bpp))
+    (printout t "DEBUG: budget per person is ")
+    (printout t ?bpp crlf)
+)
+
 
 
 
@@ -1351,9 +1369,10 @@
     (not (guests-determined))
     ?e <-(target-event (guests unknown))
 =>
-    (bind ?res (ask-integer-question "How many people are we expecting? (Range of people between 1 and 100000) " 1 100000))
+    (bind ?res (ask-integer-question "How many people are we expecting? (Range of people between 1 and 10000) " 1 100000))
     (assert (guests-determined))
     (modify ?e (guests ?res))
+    (modify 
 )
 
 ;;; Get the "subtype" of event which depends on the type, this is for Family
