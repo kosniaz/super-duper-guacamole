@@ -38,6 +38,13 @@
   (printout t crlf)
 
 )
+(defmessage-handler Menu get-Price primary ()
+  (bind ?sum (+ (send ?self:FirstDish get-DishPrice)  (send ?self:SecondDish get-DishPrice)
+  (send ?self:DessertDish get-DishPrice)(send (nth$ 1 ?self:MenuDrink) get-DrinkPrice)))
+  (return ?sum)
+)
+
+
 (defmessage-handler Drink printPrice primary ()
   (printout t "Price: ")
   (bind ?name ?self:DrinkPrice)
@@ -75,6 +82,53 @@
 ;;* DEFFUNCTIONS *
 ;;****************
 
+
+(deffunction minimum-slot (?li ?sl ?init)
+ (bind ?min ?init)
+ (if (eq ?li FALSE) then (halt))
+ (loop-for-count (?i 1 (length ?li))
+   (bind ?curr (send (nth$ ?i ?li) ?sl))
+   (bind ?minim (send ?min ?sl))
+   (if (< ?curr ?minim)
+     then 
+          (bind ?min (nth$ ?i ?li))
+   )
+  )
+  (return ?min)
+)
+(deffunction maximum-slot (?li ?sl ?init)
+ (bind ?min ?init)
+ (if (eq ?li FALSE) then (halt))
+ (loop-for-count (?i 1 (length ?li))
+   (bind ?curr (send (nth$ ?i ?li) ?sl))
+   (bind ?minim (send ?min ?sl))
+   (if (> ?curr ?minim)
+     then 
+          (bind ?min (nth$ ?i ?li))
+   )
+  )
+  (return ?min)
+)
+(deffunction findminprices () "" 
+	(bind ?min1 (send (minimum-slot ?*firsts* get-DishPrice (nth$ 1 ?*firsts*)) get-DishPrice)) 
+	(bind ?min2 (send (minimum-slot ?*seconds* get-DishPrice (nth$ 1 ?*seconds*)) get-DishPrice)) 
+	(bind ?min3 (send (minimum-slot ?*desserts* get-DishPrice(nth$ 1 ?*desserts*)) get-DishPrice)) 
+	(bind ?min4 (send (minimum-slot ?*drinks* get-DrinkPrice(nth$ 1 ?*drinks*)) get-DrinkPrice)) 
+	(bind ?min (+ ?min1 ?min2 ?min3 ?min4))
+	(printout t "Found menu cant cost less than" ?min " euros per person" crlf)
+	(return ?min)
+)
+
+(deffunction findmaxprices () "" 
+	(bind ?max1 (send (maximum-slot ?*firsts* get-DishPrice (nth$ 1 ?*firsts*)) get-DishPrice)) 
+	(bind ?max2 (send (maximum-slot ?*seconds* get-DishPrice (nth$ 1 ?*seconds*)) get-DishPrice)) 
+	(bind ?max3 (send (maximum-slot ?*desserts* get-DishPrice(nth$ 1 ?*desserts*)) get-DishPrice)) 
+	(bind ?max4 (send (maximum-slot ?*drinks* get-DrinkPrice(nth$ 1 ?*drinks*)) get-DrinkPrice)) 
+	(bind ?max (+ ?max1 ?max2 ?max3 ?max4))
+	(printout t "Found menu cant cost more than " ?max "euros per person"crlf)
+	(return ?max)
+)
+
 (deffunction eliminar-incompatible-firsts(?li ?sl ?const)
 	(bind ?encontrado FALSE)
 	(if (neq ?li FALSE) then	
@@ -98,21 +152,6 @@
 		(bind ?ins FALSE)
 	)
 	(return ?ins)
-)
-
-
-(deffunction minimum-slot (?li ?sl ?init)
- (bind ?min ?init)
- (if (eq ?li FALSE) then (halt))
- (loop-for-count (?i 1 (length ?li))
-   (bind ?curr (send (nth$ ?i ?li) ?sl))
-   (bind ?minim (send ?min ?sl))
-   (if (< ?curr ?minim)
-     then 
-          (bind ?min (nth$ ?i ?li))
-   )
-  )
-  (return ?min)
 )
 
 (deffunction keep-drinks-cheaper-than (?drinks ?price) 
@@ -283,6 +322,57 @@
 )
 ) 
 
+(deffunction create-most-expensive-menu() "" 
+	(bind ?list ?*seconds*)
+	(bind ?max (random-slot ?list))
+
+	(bind ?possiblefirsts ?*firsts*)
+	(bind ?possiblefirsts (eliminar-incompatible-firsts ?possiblefirsts get-IncompatibilityW2 ?max))
+	(bind ?max1 (maximum-slot ?possiblefirsts get-DishPrice (nth$ 1 ?possiblefirsts)))
+		
+	(bind ?possibledesserts ?*desserts*)
+	(bind ?possibledesserts (eliminar-incompatible-firsts ?possibledesserts get-IncompatibilityDW2 ?max))
+	(bind ?maxDe (maximum-slot ?possibledesserts get-DishPrice (nth$ 1 ?possibledesserts)))
+
+	(bind ?maxDr (maximum-slot ?*drinks* get-DrinkPrice (nth$ 1 ?*drinks*)))
+	
+        (bind ?ins (make-instance [expensive-menu] of Menu))		
+	(send ?ins put-FirstDish ?max1 )
+	(send ?ins put-SecondDish ?max) 
+	(send ?ins put-DessertDish ?maxDe)
+        (send ?ins put-MenuDrink (create$ ?maxDr))
+	
+	;(printout t "Proudly announcing our random menu!!" crlf)
+	;(send ?ins printInfo)
+        ;(printout t crlf)
+	(return ?ins)
+)
+
+(deffunction create-cheapest-menu() "" 
+	(bind ?list ?*seconds*)
+	(bind ?min (random-slot ?list))
+
+	(bind ?possiblefirsts ?*firsts*)
+	(bind ?possiblefirsts (eliminar-incompatible-firsts ?possiblefirsts get-IncompatibilityW2 ?min))
+	(bind ?min1 (minimum-slot ?possiblefirsts get-DishPrice (nth$ 1 ?possiblefirsts)))
+		
+	(bind ?possibledesserts ?*desserts*)
+	(bind ?possibledesserts (eliminar-incompatible-firsts ?possibledesserts get-IncompatibilityDW2 ?min))
+	(bind ?minDe (minimum-slot ?possibledesserts get-DishPrice (nth$ 1 ?possibledesserts)))
+
+	(bind ?minDr (minimum-slot ?*drinks* get-DrinkPrice (nth$ 1 ?*drinks*)))
+	
+        (bind ?ins (make-instance [cheap-menu] of Menu))		
+	(send ?ins put-FirstDish ?min1 )
+	(send ?ins put-SecondDish ?min) 
+	(send ?ins put-DessertDish ?minDe)
+        (send ?ins put-MenuDrink (create$ ?minDr))
+	
+	;(printout t "Proudly announcing our random menu!!" crlf)
+	;(send ?ins printInfo)
+        ;(printout t crlf)
+	(return ?ins)
+)
 
 (deffunction create-random-menu () "" 
 	(bind ?list ?*seconds*)
@@ -299,7 +389,7 @@
 	
 	(bind ?minDr (random-slot ?*drinks*))
 	
-        (bind ?ins (make-instance [cheap-menu] of Menu))		
+        (bind ?ins (make-instance [random-menu] of Menu))		
 	(send ?ins put-FirstDish ?min1 )
 	(send ?ins put-SecondDish ?min) 
 	(send ?ins put-DessertDish ?minDe)
@@ -970,16 +1060,111 @@
     (export ?ALL)
 )
 
-(defrule create-cheap-menu ""
+(defrule create-solution-menu ""
 	(not (cheap-menu-created))
 	=>
-	(create-random-menu )	
-	(create-random-menu ) 	
-	(create-random-menu )	
-	(create-random-menu )	
-	(create-random-menu )	
-	(create-random-menu )	
+
+	(bind ?list ?*seconds*)
+	(bind ?min (minimum-slot ?list get-DishPrice (nth$ 1 ?list)))
+
+	(bind ?possiblefirsts ?*firsts*)
+	(bind ?possiblefirsts (eliminar-incompatible-firsts ?possiblefirsts get-IncompatibilityW2 ?min))
+	(bind ?min1 (minimum-slot ?possiblefirsts get-DishPrice (nth$ 1 ?possiblefirsts)))
+		
+	(bind ?possibledesserts ?*desserts*)
+	(bind ?possibledesserts (eliminar-incompatible-firsts ?possibledesserts get-IncompatibilityDW2 ?min))
+	(bind ?minDe (minimum-slot ?possibledesserts get-DishPrice (nth$ 1 ?possibledesserts)))
+
+	(bind ?minDr (minimum-slot ?*drinks* get-DrinkPrice (nth$ 1 ?*drinks*)))
+	
+        (bind ?cheapest (make-instance [cheapest-menu] of Menu))		
+	(send ?cheapest put-FirstDish ?min1 )
+	(send ?cheapest put-SecondDish ?min) 
+	(send ?cheapest put-DessertDish ?minDe)
+        (send ?cheapest put-MenuDrink (create$ ?minDr))
+	
+	(bind ?list ?*seconds*)
+	(bind ?max (random-slot ?list))
+
+	(bind ?possiblefirsts ?*firsts*)
+	(bind ?possiblefirsts (eliminar-incompatible-firsts ?possiblefirsts get-IncompatibilityW2 ?max))
+	(bind ?max1 (maximum-slot ?possiblefirsts get-DishPrice (nth$ 1 ?possiblefirsts)))
+		
+	(bind ?possibledesserts ?*desserts*)
+	(bind ?possibledesserts (eliminar-incompatible-firsts ?possibledesserts get-IncompatibilityDW2 ?max))
+	(bind ?maxDe (maximum-slot ?possibledesserts get-DishPrice (nth$ 1 ?possibledesserts)))
+
+	(bind ?maxDr (maximum-slot ?*drinks* get-DrinkPrice (nth$ 1 ?*drinks*)))
+	
+        (bind ?mostexpensive (make-instance [expensive-menu] of Menu))		
+	(send ?mostexpensive put-FirstDish ?max1 )
+	(send ?mostexpensive put-SecondDish ?max) 
+	(send ?mostexpensive put-DessertDish ?maxDe)
+        (send ?mostexpensive put-MenuDrink (create$ ?maxDr))
+	
+
+ 	(bind ?minprice	(send ?cheapest get-Price))
+	(bind ?maxprice (send ?mostexpensive get-Price))
+	(bind ?found1 FALSE)
+	(bind ?found2 FALSE)
+	(bind ?found3 FALSE)
+ 	
+	(while (or (not ?found1)(not ?found2)(not ?found3)) do
+	 
+	 (bind ?list ?*seconds*)
+	 (bind ?min (random-slot ?list))
+	 (bind ?possiblefirsts ?*firsts*)
+	 (bind ?possiblefirsts (eliminar-incompatible-firsts ?possiblefirsts get-IncompatibilityW2 ?min))
+         (bind ?min1 (random-slot ?possiblefirsts))
+ 		
+	 (bind ?possibledesserts ?*desserts*)
+	 (bind ?possibledesserts (eliminar-incompatible-firsts ?possibledesserts get-IncompatibilityDW2 ?min))
+        
+	 (bind ?minDe (random-slot ?possibledesserts))
+	
+	 (bind ?minDr (random-slot ?*drinks*))
+	
+         (bind ?menu (make-instance [random-menu] of Menu))		
+	 (send ?menu put-FirstDish ?min1 )
+	 (send ?menu put-SecondDish ?min) 
+	 (send ?menu put-DessertDish ?minDe)
+         (send ?menu put-MenuDrink (create$ ?minDr))
+	 (bind ?menuprice (send ?menu get-Price))
+	 (if (and (not ?found1) (< ?menuprice (+ ?minprice (* 0.30 (- ?maxprice ?minprice))))) then
+		;this is considered cheap
+		(bind ?menu1 (make-instance [menu1] of Menu))
+	 	(active-duplicate-instance ?menu to ?menu1)	
+		(bind ?found1 TRUE)
+	 else (if (and (not ?found3) (> ?menuprice (+ ?minprice  (* 0.80 (- ?maxprice ?minprice))))) then
+		;this is considered expensive
+
+		(bind ?menu3 (make-instance [menu3] of Menu))
+	 	(active-duplicate-instance ?menu to ?menu3)	
+		(bind ?thirdmenu ?menu)
+		(bind ?found3 TRUE)
+	 else (if (not ?found2) then
+		(bind ?menu2 (make-instance [menu2] of Menu))
+	 	(active-duplicate-instance ?menu to ?menu2)	
+		(bind ?secondmenu ?menu)
+		(bind ?found2 TRUE))
+	))
+	)
+
+	(printout t "********************************************************************************************" crlf)	
+	(printout t "*****************************************RESULTS********************************************" crlf)	
+
+	(printout t "****************************************OPTION 1: ECONOMY MENU*******************************" crlf)	
+	(send ?menu1 printInfo)		
+
+	(printout t "****************************************OPTION 2: GOLD MENU*********************************" crlf)	
+	
+	(send ?menu2 printInfo)		
+
+	(printout t "****************************************OPTION 3: PLATINUM MENU***************************" crlf)	
+	(send ?menu3 printInfo)		
+
 	(assert (cheap-menu-created))
+
 ) 
 
 ;overly simplified first dish selection rule.
