@@ -1,4 +1,4 @@
-; Wed May 17 16:44:32 CEST 2017
+; Wed May 17 16:45:48 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,14 +20,14 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[RicoRicoProject_ProjectKB_Class10265]
-		[RicoRicoProject_ProjectKB_Class10266]
-		[RicoRicoProject_ProjectKB_Class10267]
-		[RicoRicoProject_ProjectKB_Class10268]
-		[RicoRicoProject_ProjectKB_Class10269]
-		[RicoRicoProject_ProjectKB_Class10270]
-		[RicoRicoProject_ProjectKB_Class10271]
-		[RicoRicoProject_ProjectKB_Class10272]))
+		[RicoRicoProject_ProjectKB_Class10287]
+		[RicoRicoProject_ProjectKB_Class10288]
+		[RicoRicoProject_ProjectKB_Class10289]
+		[RicoRicoProject_ProjectKB_Class10290]
+		[RicoRicoProject_ProjectKB_Class10291]
+		[RicoRicoProject_ProjectKB_Class10292]
+		[RicoRicoProject_ProjectKB_Class10293]
+		[RicoRicoProject_ProjectKB_Class10294]))
 
 ([CLSES_TAB] of  Widget
 
@@ -79,9 +79,9 @@
 ([KB_273644_Class1] of  Map
 
 	(entries
-		[RicoRicoProject_ProjectKB_Class10273]
-		[RicoRicoProject_ProjectKB_Class10274]
-		[RicoRicoProject_ProjectKB_Class10275]))
+		[RicoRicoProject_ProjectKB_Class10295]
+		[RicoRicoProject_ProjectKB_Class10296]
+		[RicoRicoProject_ProjectKB_Class10297]))
 
 ([KB_273644_Class100] of  Property_List
 )
@@ -560,61 +560,61 @@
 	(boolean_value FALSE)
 	(name "ButtonDisplayed-Delete Instance"))
 
-([RicoRicoProject_ProjectKB_Class10265] of  String
+([RicoRicoProject_ProjectKB_Class10287] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([RicoRicoProject_ProjectKB_Class10266] of  String
+([RicoRicoProject_ProjectKB_Class10288] of  String
 
 	(name "Drink")
 	(string_value "DrinkName"))
 
-([RicoRicoProject_ProjectKB_Class10267] of  String
+([RicoRicoProject_ProjectKB_Class10289] of  String
 
 	(name "First")
 	(string_value "DishName"))
 
-([RicoRicoProject_ProjectKB_Class10268] of  String
+([RicoRicoProject_ProjectKB_Class10290] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([RicoRicoProject_ProjectKB_Class10269] of  String
+([RicoRicoProject_ProjectKB_Class10291] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([RicoRicoProject_ProjectKB_Class10270] of  String
+([RicoRicoProject_ProjectKB_Class10292] of  String
 
 	(name "Ingredient")
 	(string_value "IngredientName"))
 
-([RicoRicoProject_ProjectKB_Class10271] of  String
+([RicoRicoProject_ProjectKB_Class10293] of  String
 
 	(name "Second")
 	(string_value "DishName"))
 
-([RicoRicoProject_ProjectKB_Class10272] of  String
+([RicoRicoProject_ProjectKB_Class10294] of  String
 
 	(name "Dessert")
 	(string_value "DishName"))
 
-([RicoRicoProject_ProjectKB_Class10273] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10295] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([RicoRicoProject_ProjectKB_Class10274] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10296] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([RicoRicoProject_ProjectKB_Class10275] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10297] of  Map_Entry
 
 	(key "suppress_instance_counting")
 	(key_class "java.lang.String")
