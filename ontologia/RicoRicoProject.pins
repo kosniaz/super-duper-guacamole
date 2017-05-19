@@ -1,4 +1,4 @@
-; Wed May 17 16:44:47 CEST 2017
+; Fri May 19 13:20:43 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -186,7 +186,11 @@
 
 	(DrinkName "Lambrusco Mantovano")
 	(DrinkPrice 2.0)
-	(DrinkType Wine))
+	(DrinkType Wine)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class40013]
+		[RicoRicoProject_Class50057]))
 
 ([RicoRicoProject_Class20020] of  Drink
 
@@ -550,7 +554,15 @@
 
 	(DrinkName "Champagne")
 	(DrinkPrice 12.0)
-	(DrinkType Wine))
+	(DrinkType Wine)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class40002]
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class50062]
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class40013]
+		[RicoRicoProject_Class50038]))
 
 ([RicoRicoProject_Class50000] of  First
 
@@ -1141,7 +1153,11 @@
 
 	(DrinkName "Carajillo")
 	(DrinkPrice 3.0)
-	(DrinkType Other))
+	(DrinkType Other)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class50040]
+		[RicoRicoProject_Class40002]
+		[RicoRicoProject_Class50060]))
 
 ([RicoRicoProject_Class50074] of  Drink
 
@@ -1179,3 +1195,50 @@
 	(DrinkName "Guinnes")
 	(DrinkPrice 3.0)
 	(DrinkType Beer))
+
+([RicoRicoProject_Class60000] of  Second
+
+	(DishName "Empanadas de Carne")
+	(DishPrice 5.0)
+	(Friendliness High)
+	(Ingredients [RicoRicoProject_Class30001])
+	(Style Classic Regional))
+
+([RicoRicoProject_Class60001] of  Second
+
+	(DishInfo "Plato tipico de Galizia")
+	(DishName "Polipo a feira")
+	(DishPrice 9.0)
+	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class50004]
+		[RicoRicoProject_Class30004]
+		[RicoRicoProject_Class50005])
+	(MaxNum 250)
+	(Style Classic Regional Gourmet))
+
+([RicoRicoProject_Class60002] of  Second
+
+	(DishInfo "Tipical spanish dish")
+	(DishName "Tortilla")
+	(DishPrice 3.0)
+	(DishType Vegetarian)
+	(Friendliness High)
+	(Ingredients
+		[RicoRicoProject_Class36]
+		[RicoRicoProject_Class20014])
+	(MaxNum 1000)
+	(Style Classic Regional))
+
+([RicoRicoProject_Class60003] of  Second
+
+	(DishInfo "Sushi tipico de Japon ideal para charlar")
+	(DishName "Sushi de Salmon")
+	(DishPrice 6.0)
+	(Friendliness Average)
+	(Ingredients
+		[RicoRicoProject_Class30010]
+		[RicoRicoProject_Class40018]
+		[RicoRicoProject_Class40017])
+	(MaxNum 400)
+	(Style Modern Regional))
