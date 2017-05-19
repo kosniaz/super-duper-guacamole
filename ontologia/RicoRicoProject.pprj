@@ -1,4 +1,4 @@
-; Fri May 19 13:20:28 CEST 2017
+; Fri May 19 17:30:50 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,14 +20,14 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[RicoRicoProject_ProjectKB_Class10071]
-		[RicoRicoProject_ProjectKB_Class10072]
-		[RicoRicoProject_ProjectKB_Class10073]
-		[RicoRicoProject_ProjectKB_Class10074]
-		[RicoRicoProject_ProjectKB_Class10075]
-		[RicoRicoProject_ProjectKB_Class10076]
-		[RicoRicoProject_ProjectKB_Class10077]
-		[RicoRicoProject_ProjectKB_Class10078]))
+		[RicoRicoProject_ProjectKB_Class10082]
+		[RicoRicoProject_ProjectKB_Class10083]
+		[RicoRicoProject_ProjectKB_Class10084]
+		[RicoRicoProject_ProjectKB_Class10085]
+		[RicoRicoProject_ProjectKB_Class10086]
+		[RicoRicoProject_ProjectKB_Class10087]
+		[RicoRicoProject_ProjectKB_Class10088]
+		[RicoRicoProject_ProjectKB_Class10089]))
 
 ([CLSES_TAB] of  Widget
 
@@ -79,9 +79,9 @@
 ([KB_273644_Class1] of  Map
 
 	(entries
-		[RicoRicoProject_ProjectKB_Class10079]
-		[RicoRicoProject_ProjectKB_Class10080]
-		[RicoRicoProject_ProjectKB_Class10081]))
+		[RicoRicoProject_ProjectKB_Class10090]
+		[RicoRicoProject_ProjectKB_Class10091]
+		[RicoRicoProject_ProjectKB_Class10092]))
 
 ([KB_273644_Class100] of  Property_List
 )
@@ -370,61 +370,61 @@
 ([RicoRicoProject_ProjectKB_Class10011] of  Property_List
 )
 
-([RicoRicoProject_ProjectKB_Class10071] of  String
+([RicoRicoProject_ProjectKB_Class10082] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([RicoRicoProject_ProjectKB_Class10072] of  String
+([RicoRicoProject_ProjectKB_Class10083] of  String
 
 	(name "Drink")
-	(string_value "DrinkName"))
+	(string_value "DrinkType"))
 
-([RicoRicoProject_ProjectKB_Class10073] of  String
+([RicoRicoProject_ProjectKB_Class10084] of  String
 
 	(name "First")
-	(string_value "DishName"))
+	(string_value "Style"))
 
-([RicoRicoProject_ProjectKB_Class10074] of  String
+([RicoRicoProject_ProjectKB_Class10085] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([RicoRicoProject_ProjectKB_Class10075] of  String
+([RicoRicoProject_ProjectKB_Class10086] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([RicoRicoProject_ProjectKB_Class10076] of  String
+([RicoRicoProject_ProjectKB_Class10087] of  String
 
 	(name "Ingredient")
 	(string_value "IngredientName"))
 
-([RicoRicoProject_ProjectKB_Class10077] of  String
+([RicoRicoProject_ProjectKB_Class10088] of  String
 
 	(name "Second")
-	(string_value "DishName"))
+	(string_value "Style"))
 
-([RicoRicoProject_ProjectKB_Class10078] of  String
+([RicoRicoProject_ProjectKB_Class10089] of  String
 
 	(name "Dessert")
 	(string_value "DishName"))
 
-([RicoRicoProject_ProjectKB_Class10079] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10090] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([RicoRicoProject_ProjectKB_Class10080] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10091] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([RicoRicoProject_ProjectKB_Class10081] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10092] of  Map_Entry
 
 	(key "suppress_instance_counting")
 	(key_class "java.lang.String")

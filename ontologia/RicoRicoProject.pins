@@ -1,4 +1,4 @@
-; Fri May 19 13:20:43 CEST 2017
+; Fri May 19 17:31:02 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -817,7 +817,18 @@
 
 	(DrinkName "Frantziskaner")
 	(DrinkPrice 3.0)
-	(DrinkType Beer))
+	(DrinkType Beer)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class50054]
+		[RicoRicoProject_Class50011]
+		[RicoRicoProject_Class30012]
+		[RicoRicoProject_Class20017]
+		[RicoRicoProject_Class40008]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class50029]
+		[RicoRicoProject_Class30006]
+		[RicoRicoProject_Class50013]
+		[RicoRicoProject_Class20010]))
 
 ([RicoRicoProject_Class50035] of  First
 
@@ -1169,7 +1180,18 @@
 
 	(DrinkName "Estrella")
 	(DrinkPrice 2.5)
-	(DrinkType Beer))
+	(DrinkType Beer)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class50054]
+		[RicoRicoProject_Class50011]
+		[RicoRicoProject_Class30012]
+		[RicoRicoProject_Class20017]
+		[RicoRicoProject_Class40008]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class50029]
+		[RicoRicoProject_Class30006]
+		[RicoRicoProject_Class50013]
+		[RicoRicoProject_Class20010]))
 
 ([RicoRicoProject_Class50076] of  Drink
 
@@ -1194,7 +1216,18 @@
 
 	(DrinkName "Guinnes")
 	(DrinkPrice 3.0)
-	(DrinkType Beer))
+	(DrinkType Beer)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class50054]
+		[RicoRicoProject_Class50011]
+		[RicoRicoProject_Class30012]
+		[RicoRicoProject_Class20017]
+		[RicoRicoProject_Class40008]
+		[RicoRicoProject_Class20009]
+		[RicoRicoProject_Class50029]
+		[RicoRicoProject_Class30006]
+		[RicoRicoProject_Class50013]
+		[RicoRicoProject_Class20010]))
 
 ([RicoRicoProject_Class60000] of  Second
 
@@ -1242,3 +1275,123 @@
 		[RicoRicoProject_Class40017])
 	(MaxNum 400)
 	(Style Modern Regional))
+
+([RicoRicoProject_Class60004] of  Drink
+
+	(DrinkName "Zumo de Manzana")
+	(DrinkPrice 2.0)
+	(DrinkType Juice)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class50040]
+		[RicoRicoProject_Class50027]
+		[RicoRicoProject_Class50035]
+		[RicoRicoProject_Class40002]
+		[RicoRicoProject_Class50042]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class50062]
+		[RicoRicoProject_Class50055]
+		[RicoRicoProject_Class50050]
+		[RicoRicoProject_Class50052]
+		[RicoRicoProject_Class50000]
+		[RicoRicoProject_Class40000]
+		[RicoRicoProject_Class50060]
+		[RicoRicoProject_Class50025]
+		[RicoRicoProject_Class50043]
+		[RicoRicoProject_Class50003]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class30007]
+		[RicoRicoProject_Class50019]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class30000]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class50078]
+		[RicoRicoProject_Class50059]
+		[RicoRicoProject_Class50023]
+		[RicoRicoProject_Class40006]
+		[RicoRicoProject_Class50066]
+		[RicoRicoProject_Class50070]
+		[RicoRicoProject_Class50048]
+		[RicoRicoProject_Class50015]
+		[RicoRicoProject_Class50009]
+		[RicoRicoProject_Class60000]
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class50017]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class40013]
+		[RicoRicoProject_Class50006]
+		[RicoRicoProject_Class50057]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class50021]
+		[RicoRicoProject_Class40021]
+		[RicoRicoProject_Class50038]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30002]
+		[RicoRicoProject_Class60001]
+		[RicoRicoProject_Class50063]
+		[RicoRicoProject_Class60003]
+		[RicoRicoProject_Class50045]
+		[RicoRicoProject_Class60002]
+		[RicoRicoProject_Class50061]))
+
+([RicoRicoProject_Class60005] of  Drink
+
+	(DrinkName "Zumo de Naranja")
+	(DrinkPrice 2.0)
+	(DrinkType Juice)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class50040]
+		[RicoRicoProject_Class50027]
+		[RicoRicoProject_Class50035]
+		[RicoRicoProject_Class40002]
+		[RicoRicoProject_Class50042]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class50062]
+		[RicoRicoProject_Class50055]
+		[RicoRicoProject_Class50050]
+		[RicoRicoProject_Class50052]
+		[RicoRicoProject_Class50000]
+		[RicoRicoProject_Class40000]
+		[RicoRicoProject_Class50060]
+		[RicoRicoProject_Class50025]
+		[RicoRicoProject_Class50043]
+		[RicoRicoProject_Class50003]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class30007]
+		[RicoRicoProject_Class50019]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class30000]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class50078]
+		[RicoRicoProject_Class50059]
+		[RicoRicoProject_Class50023]
+		[RicoRicoProject_Class40006]
+		[RicoRicoProject_Class50066]
+		[RicoRicoProject_Class50070]
+		[RicoRicoProject_Class50048]
+		[RicoRicoProject_Class50015]
+		[RicoRicoProject_Class50009]
+		[RicoRicoProject_Class60000]
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class50017]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class40013]
+		[RicoRicoProject_Class50006]
+		[RicoRicoProject_Class50057]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class50021]
+		[RicoRicoProject_Class40021]
+		[RicoRicoProject_Class50038]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30002]
+		[RicoRicoProject_Class60001]
+		[RicoRicoProject_Class50063]
+		[RicoRicoProject_Class60003]
+		[RicoRicoProject_Class50045]
+		[RicoRicoProject_Class60002]
+		[RicoRicoProject_Class50061]))
