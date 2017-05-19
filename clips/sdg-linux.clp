@@ -158,7 +158,7 @@
 	(bind ?encontrado FALSE)
 	(if (neq ?drinks FALSE) then	
 		(bind ?drinks (create$ ?drinks))
-		(printout t "Entrado" crlf)
+		;(printout t "Entrado" crlf)
 		(if (> (length ?drinks) 0) then
 			(loop-for-count (?i 1 (length ?drinks))
 				(if (< (send (nth$ ?i ?drinks) get-DrinkPrice) ?price) then ;if the condition is true, we keep the plate
@@ -177,13 +177,36 @@
 	)
 	(return ?ins)
 )
-
+(deffunction keep-plates-for-more-than (?plates ?guests) 
+	(bind ?encontrado FALSE)
+	(if (neq ?plates FALSE) then	
+		(bind ?plates (create$ ?plates))
+		(printout t "Entrado" crlf)
+		(if (> (length ?plates) 0) then
+			(loop-for-count (?i 1 (length ?plates))
+				(if (> (send (nth$ ?i ?plates) get-MaxNum) ?guests) then ;if the condition is true, we keep the plate
+				 (if (eq ?encontrado FALSE) then
+				   (bind ?encontrado TRUE)
+				   (bind ?ins (nth$ ?i ?plates))
+				  else
+				   (bind ?ins (create$ ?ins (nth$ ?i ?plates)))
+				 )
+				)
+			)
+		)
+	)
+	(if (eq ?encontrado FALSE) then
+		(bind ?ins FALSE)
+	)
+	(if (eq ?ins FALSE) then (printout t "JODER TIO PORQUE??" crlf))
+	(return ?ins)
+)
 
 (deffunction keep-cheaper-than (?plates ?price) 
 	(bind ?encontrado FALSE)
 	(if (neq ?plates FALSE) then	
 		(bind ?plates (create$ ?plates))
-		(printout t "Entrado" crlf)
+		;(printout t "Entrado" crlf)
 		(if (> (length ?plates) 0) then
 			(loop-for-count (?i 1 (length ?plates))
 				(if (< (send (nth$ ?i ?plates) get-DishPrice) ?price) then ;if the condition is true, we keep the plate
@@ -297,6 +320,16 @@
 	(loop-for-count (?i 1 (length $?const))
 		(bind ?current (nth$ ?i $?const))
 		(bind ?lista (filtrar-single-por ?li ?sl ?current))
+		(bind ?result (insert$ ?result 1 ?lista))
+	)
+	(return ?result)
+)
+
+(deffunction filtrar-multi-por-group (?li ?sl $?const)
+	(bind ?result (create$))
+	(loop-for-count (?i 1 (length $?const))
+		(bind ?current (nth$ ?i $?const))
+		(bind ?lista (filtrar-multi-por ?li ?sl ?current))
 		(bind ?result (insert$ ?result 1 ?lista))
 	)
 	(return ?result)
@@ -548,26 +581,25 @@
 (deftemplate menu-restrictions "Event for which the recommendation shall be done"
     (slot isVeganVegetarian)
     (slot experimental)
-    (slot gourmet)
+    (slot classic)
 )
 
 (deftemplate abstract-info
 	(slot poor-or-rich )
-	(slot wants-to-impress)
+	(slot impressive-event)
  	(slot  guests )
  	(slot  children)
 	(slot  season )
 	(slot  experimental )
-	(slot  gourmet )
+	(slot  classic)
 )
 
-(deftemplate abstract-filters
-	(slot menu-is-gourmet ) 
-	(slot menu-is-experimental  ) 
-	(slot menu-is-kid-friendly ) 
-	(slot menu-is-of-season ) 
-	(slot menu-has-guests ) 
-)
+;(deftemplate abstract-filters
+;	(slot menu-is-experimental  ) 
+;	(slot menu-is-kid-friendly ) 
+;	(slot menu-is-of-season ) 
+;;	(slot menu-has-guests ) 
+;)
 
 ;;;*******************************
 ;;;* MODULE EVENT INFO GATHERING *
@@ -593,26 +625,25 @@
     (menu-restrictions 
 	(isVeganVegetarian unknown)
         (experimental unknown)
- 	(gourmet unknown)
+	(classic unknown)
     )
 
     (abstract-info 
 	(poor-or-rich unknown)
- 	(wants-to-impress unknown)
+ 	(impressive-event unknown)
  	(guests unknown)
  	(children unknown)
 	(season unknown)
 	(experimental unknown)
-	(gourmet unknown)
+	(classic unknown)
     )
 
-    (abstract-filters
-	(menu-is-gourmet unknown)
-	(menu-is-experimental  unknown)
-	(menu-is-kid-friendly unknown)
-	(menu-is-of-season unknown)
-	(menu-has-guests unknown)
-    )
+    ;(abstract-filters
+;	(menu-is-experimental  unknown)
+;	(menu-is-kid-friendly unknown)
+;	(menu-is-of-season unknown)
+;	(menu-has-guests unknown)
+ ;   )
 )
 
 ;;;***************
@@ -701,7 +732,7 @@
 ;;;*****************************************************************************************
 
 
-;;; Once all data about the event is gatheredetermined-childrend
+;;; Once all data about the event is gathered
 (defrule start-menu-questions
     (declare (salience -1))
 =>
@@ -719,10 +750,16 @@
 )
 
 (defrule determine-experimental "" 
-    ?ex <- (menu-restrictions (experimental unknown))
+    ?ex <- (menu-restrictions (experimental unknown) (classic unknown))
    =>
-   (bind ?res (ask-question "Would you like to taste something experimental? " yes no))
-   (modify ?ex (experimental ?res))
+
+   (if (yes-or-no-p "Would you like to taste something experimental? (yes/no) ") then 
+   	(modify ?ex (experimental yes))
+   else 
+	( if (yes-or-no-p "So, that does mean that you would like the menus to be restricted on the classic and well known dishes? (yes/no) ")  then 
+		(modify ?ex (classic yes))
+	)
+   )
 )
 
 ;kosmas: possible question: are the guests good friends of event organizer))
@@ -793,7 +830,7 @@
     (export ?ALL)
 )
 
-;Kosmas:here we determine the value of the abstract data slot wants-to-impress: 
+;Kosmas:here we determine the value of the abstract data slot impressive-event: 
 ;the use of many rules is not necessary, it can be done in one. 
 
 
@@ -811,31 +848,31 @@
     	(assert (determined-poor-or-rich))
 )
 
-(defrule wants-to-impress ""
-     (not (determined-wants-to-impress))
-     ?x <- (abstract-info (wants-to-impress unknown))
+(defrule impressive-event ""
+     (not (determined-impressive-event))
+     ?x <- (abstract-info (impressive-event unknown))
      (target-event (type congress)) 
    =>
-    (assert (determined-wants-to-impress))
-    (modify ?x (wants-to-impress a-lot))
+    (assert (determined-impressive-event))
+    (modify ?x (impressive-event a-lot))
 )
     
-(defrule wants-to-impress-a-little 
-     (not (determined-wants-to-impress))
-     ?x <- (abstract-info (wants-to-impress unknown))
+(defrule impressive-event-a-little 
+     (not (determined-impressive-event))
+     ?x <- (abstract-info (impressive-event unknown))
      (or (target-event (subtype baptism)) (target-event (subtype wedding)))
    =>
-    (assert (determined-wants-to-impress))
-    (modify ?x (wants-to-impress a-bit))
+    (assert (determined-impressive-event))
+    (modify ?x (impressive-event a-bit))
 )
 
 (defrule doesnt-want-to-impress
-     (not (determined-wants-to-impress))
-     ?x <- (abstract-info (wants-to-impress unknown))
+     (not (determined-impressive-event))
+     ?x <- (abstract-info (impressive-event unknown))
      (or (target-event (subtype communion)))
    =>
-    (assert (determined-wants-to-impress))
-    (modify ?x (wants-to-impress no))
+    (assert (determined-impressive-event))
+    (modify ?x (impressive-event no))
 )
 ;Kosmas: I put here the conversion of the number of guests to a discrete value.
 (defrule abstract-guests ""
@@ -878,6 +915,8 @@
      (modify  ?x (season ?seas))
 )
 
+
+
 ;we only copy the value, no conversion is made here.
 (defrule abstract-experimental ""
      (not (determined-abstract-experimental))
@@ -899,10 +938,10 @@
 ;;;****************************
 
 ;Kosmas:these rules are a cheap substitute of a Bayes Network. If there is time, we will properly implement one.
-;Rule 1:  if (wants-to-impress=a lot and experimental)-> only serve Experimental Food
-;Rule 3: if (wants-to-impress=a bit and experimental=yes)-> main dish is Experimental 
-;Rule 4: if (wants-to-impress=a bit and gourmet=yes)-> main dish is Gourmet 
-;Rule 5: if (wants-to-impress=a bit) -> main dish is to Gourmet or Experimental
+
+;Rule 1: if (impressive-event=a lot and experimental=yes)-> only serve Experimental First and Second Dishes.
+;Rule 3: if (impressive-event=a bit and experimental=yes)-> main dish is Experimental 
+;Rule 5: if (impressive-event=a bit and classic=yes) -> main dish is classic, experimental is classic 
 ;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
 ;Rule 10 : if (children=many) -> main dish has to be highly friendly
 ;Rule 11:  if (children=medium) or (children=few)-> main dish has to be averagely friendly
@@ -917,6 +956,7 @@
 )
 
 
+
 ;to start solution build, we begin with these data structures.
 (defrule initialize-data-structures ""
 	(declare (salience 10))
@@ -929,45 +969,71 @@
 	(assert (data-structs-initialized))
 )	
 
-;Rule 1: if (wants-to-impress=a lot and experimental=yes)-> only serve Experimental Food
-(defrule only-experimental  ""
-	(abstract-info (wants-to-impress a-lot))
+
+;Rule
+(defrule only-experimental  "Rule 1: if (impressive-event=a lot and experimental=yes)-> only serve Experimental First and Second Dishes."
+	(not (triggered-only-experimental))
+	(abstract-info (impressive-event a-lot))
 	(abstract-info (experimental yes))
 	=>
-	;plato 1 y plato 2 deben ser experimentales
-	;hay que filtrar....
+
+	(printout t "DEBUG: Triggered Rule 1: if (impressive-event=a lot and experimental=yes)-> only serve Experimental First and Second Dishes." crlf)
 	(bind ?*seconds* (filtrar-multi-por ?*seconds* get-Style Experimental ))
 	(bind ?*firsts*(filtrar-multi-por ?*firsts*    get-Style Experimental ))
 	(if (eq ?*seconds* FALSE) then (printout t "Rule 1 (experimental superhigh) - no more seconds" crlf) (halt))	
 	(if (eq ?*firsts* FALSE) then (printout t "Rule 1 (experimental superhigh)- no more firsts" crlf) (halt))	
 	;(printout t "DEBUG: Only experimental second dishes:" crlf)
 	;(imprime-todo ?*seconds*)
+	(assert (triggered-only-experimental))
 )
 	
 
-;Rule 3: if (wants-to-impress=a bit and experimental=yes)-> main dish is Experimental 
+;Rule 2: if (impressive-event=a bit and experimental=yes)-> main dish is Experimental 
 (defrule mainly-experimental ""
-	(abstract-info (wants-to-impress a-bit))
+	(not (triggered-mainly-experimental))
+	(abstract-info (impressive-event a-bit))
 	(abstract-info (experimental yes))
+	
 	=>
+	(printout t "DEBUG: Triggered Rule 2: if (impressive-event=a bit and experimental=yes)-> Experimental Second Dish." crlf)
 	(bind ?*seconds*(filtrar-multi-por ?*seconds* get-Style Experimental))
 	(if (eq ?*seconds* FALSE) then (printout t "Rule 3 (experimental high)- no more seconds" crlf) (halt))	
+	(assert (triggered-mainly-experimental))
 )
-;Rule 5: if (wants-to-impress=a bit) -> first dish is Experimental
+
+;Rule 3: if (classic=no) and (impressive-event=a bit or impressive-event= a lot) and (experimental=no)-> 
+;first dish is Experimental
+
 (defrule a-bit-experimental ""
-	(abstract-info (wants-to-impress a-bit))
+	(not (triggered-a-bit-experimental))
+	(abstract-info (classic no))
+	(or (abstract-info (impressive-event a-lot))(abstract-info (impressive-event a-bit)))
 	(abstract-info (experimental no))
 	=>
+	(printout t "DEBUG: Triggered Rule 3: if (classic=no) and (impressive-event=a bit or impressive-event= a lot) and (experimental=no)-> first dish is Experimental" crlf)
 	(bind ?*firsts*(filtrar-multi-por ?*firsts* get-Style Experimental))
-	(if (eq (length$ ?*firsts*) 0) then (printout t "Rule 5 (experimental)- no more firsts" crlf) (halt))	
+	(if (eq (length$ ?*firsts*) 0) then (printout t "Rule 3 (experimental)- no more firsts" crlf) (halt))	
+	(assert (triggered-a-bit-experimental))
 )
 
+;Rule 4: DEBUG: Triggered Rule 4: if (classic=yes)->Only classic dishes
+(defrule classic ""
+	(not (triggered-classic))
+	(abstract-info (classic yes))
+	=>
+	(printout t "DEBUG: Triggered Rule 4: if (classic=yes)->Only classic dishes" crlf)
+	(bind ?*firsts*(filtrar-multi-por ?*firsts* get-Style Experimental))
+	(if (eq (length$ ?*firsts*) 0) then (printout t "Rule 4 (classic)- no more firsts" crlf) (halt))	
+	(assert (triggered-classic))
+)
 
-;Rules 6-9 : if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x
+;Rule 5-8
 (defrule season-is-x ""
+	(not (triggered-season))
 	(abstract-info (season ?x))
 	(not (abstract-info (season dont-care)))
 	=>
+	(printout t "DEBUG: Triggered one of the Season Rules (4-7): if (season = x (one of Winter, Summer, Autumn, Spring) -> only serve food that is fresh on season x" crlf)
 	(switch ?x
 	(case summer then (bind ?epoch Summer))
 	(case winter then (bind ?epoch Winter))
@@ -975,51 +1041,81 @@
 	(case spring then (bind ?epoch Spring))
 	)
 	(bind ?*firsts* (return-plates-of-season ?*firsts* ?epoch))
-	(if (eq ?*firsts* FALSE) then (printout t "Rule 6 (season) - no more firsts" crlf) (halt))	
-	;(printout t "DEBUG: Only seasonal first dishes:" crlf)
-	;(imprime-todo ?*firsts*)
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 4-7  (season) - no more firsts" crlf) (halt))	
 	(bind ?*seconds* (return-plates-of-season ?*seconds* ?epoch))
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 6 (season) - no more seconds" crlf) (halt))	
-	;(printout t "DEBUG: Only seasonal second dishes:" crlf)
-	;(imprime-todo ?*seconds*)
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 4-7 (season) - no more seconds" crlf) (halt))	
+	(assert (triggered-season))
 )
 
-;Rule 10 : if (children=many) -> main dish has to be highly friendly
+;Rule 10
 (defrule children-are-many ""
+	(not (triggered-children-are-many))
 	(abstract-info (children many))
 	=>
+	(printout t "DEBUG: Triggered Rule 8 -> if (children=many) -> main dish has to be highly friendly" crlf)
 	(bind ?*seconds*(filtrar-single-por ?*seconds* get-Friendliness High))
 	(if (eq ?*seconds* FALSE) then (printout t "Rule 10 (children)- no more seconds" crlf) (halt))	
-	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
-	;(imprime-todo ?*seconds*)
+	(assert (triggered-children-are-many))
 )
 
-;Rule 11:  if (children=medium) or (children=few)-> main dish has to be averagely friendly
+;
 (defrule children-are-medium ""
+	(not (triggered-children-are-medium))
 	(or (abstract-info (children medium)) (abstract-info (children few)))
 	=>
+	
+	(printout t "DEBUG: Triggered Rule 9 if (children=medium) or (children=few)-> main dish has to be averagely friendly" crlf)
 	(bind ?*seconds*(filtrar-single-por-group ?*seconds* get-Friendliness Average High ))
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 11 (children)- no more seconds" crlf) (halt))	
-	;(printout t "DEBUG: Only children-friendly second dishes:" crlf)
-	;(imprime-todo ?*seconds*)
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 9 (children)- no more seconds" crlf) (halt))	
+	(assert (triggered-children-are-medium))
 )
 
-;Rule 12: if (poor-or-rich=poor) -> exclude expensive first (>8) and seconds (>13)
+;Rule 10: if (poor-or-rich=poor) -> exclude expensive things
 
 (defrule remove-expensive-plates ""
+	(not (triggered-remove-expensive-plates))
 	(abstract-info (poor-or-rich poor))
 	=>
+	(printout t "DEBUG: Rule 10: if (poor-or-rich=poor) -> exclude expensive dishes and drinks" crlf)
 	(bind ?*firsts* (keep-cheaper-than ?*firsts* 7))
-	(if (eq ?*firsts* FALSE) then (printout t "Rule 12 (money) - no more firsts." crlf)(halt))
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 10 (money) - no more firsts." crlf)(halt))
 	(bind ?*seconds* (keep-cheaper-than ?*seconds* 12))
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 13 (money)- no more seconds" crlf) (halt))	
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 10 (money)- no more seconds" crlf) (halt))	
 	(bind ?*desserts* (keep-cheaper-than ?*desserts* 6 ))
-	(if (eq ?*desserts* FALSE) then (printout t "Rule 12 (money)- no more desserts" crlf) (halt))	
+	(if (eq ?*desserts* FALSE) then (printout t "Rule 10 (money)- no more desserts" crlf) (halt))	
 	(bind ?*drinks* (keep-drinks-cheaper-than ?*drinks* 6))
-	(if (eq ?*drinks* FALSE) then (printout t "Rule 12 (money)- no more drinks" crlf) (halt))	
+	(if (eq ?*drinks* FALSE) then (printout t "Rule 10 (money)- no more drinks" crlf) (halt))	
+	(assert (triggered-remove-expensive-plates))
 )		
 
 
+(defrule remove-plates-for-medium-guests 
+	(not (triggered-remove-plates-for-medium-guests))	
+	(abstract-info (guests many))
+	=>
+	(printout t "DEBUG: Rule 11: if guests are many -> exclude dishes for less than 500" crlf)
+	(bind ?*seconds* (keep-plates-for-more-than ?*seconds* 500))
+	(bind ?*firsts* (keep-plates-for-more-than ?*firsts* 500))
+	(bind ?*desserts* (keep-plates-for-more-than ?*desserts* 500))
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 11 (num-guests) - no more firsts." crlf)(halt))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 11 (num-guests)- no more seconds" crlf) (halt))	
+	(if (eq ?*desserts* FALSE) then (printout t "Rule 11 (num-guests)- no more desserts" crlf) (halt))	
+	(assert (triggered-remove-plates-for-medium-guests))	
+)
+		
+(defrule remove-plates-for-few-guests 
+	(not (triggered-remove-plates-for-few-guests))	
+	(abstract-info (guests medium))
+	=>
+	(printout t "DEBUG: Rule 11: if guests are moderately many -> exclude dishes for less than 250" crlf)
+	(bind ?*seconds* (keep-plates-for-more-than ?*seconds* 250))
+	(bind ?*firsts* (keep-plates-for-more-than ?*firsts* 250))
+	(bind ?*desserts* (keep-plates-for-more-than ?*desserts* 250))
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 11 (num-guests) - no more firsts." crlf)(halt))
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 11 (num-guests)- no more seconds" crlf) (halt))	
+	(if (eq ?*desserts* FALSE) then (printout t "Rule 11 (num-guests)- no more desserts" crlf) (halt))	
+	(assert (triggered-remove-plates-for-few-guests))	
+)
 (defrule print-abstract-results ""
 	(declare (salience -1))
 =>
@@ -1060,8 +1156,38 @@
     (export ?ALL)
 )
 
-(defrule create-solution-menu ""
-	(not (cheap-menu-created))
+
+(defrule refinement-vegetarian-vegan ""
+  (not (vegan-vegetarian-is-refined))
+  (isVeganVegetarian ?v)
+  =>
+  (if (eq ?v vegetarian) then 
+			      (printout t "DEBUG: Refinement pt.1: Keeping only vegetarian dishes..." crlf)	
+                              (bind ?*firsts* (filtrar-single-por-group ?*firsts* get-DishType Vegan Vegetarian) )
+                              (bind ?*seconds* (filtrar-single-por-group ?*seconds* get-DishType Vegan Vegetarian) )
+                              (bind ?*desserts* (filtrar-single-por-group ?*desserts* get-DishType Vegan Vegetarian) )
+			       
+  ) 
+  (if (eq ?v vegan) then
+			      (printout t "DEBUG: Refinement pt.1: Keeping only vegan dishes..." crlf)	
+                              (bind ?*firsts* (filtrar-single-por ?*firsts* get-DishType Vegan ) )
+                              (bind ?*seconds* (filtrar-single-por ?*seconds* get-DishType Vegan) )
+                              (bind ?*desserts* (filtrar-single-por ?*desserts* get-DishType Vegan) )
+  ) 
+
+  (if (eq ?*firsts* FALSE) then (printout t "Refinement (Vegan-Vegetarian) - no more firsts... FAIL" crlf)(halt))
+  (if (eq ?*seconds* FALSE) then (printout t "Refinement (Vegan-Vegetarian)- no more seconds... FAIL" crlf) (halt))	
+  (if (eq ?*desserts* FALSE) then (printout t "Refinement (Vegan-Vegetarian)- no more desserts... FAIL" crlf) (halt))	
+
+  (assert (vegan-vegetarian-is-refined))
+)
+
+
+
+(defrule create-solution-menu "" ;;here, add the possiblility to create menus more expensive
+	(not (menus-created))
+	(vegan-vegetarian-is-refined)
+	(target-event (budget-per-person ?bud))
 	=>
 
 	(bind ?list ?*seconds*)
@@ -1070,7 +1196,7 @@
 	(bind ?possiblefirsts ?*firsts*)
 	(bind ?possiblefirsts (eliminar-incompatible-firsts ?possiblefirsts get-IncompatibilityW2 ?min))
 	(bind ?min1 (minimum-slot ?possiblefirsts get-DishPrice (nth$ 1 ?possiblefirsts)))
-		
+	
 	(bind ?possibledesserts ?*desserts*)
 	(bind ?possibledesserts (eliminar-incompatible-firsts ?possibledesserts get-IncompatibilityDW2 ?min))
 	(bind ?minDe (minimum-slot ?possibledesserts get-DishPrice (nth$ 1 ?possibledesserts)))
@@ -1079,10 +1205,12 @@
 	
         (bind ?cheapest (make-instance [cheapest-menu] of Menu))		
 	(send ?cheapest put-FirstDish ?min1 )
+
 	(send ?cheapest put-SecondDish ?min) 
 	(send ?cheapest put-DessertDish ?minDe)
         (send ?cheapest put-MenuDrink (create$ ?minDr))
-	
+
+
 	(bind ?list ?*seconds*)
 	(bind ?max (random-slot ?list))
 
@@ -1104,11 +1232,15 @@
 	
 
  	(bind ?minprice	(send ?cheapest get-Price))
-	(bind ?maxprice (send ?mostexpensive get-Price))
+	;(bind ?maxprice (send ?mostexpensive get-Price))
 	(bind ?found1 FALSE)
 	(bind ?found2 FALSE)
 	(bind ?found3 FALSE)
  	
+	(if (> ?minprice ?bud) then (printout t "FAIL: Your budget is too low for what you are asking.. Please try with another." crlf)(halt) else
+	(if (> (+ ?minprice 5) ?bud) then (printout t "Budget is very restrictive, but let's see if we can find something for you... Perhaps you have to wait.") ))
+	(bind ?maxprice ?bud) 
+		
 	(while (or (not ?found1)(not ?found2)(not ?found3)) do
 	 
 	 (bind ?list ?*seconds*)
@@ -1130,19 +1262,19 @@
 	 (send ?menu put-DessertDish ?minDe)
          (send ?menu put-MenuDrink (create$ ?minDr))
 	 (bind ?menuprice (send ?menu get-Price))
-	 (if (and (not ?found1) (< ?menuprice (+ ?minprice (* 0.30 (- ?maxprice ?minprice))))) then
+	 (if (and (> ?bud ?menuprice) (not ?found1) (< ?menuprice (+ ?minprice (* 0.30 (- ?maxprice ?minprice))))) then
 		;this is considered cheap
 		(bind ?menu1 (make-instance [menu1] of Menu))
 	 	(active-duplicate-instance ?menu to ?menu1)	
 		(bind ?found1 TRUE)
-	 else (if (and (not ?found3) (> ?menuprice (+ ?minprice  (* 0.80 (- ?maxprice ?minprice))))) then
+	 else (if (and (> ?bud ?menuprice)(not ?found3)(> ?menuprice (+ ?minprice  (* 0.80 (- ?maxprice ?minprice))))) then
 		;this is considered expensive
 
 		(bind ?menu3 (make-instance [menu3] of Menu))
 	 	(active-duplicate-instance ?menu to ?menu3)	
 		(bind ?thirdmenu ?menu)
 		(bind ?found3 TRUE)
-	 else (if (not ?found2) then
+	 else (if (and (> ?bud ?menuprice) (not ?found2)) then
 		(bind ?menu2 (make-instance [menu2] of Menu))
 	 	(active-duplicate-instance ?menu to ?menu2)	
 		(bind ?secondmenu ?menu)
@@ -1163,34 +1295,12 @@
 	(printout t "****************************************OPTION 3: PLATINUM MENU***************************" crlf)	
 	(send ?menu3 printInfo)		
 
-	(assert (cheap-menu-created))
+	(assert (menus-created))
 
 ) 
 
 ;overly simplified first dish selection rule.
 ;careful, we need to have instances:
-(defrule select-first-dish ""
-  ?x <- (object (is-a Menu))
-  (isVeganVegetarian ?v)
-  =>
-  (if (eq ?v vegetarian) then 
-                              (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegetarian) ))
- 		              (bind ?first (random-slot ?li))
-                              (send ?x put-FirstDish ?first)
-			      
-  ) 
-  (if (eq ?v vegan) then
-                              (bind ?li (find-all-instances ((?ins First)) (eq ?ins:DishType Vegan) ))
- 		              (bind ?first (random-slot ?li))
-                              (send ?x put-FirstDish ?first)
-  ) 
-  (if (eq ?v no) then
-                              (bind ?li (find-all-instances ((?ins First)) TRUE ))
- 		              (bind ?first (random-slot ?li))
-                              (send ?x put-FirstDish ?first)
-  ) 
-  (assert (dishes-selected))
-)
 
 ;;; When we have a final solution, we print it
 (defrule print-built-solution
