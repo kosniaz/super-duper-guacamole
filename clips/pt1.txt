@@ -1,0 +1,43 @@
+ de input del problema concreto (conjunto A)
+
+        type (familiar/congreso)
+        subtype (boda/bautizo/comunion/congreso-lunch/congreso-dinner)
+        guests (cualquier numero enter 1 y 1000)
+        season (uno de las cuatro estaciones o "dont-care"
+        children (none/few/average/many)
+        isVeganVegetarian (vegan/vegetarian/no)
+        experimental (yes/no)
+        classic (yes/no )
+
+Variables de input del problema abstracto (conjunto B)
+
+        impressive-event
+        guests
+        children
+        season
+        experimental
+        classic
+        poor-or-rich
+
+
+Reglas de conversion A->C
+
+type=congreso => high-class-event = a lot
+type=boda or bautismo => high-class-event = a-bit
+type=comunion => high-class-event = no
+
+El variable high-class-event toca un papel en decir si vamos a poner platos experimentos para hacer una impression de high-class. Pensamos que en los eventos tipo congreso, el organizador quiere mucho mostar su nivel en la sociedad y de hecho tener
+platos avanzados.
+El tipo boda y bautizmo, aunque también necesitan hacer una impression, normalment tienen comida bastante tradicional y no tan experimental, y por eso aqui no quieremos servir comida muy experimental (ademas habra gente mas viega, y a los viejos ne les gusta la comida experimentl!)
+Por fin, el comunion, según nuestro conocimiento experto, no hace falta que tenga comida experimental.
+
+0 < guests < 250 => guests = few
+250 < guests < 500 => guests = average
+500 < guests < 1001 => guests = many
+
+if budget-per-person < 28 => poor-or-rich = poor
+if budget-per-person > 28 => poor-or-rich = rich
+
+Por fin, los siguientes variables pasan intactas:
+season, experimental, classic
+
