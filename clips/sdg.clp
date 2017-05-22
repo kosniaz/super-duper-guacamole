@@ -2818,8 +2818,8 @@
 	(printout t "DEBUG: Triggered Rule 1: if (classic=yes)->Only classic dishes" crlf)
 	(bind ?*firsts*(filtrar-multi-por ?*firsts* get-Style Classic))
 	(bind ?*seconds* (filtrar-multi-por ?*seconds* get-Style Classic ))
-	(if (eq ?*firsts* FALSE) then (printout t "Rule 4 (classic)- no more firsts" crlf) (halt))	
-	(if (eq ?*seconds* FALSE) then (printout t "Rule 4 (classic)- no more seconds" crlf) (halt))	
+	(if (eq ?*firsts* FALSE) then (printout t "Rule 1 (classic)- no more firsts" crlf) (halt))	
+	(if (eq ?*seconds* FALSE) then (printout t "Rule 1 (classic)- no more seconds" crlf) (halt))	
 	(assert (triggered-classic))
 )
 
@@ -2864,7 +2864,7 @@
 	=>
 	(printout t "DEBUG: Triggered Rule 4: if (classic=no) and (impressive-event=a bit or impressive-event= a lot) and (experimental=no)-> first dish is Experimental" crlf)
 	(bind ?*firsts*(filtrar-multi-por ?*firsts* get-Style Experimental))
-	(if (eq (length$ ?*firsts*) 0) then (printout t "Rule 3 (experimental)- no more firsts" crlf) (halt))	
+	(if (eq (length$ ?*firsts*) 0) then (printout t "Rule 4 (experimental)- no more firsts" crlf) (halt))	
 	(assert (triggered-a-bit-experimental))
 )
 
@@ -2906,8 +2906,8 @@
 	(or (abstract-info (children medium)) (abstract-info (children few)))
 	=>
 	
-	(printout t "DEBUG: Triggered Rule 10 if (children=medium) or (children=few)-> main dish has to be at least averagely friendly" crlf)
-	(bind ?*seconds*(filtrar-single-por-group ?*seconds* get-Friendliness Average High ))
+	(printout t "DEBUG: Triggered Rule 10 if (children=medium) or (children=few)-> main dish has to be at averagely friendly" crlf)
+	(bind ?*seconds* (filtrar-single-por ?*seconds* get-Friendliness Average))
 	(if (eq ?*seconds* FALSE) then (printout t "Rule 10 (children)- no more seconds" crlf) (halt))	
 	(assert (triggered-children-are-medium))
 )
