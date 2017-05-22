@@ -7,6 +7,7 @@
 
 	(DishInfo "Good one")
 	(DishName "Cesar Salad")
+	(MaxNum 2000)
 	(DishPrice 2.0)
 	(Friendliness High)
 	(Ingredients
@@ -18,6 +19,7 @@
 
 	(DishInfo "Sooo simple")
 	(DishName "Simple Salad")
+	(MaxNum 2000)
 	(DishPrice 3.0)
 	(DishType Vegetarian)
 	(Friendliness High)
@@ -28,6 +30,7 @@
 
 	(DishInfo "Pasta de origen Romana, en Italia, con huevos, bacon y  Parmigiano")
 	(DishName "Pasta Alla Carbonara")
+	(MaxNum 2000)
 	(DishPrice 10.0)
 	(Friendliness High)
 	(Ingredients
@@ -54,6 +57,7 @@
 
 	(DishInfo "Italian dish with tomato souce and bacon")
 	(DishName "Pasta Alla Amatriciana")
+	(MaxNum 1000)
 	(DishPrice 9.0)
 	(Friendliness Average)
 	(Ingredients
@@ -88,6 +92,7 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class20009] of  Dessert
+	(MaxNum 320 )
 
 	(DishInfo "Ice cream with many tastes")
 	(DishName "Helado")
@@ -105,6 +110,7 @@
 		[RicoRicoProject_Class50059]
 		[RicoRicoProject_Class50070]
 		[RicoRicoProject_Class30011])
+	(MaxNum 100)
 	(Style Regional Gourmet))
 
 ([RicoRicoProject_Class20011] of  Second
@@ -141,6 +147,7 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class20015] of  First
+	(MaxNum 320 )
 
 	(DishName "Tabla de queso y jamon")
 	(DishPrice 12.0)
@@ -257,6 +264,7 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class30002] of  Second
+	(MaxNum 2000)
 
 	(DishInfo "Plato experimental creado por la RicoRico")
 	(DishName "Plato Combinado de la casa")
@@ -315,6 +323,7 @@
 	(Style Modern Regional))
 
 ([RicoRicoProject_Class30008] of  Second
+	(MaxNum 2000)
 
 	(DishName "Filete de Merluza y Arroz")
 	(DishPrice 5.0)
@@ -350,6 +359,7 @@
 
 ([RicoRicoProject_Class30012] of  Dessert
 
+	(MaxNum 500)
 	(DishName "Crema Catalana")
 	(DishPrice 3.0)
 	(DishType Vegetarian)
@@ -391,6 +401,7 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class40000] of  First
+	(MaxNum 320 )
 
 	(DishInfo "Plato de gastronomia moleculàr")
 	(DishName "Gofres de Parmigiano y Apionabos")
@@ -441,6 +452,7 @@
 	(Season Autumn))
 
 ([RicoRicoProject_Class40006] of  Second
+	(MaxNum 2000)
 
 	(DishName "Arroz con Curry y Pasas")
 	(DishPrice 6.0)
@@ -459,6 +471,7 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class40008] of  Dessert
+	(MaxNum 400 )
 
 	(DishName "Ensalada de fruta")
 	(DishPrice 2.0)
@@ -540,6 +553,7 @@
 	(Season Autumn Winter Summer Spring))
 
 ([RicoRicoProject_Class40021] of  Second
+	(MaxNum 2000)
 
 	(DishName "Pasta con Cuatro Quesos")
 	(DishPrice 5.0)
@@ -620,6 +634,7 @@
 	(Season Summer Spring))
 
 ([RicoRicoProject_Class50006] of  Second
+	(MaxNum 2000)
 
 	(DishName "Paella")
 	(DishPrice 10.0)
@@ -730,6 +745,8 @@
 	(Season Winter Spring Autumn))
 
 ([RicoRicoProject_Class50019] of  First
+	(MaxNum 320 )
+
 
 	(DishName "Tabla de Chorizo")
 	(DishPrice 6.0)
@@ -752,6 +769,7 @@
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class50023] of  Second
+	(MaxNum 2000)
 
 	(DishInfo "Plato de Milano")
 	(DishName "Arroz con Azafran")
@@ -769,6 +787,7 @@
 	(Season Summer Spring))
 
 ([RicoRicoProject_Class50025] of  First
+	(MaxNum 320 )
 
 	(DishName "Patata Fritas")
 	(DishPrice 3.0)
@@ -778,6 +797,7 @@
 	(Style Classic))
 
 ([RicoRicoProject_Class50027] of  First
+	(MaxNum 320 )
 
 	(DishName "Alitas de Pollo")
 	(DishPrice 4.0)
@@ -789,6 +809,7 @@
 	(Style Classic))
 
 ([RicoRicoProject_Class50029] of  Dessert
+	(MaxNum 320 )
 
 	(DishName "Profitterol")
 	(DishPrice 6.0)
@@ -831,6 +852,7 @@
 		[RicoRicoProject_Class20010]))
 
 ([RicoRicoProject_Class50035] of  First
+	(MaxNum 320 )
 
 	(DishName "Anchoa con Huevas de Erizo")
 	(DishPrice 9.0)
@@ -856,6 +878,7 @@
 	(Season Summer Spring Winter Autumn))
 
 ([RicoRicoProject_Class50038] of  Second
+	(MaxNum 2000)
 
 	(DishName "Pescaito Frito")
 	(DishPrice 7.0)
@@ -889,6 +912,7 @@
 	(Season Winter Autumn))
 
 ([RicoRicoProject_Class50042] of  First
+	(MaxNum 320 )
 
 	(DishName "Carro de Quesos de Santceloni")
 	(DishPrice 6.0)
@@ -898,6 +922,7 @@
 	(Style Classic))
 
 ([RicoRicoProject_Class50043] of  First
+	(MaxNum 320 )
 
 	(DishName "Patatas Bravas")
 	(DishPrice 4.0)
@@ -915,6 +940,7 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class50045] of  Second
+	(MaxNum 2000)
 
 	(DishName "Tagliatelle con Trufa Negra")
 	(DishPrice 12.0)
@@ -972,6 +998,7 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class50052] of  First
+	(MaxNum 320 )
 
 	(DishName "Gamba Roja de Dénia")
 	(DishPrice 8.0)
@@ -990,6 +1017,7 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class50054] of  Dessert
+	(MaxNum 320 )
 
 	(DishName "Cheescake")
 	(DishPrice 4.0)
@@ -1005,6 +1033,7 @@
 	(Style Classic))
 
 ([RicoRicoProject_Class50055] of  First
+	(MaxNum 320 )
 
 	(DishName "Ensalada de Flores")
 	(DishPrice 3.0)
@@ -1048,6 +1077,7 @@
 	(DishPrice 11.0)
 	(DishType Vegan)
 	(Friendliness Low)
+	(MaxNum 2000)
 	(Ingredients
 		[RicoRicoProject_Class30010]
 		[RicoRicoProject_Class50047]
@@ -1076,11 +1106,13 @@
 
 	(DishName "Tuétano a la Brasa con Salsa de Jitomate")
 	(DishPrice 12.0)
+	(MaxNum 2000)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class50039])
 	(Style Gourmet Modern))
 
 ([RicoRicoProject_Class50062] of  First
+	(MaxNum 320 )
 
 	(DishName "Empanadas de Carne")
 	(DishPrice 5.0)
@@ -1116,6 +1148,7 @@
 	(DishName "Arroz con Judías y Nabos")
 	(DishPrice 8.0)
 	(DishType Vegan)
+	(MaxNum 2000)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class50068]
@@ -1141,6 +1174,7 @@
 	(DishPrice 7.0)
 	(DishType Vegan)
 	(Friendliness High)
+	(MaxNum 250)
 	(Ingredients
 		[RicoRicoProject_Class30010]
 		[RicoRicoProject_Class30004]
@@ -1210,6 +1244,7 @@
 		[RicoRicoProject_Class50017]
 		[RicoRicoProject_Class50038])
 	(Ingredients [RicoRicoProject_Class40011])
+	(MaxNum 250)
 	(Style Experimental Fun))
 
 ([RicoRicoProject_Class50079] of  Drink
@@ -1235,7 +1270,9 @@
 	(DishPrice 5.0)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class30001])
+	(MaxNum 250)
 	(Style Classic Regional))
+	
 
 ([RicoRicoProject_Class60001] of  Second
 
@@ -1267,6 +1304,7 @@
 
 	(DishInfo "Sushi tipico de Japon ideal para charlar")
 	(DishName "Sushi de Salmon")
+	
 	(DishPrice 6.0)
 	(Friendliness Average)
 	(Ingredients
