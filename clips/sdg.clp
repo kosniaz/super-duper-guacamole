@@ -1,4 +1,4 @@
-; Fri May 19 17:31:02 CEST 2017
+; Mon May 22 18:48:21 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -19,27 +19,19 @@
 ;+		(allowed-classes Second)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot FamilyEventType
-;+		(comment "Describes the type of family event")
-		(type SYMBOL)
-		(allowed-values Marriage Baptism Communion)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot IsInDish
-		(type INSTANCE)
-;+		(allowed-classes Dish)
-		(create-accessor read-write))
 	(single-slot Disponibility
 		(type INSTANCE)
 ;+		(allowed-classes Dish)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot IngredientName
-		(type STRING)
-;+		(cardinality 1 1)
+	(multislot IsInDish
+		(type INSTANCE)
+;+		(allowed-classes Dish)
 		(create-accessor read-write))
-	(single-slot DrinkPrice
-		(type FLOAT)
+	(single-slot FamilyEventType
+;+		(comment "Describes the type of family event")
+		(type SYMBOL)
+		(allowed-values Marriage Baptism Communion)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot IncompatibilityW2
@@ -48,20 +40,28 @@
 ;+		(allowed-classes Second)
 		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
-	(single-slot DishName
+	(single-slot DrinkPrice
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot IngredientName
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Period
-		(type INSTANCE)
-;+		(allowed-classes)
-;+		(cardinality 0 1)
+	(single-slot DishName
+		(type STRING)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot DessertDish
 ;+		(comment "Recommended dessert for the menu")
 		(type INSTANCE)
 ;+		(allowed-classes Dessert)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Period
+		(type INSTANCE)
+;+		(allowed-classes)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot RicoRicoProject_Class27
 		(type STRING)
@@ -122,16 +122,16 @@
 		(allowed-values Water Wine Refreshment Juice Other Beer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
+	(single-slot DishType
+		(type SYMBOL)
+		(allowed-values Vegetarian Vegan)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(multislot MenuDrink
 ;+		(comment "The drink/s selected for the menu")
 		(type INSTANCE)
 ;+		(allowed-classes Drink)
 		(cardinality 1 3)
-		(create-accessor read-write))
-	(single-slot DishType
-		(type SYMBOL)
-		(allowed-values Vegetarian Vegan)
-;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(multislot IncompatibilityDW2
 		(type INSTANCE)
@@ -191,14 +191,14 @@
 		(type SYMBOL)
 		(allowed-values Classic Modern Regional Gourmet Experimental Fun)
 		(create-accessor read-write))
+	(single-slot DishName
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot DishInfo
 ;+		(comment "A brief (or detailed) description of the dish")
 		(type STRING)
 ;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DishName
-		(type STRING)
-;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot DishPrice
 		(type FLOAT)
@@ -208,14 +208,14 @@
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(multislot Ingredients
-		(type INSTANCE)
-;+		(allowed-classes Ingredient)
-		(create-accessor read-write))
 	(single-slot DishType
 		(type SYMBOL)
 		(allowed-values Vegetarian Vegan)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot Ingredients
+		(type INSTANCE)
+;+		(allowed-classes Ingredient)
 		(create-accessor read-write))
 	(single-slot Friendliness
 		(type SYMBOL)
@@ -249,14 +249,14 @@
 (defclass Drink "Describe las babidas"
 	(is-a USER)
 	(role concrete)
+	(single-slot DrinkPrice
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot DrinkType
 		(type SYMBOL)
 		(allowed-values Water Wine Refreshment Juice Other Beer)
 ;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot DrinkPrice
-		(type FLOAT)
-;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot IncompatibilityWDish
 ;+		(comment "Relacion que describe la incompatibilidad de las bebidas con los platos")
@@ -286,8 +286,7 @@
 		(allowed-values Fruit Vegetable Fish Dairy Meat Other)
 ;+		(cardinality 1 1)
 		(create-accessor read-write)))
-
-(definstances menu 
+(definstances menu
 
 ([RicoRicoProject_Class10000] of  First
 
@@ -298,6 +297,7 @@
 	(Ingredients
 		[RicoRicoProject_Class20003]
 		[RicoRicoProject_Class40019])
+	(MaxNum 2000)
 	(Style Modern))
 
 ([RicoRicoProject_Class10001] of  First
@@ -308,6 +308,7 @@
 	(DishType Vegetarian)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class20003])
+	(MaxNum 2000)
 	(Style Classic))
 
 ([RicoRicoProject_Class20000] of  Second
@@ -322,6 +323,7 @@
 		[RicoRicoProject_Class36]
 		[RicoRicoProject_Class39]
 		[RicoRicoProject_Class38])
+	(MaxNum 2000)
 	(Style Classic))
 
 ([RicoRicoProject_Class20003] of  Ingredient
@@ -347,6 +349,7 @@
 		[RicoRicoProject_Class38]
 		[RicoRicoProject_Class40]
 		[RicoRicoProject_Class20007])
+	(MaxNum 1000)
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class20006] of  Second
@@ -379,6 +382,7 @@
 	(DishName "Helado")
 	(DishPrice 2.0)
 	(Friendliness High)
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class20010] of  Dessert
@@ -391,6 +395,7 @@
 		[RicoRicoProject_Class50059]
 		[RicoRicoProject_Class50070]
 		[RicoRicoProject_Class30011])
+	(MaxNum 100)
 	(Style Regional Gourmet))
 
 ([RicoRicoProject_Class20011] of  Second
@@ -434,6 +439,7 @@
 	(Ingredients
 		[RicoRicoProject_Class40003]
 		[RicoRicoProject_Class20026])
+	(MaxNum 320)
 	(Style Gourmet Fun))
 
 ([RicoRicoProject_Class20016] of  First
@@ -554,6 +560,7 @@
 		[RicoRicoProject_Class30004]
 		[RicoRicoProject_Class30001]
 		[RicoRicoProject_Class30005])
+	(MaxNum 2000)
 	(Style Experimental))
 
 ([RicoRicoProject_Class30003] of  Ingredient
@@ -608,6 +615,7 @@
 	(Ingredients
 		[RicoRicoProject_Class30010]
 		[RicoRicoProject_Class30009])
+	(MaxNum 2000)
 	(Style Classic))
 
 ([RicoRicoProject_Class30009] of  Ingredient
@@ -644,6 +652,7 @@
 	(Ingredients
 		[RicoRicoProject_Class36]
 		[RicoRicoProject_Class50030])
+	(MaxNum 500)
 	(Style Classic Fun Regional))
 
 ([RicoRicoProject_Class36] of  Ingredient
@@ -689,6 +698,7 @@
 	(Ingredients
 		[RicoRicoProject_Class40005]
 		[RicoRicoProject_Class39])
+	(MaxNum 320)
 	(Style Experimental))
 
 ([RicoRicoProject_Class40002] of  First
@@ -736,6 +746,7 @@
 		[RicoRicoProject_Class30010]
 		[RicoRicoProject_Class40007]
 		[RicoRicoProject_Class40020])
+	(MaxNum 2000)
 	(Style Experimental))
 
 ([RicoRicoProject_Class40007] of  Ingredient
@@ -755,6 +766,7 @@
 		[RicoRicoProject_Class40009]
 		[RicoRicoProject_Class40010]
 		[RicoRicoProject_Class50014])
+	(MaxNum 400)
 	(Style Classic))
 
 ([RicoRicoProject_Class40009] of  Ingredient
@@ -834,6 +846,7 @@
 	(Ingredients
 		[RicoRicoProject_Class40]
 		[RicoRicoProject_Class40003])
+	(MaxNum 2000)
 	(Style Experimental))
 
 ([RicoRicoProject_Class40022] of  Drink
@@ -915,6 +928,7 @@
 		[RicoRicoProject_Class40019]
 		[RicoRicoProject_Class50007]
 		[RicoRicoProject_Class50008])
+	(MaxNum 2000)
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class50007] of  Ingredient
@@ -1021,6 +1035,7 @@
 	(DishPrice 6.0)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class50016])
+	(MaxNum 320)
 	(Style Classic Regional Gourmet))
 
 ([RicoRicoProject_Class50021] of  Second
@@ -1046,6 +1061,7 @@
 	(Ingredients
 		[RicoRicoProject_Class50024]
 		[RicoRicoProject_Class30010])
+	(MaxNum 2000)
 	(Style Gourmet Regional Experimental))
 
 ([RicoRicoProject_Class50024] of  Ingredient
@@ -1061,6 +1077,7 @@
 	(DishType Vegan)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class20014])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50027] of  First
@@ -1072,6 +1089,7 @@
 		[RicoRicoProject_Class40006]
 		[RicoRicoProject_Class30011])
 	(Ingredients [RicoRicoProject_Class40019])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50029] of  Dessert
@@ -1086,6 +1104,7 @@
 	(Ingredients
 		[RicoRicoProject_Class50030]
 		[RicoRicoProject_Class50031])
+	(MaxNum 320)
 	(Style Gourmet Experimental))
 
 ([RicoRicoProject_Class50030] of  Ingredient
@@ -1127,6 +1146,7 @@
 	(Ingredients
 		[RicoRicoProject_Class50036]
 		[RicoRicoProject_Class50037])
+	(MaxNum 320)
 	(Style Gourmet Experimental))
 
 ([RicoRicoProject_Class50036] of  Ingredient
@@ -1147,6 +1167,7 @@
 	(DishPrice 7.0)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class50039])
+	(MaxNum 2000)
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class50039] of  Ingredient
@@ -1181,6 +1202,7 @@
 	(DishType Vegetarian)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class40003])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50043] of  First
@@ -1192,6 +1214,7 @@
 	(Ingredients
 		[RicoRicoProject_Class20014]
 		[RicoRicoProject_Class50044])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50044] of  Ingredient
@@ -1209,6 +1232,7 @@
 	(Ingredients
 		[RicoRicoProject_Class50046]
 		[RicoRicoProject_Class50047])
+	(MaxNum 2000)
 	(Style Gourmet Experimental))
 
 ([RicoRicoProject_Class50046] of  Ingredient
@@ -1267,6 +1291,7 @@
 		[RicoRicoProject_Class50009]
 		[RicoRicoProject_Class50057])
 	(Ingredients [RicoRicoProject_Class50053])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50053] of  Ingredient
@@ -1288,6 +1313,7 @@
 		[RicoRicoProject_Class50031]
 		[RicoRicoProject_Class40009]
 		[RicoRicoProject_Class40003])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50055] of  First
@@ -1302,6 +1328,7 @@
 	(Ingredients
 		[RicoRicoProject_Class20003]
 		[RicoRicoProject_Class50056])
+	(MaxNum 320)
 	(Style Experimental))
 
 ([RicoRicoProject_Class50056] of  Ingredient
@@ -1338,6 +1365,7 @@
 		[RicoRicoProject_Class30010]
 		[RicoRicoProject_Class50047]
 		[RicoRicoProject_Class50056])
+	(MaxNum 2000)
 	(Style Modern Experimental Gourmet))
 
 ([RicoRicoProject_Class50060] of  First
@@ -1364,6 +1392,7 @@
 	(DishPrice 12.0)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class50039])
+	(MaxNum 2000)
 	(Style Gourmet Modern))
 
 ([RicoRicoProject_Class50062] of  First
@@ -1372,6 +1401,7 @@
 	(DishPrice 5.0)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class30001])
+	(MaxNum 320)
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class50063] of  Second
@@ -1407,6 +1437,7 @@
 		[RicoRicoProject_Class50068]
 		[RicoRicoProject_Class50069]
 		[RicoRicoProject_Class30010])
+	(MaxNum 2000)
 	(Style Classic))
 
 ([RicoRicoProject_Class50068] of  Ingredient
@@ -1432,6 +1463,7 @@
 		[RicoRicoProject_Class30004]
 		[RicoRicoProject_Class50071]
 		[RicoRicoProject_Class50072])
+	(MaxNum 250)
 	(Style Regional Experimental Fun))
 
 ([RicoRicoProject_Class50071] of  Ingredient
@@ -1454,13 +1486,120 @@
 	(IncompatibilityWDish
 		[RicoRicoProject_Class50040]
 		[RicoRicoProject_Class40002]
-		[RicoRicoProject_Class50060]))
+		[RicoRicoProject_Class50060]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class50025]
+		[RicoRicoProject_Class50027]
+		[RicoRicoProject_Class50042]
+		[RicoRicoProject_Class50043]
+		[RicoRicoProject_Class50052]
+		[RicoRicoProject_Class40000]
+		[RicoRicoProject_Class50055]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class50050]
+		[RicoRicoProject_Class50000]
+		[RicoRicoProject_Class50040]
+		[RicoRicoProject_Class50003]
+		[RicoRicoProject_Class50019]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class50062]
+		[RicoRicoProject_Class50078]
+		[RicoRicoProject_Class40002]
+		[RicoRicoProject_Class50035]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class50060]
+		[RicoRicoProject_Class30007]
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class30000]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class50048]
+		[RicoRicoProject_Class50063]
+		[RicoRicoProject_Class50066]
+		[RicoRicoProject_Class30002]
+		[RicoRicoProject_Class40006]
+		[RicoRicoProject_Class40021]
+		[RicoRicoProject_Class40013]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class50017]
+		[RicoRicoProject_Class50009]
+		[RicoRicoProject_Class50015]
+		[RicoRicoProject_Class60001]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class50006]
+		[RicoRicoProject_Class50021]
+		[RicoRicoProject_Class50038]
+		[RicoRicoProject_Class60000]
+		[RicoRicoProject_Class60002]
+		[RicoRicoProject_Class50057]
+		[RicoRicoProject_Class50045]
+		[RicoRicoProject_Class50061]
+		[RicoRicoProject_Class50023]
+		[RicoRicoProject_Class50059]
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class60003]
+		[RicoRicoProject_Class50070]))
 
 ([RicoRicoProject_Class50074] of  Drink
 
 	(DrinkName "Cafè")
 	(DrinkPrice 1.0)
-	(DrinkType Other))
+	(DrinkType Other)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class50025]
+		[RicoRicoProject_Class50027]
+		[RicoRicoProject_Class50042]
+		[RicoRicoProject_Class50043]
+		[RicoRicoProject_Class50052]
+		[RicoRicoProject_Class40000]
+		[RicoRicoProject_Class50055]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class50050]
+		[RicoRicoProject_Class50000]
+		[RicoRicoProject_Class50040]
+		[RicoRicoProject_Class50003]
+		[RicoRicoProject_Class50019]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class50062]
+		[RicoRicoProject_Class50078]
+		[RicoRicoProject_Class40002]
+		[RicoRicoProject_Class50035]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class50060]
+		[RicoRicoProject_Class30007]
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class30000]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class50048]
+		[RicoRicoProject_Class50063]
+		[RicoRicoProject_Class50066]
+		[RicoRicoProject_Class30002]
+		[RicoRicoProject_Class40006]
+		[RicoRicoProject_Class40021]
+		[RicoRicoProject_Class40013]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class50017]
+		[RicoRicoProject_Class50009]
+		[RicoRicoProject_Class50015]
+		[RicoRicoProject_Class60001]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class50006]
+		[RicoRicoProject_Class50021]
+		[RicoRicoProject_Class50038]
+		[RicoRicoProject_Class60000]
+		[RicoRicoProject_Class60002]
+		[RicoRicoProject_Class50057]
+		[RicoRicoProject_Class50045]
+		[RicoRicoProject_Class50061]
+		[RicoRicoProject_Class50023]
+		[RicoRicoProject_Class50059]
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class60003]
+		[RicoRicoProject_Class50070]))
 
 ([RicoRicoProject_Class50075] of  Drink
 
@@ -1496,6 +1635,7 @@
 		[RicoRicoProject_Class50017]
 		[RicoRicoProject_Class50038])
 	(Ingredients [RicoRicoProject_Class40011])
+	(MaxNum 250)
 	(Style Experimental Fun))
 
 ([RicoRicoProject_Class50079] of  Drink
@@ -1521,6 +1661,7 @@
 	(DishPrice 5.0)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class30001])
+	(MaxNum 250)
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class60001] of  Second
@@ -1683,20 +1824,7 @@
 		[RicoRicoProject_Class50061]))
 )
 
-
-
-
-
-
-
-
-;Que estilo te gusta?
-;preguntas tipo test de psicología (con respuestas de 1 a 10)
-;religion!
-
 ;begin
-
-
 ;;**********************
 ;;* message handlers
 ;;**********************
@@ -2023,8 +2151,8 @@
 
 		(if (> (length ?li) 0) then
 			(loop-for-count (?i 1 (length ?li))
-				(bind $?v (send (nth$ ?i ?li) ?sl))
-				(if (eq ?const $?v) then
+				(bind ?v (send (nth$ ?i ?li) ?sl)) ;aqui ?$v to ?v
+				(if (eq ?const ?v) then
 				 (if (eq ?encontrado FALSE) then
 				   (bind ?encontrado TRUE)
 				   (bind ?ins (nth$ ?i ?li))
@@ -2173,7 +2301,7 @@
 (deffunction print-plates-list(?v)
 (if (eq (is-list-empty ?v) FALSE) then
 (bind ?v (create$ ?v))
-(loop-for-count (?i 1 (length ?v))
+(loop-for-count (?i 1 (length$ ?v))
 (bind ?name (send (nth$ ?i ?v) get-DishName))
 (printout t ?name)	
 (printout t crlf)
@@ -2836,23 +2964,31 @@
 
 
 (defrule refinement-vegetarian-vegan ""
+  
   (not (vegan-vegetarian-is-refined))
-  (menu-restrictions (isVeganVegetarian ?v))
+  (menu-restrictions (isVeganVegetarian vegetarian))
   =>
-  (if (eq ?v vegetarian) then 
 			      (printout t "DEBUG: Refinement pt.1: Keeping only vegetarian dishes..." crlf)	
-                              (bind ?*firsts* (filtrar-single-por-group ?*firsts* get-DishType Vegan Vegetarian) )
-                              (bind ?*seconds* (filtrar-single-por-group ?*seconds* get-DishType Vegan Vegetarian) )
-                              (bind ?*desserts* (filtrar-single-por-group ?*desserts* get-DishType Vegan Vegetarian) )
-			       
-  ) 
-  (if (eq ?v vegan) then
+                              (bind ?*firsts* 	(filtrar-single-por ?*firsts* get-DishType Vegetarian ) )
+                              (bind ?*seconds* 	(filtrar-single-por ?*seconds* get-DishType Vegetarian) )
+                              (bind ?*desserts* (filtrar-single-por ?*desserts* get-DishType Vegetarian) )
+
+  (if (eq  (is-list-empty ?*firsts*) TRUE) then (printout t "Refinement (Vegan-Vegetarian) - no more firsts... FAIL" crlf)(halt))
+  (if (eq  (is-list-empty ?*seconds*) TRUE) then (printout t "Refinement (Vegan-Vegetarian)- no more seconds... FAIL" crlf) (halt))	
+  (if  (eq  (is-list-empty ?*desserts*) TRUE) then (printout t "Refinement (Vegan-Vegetarian)- no more desserts... FAIL" crlf) (halt))	
+
+  (assert (vegan-vegetarian-is-refined))
+)
+
+(defrule refinement-vegan ""
+  
+  (not (vegan-vegetarian-is-refined))
+  (menu-restrictions (isVeganVegetarian vegan))
+  =>
 			      (printout t "DEBUG: Refinement pt.1: Keeping only vegan dishes..." crlf)	
                               (bind ?*firsts* (filtrar-single-por ?*firsts* get-DishType Vegan ) )
                               (bind ?*seconds* (filtrar-single-por ?*seconds* get-DishType Vegan) )
                               (bind ?*desserts* (filtrar-single-por ?*desserts* get-DishType Vegan) )
-  ) 
-  
 
   
   (if (eq  (is-list-empty ?*firsts*) TRUE) then (printout t "Refinement (Vegan-Vegetarian) - no more firsts... FAIL" crlf)(halt))
@@ -2862,16 +2998,26 @@
   (assert (vegan-vegetarian-is-refined))
 )
 
+(defrule refinement-meateaters ""
+	(not (vegan-vegetarian-is-refined))
+	(menu-restrictions (isVeganVegetarian no))
+	=>
+	(assert (vegan-vegetarian-is-refined))
+)
+
 (defrule refinement-persons ""
   (not(persons-is-refined))
   =>
+	
+
+	(printout t "DEBUG: Refinement pt.2: Keeping only dishes good for given number of people..." crlf)	
 	(bind ?*seconds* (keep-plates-for-more-than ?*seconds* ?*guests*))
 	(bind ?*firsts* (keep-plates-for-more-than ?*firsts* ?*guests*))
 	(bind ?*desserts* (keep-plates-for-more-than ?*desserts* ?*guests*))
 	(if (eq (is-list-empty ?*firsts*) TRUE) then (fail-with-message "Refinement (guests) - no more firsts..." ))
 	(if (eq (is-list-empty ?*seconds*) TRUE) then (fail-with-message "Refinement (guests) - no more seconds" ))	
 	(if (eq (is-list-empty ?*desserts*) TRUE) then (fail-with-message "Refinement (guests) - no more desserts" ))	
-  (assert (persons-is-refined))
+  	(assert (persons-is-refined))
 )
 
 
