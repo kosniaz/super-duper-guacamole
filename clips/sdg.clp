@@ -124,7 +124,7 @@
 		(create-accessor read-write))
 	(single-slot DishType
 		(type SYMBOL)
-		(allowed-values Vegetarian Vegan)
+		(allowed-values No Vegetarian Vegan)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(multislot MenuDrink
@@ -210,7 +210,7 @@
 		(create-accessor read-write))
 	(single-slot DishType
 		(type SYMBOL)
-		(allowed-values Vegetarian Vegan)
+		(allowed-values No Vegetarian Vegan)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(multislot Ingredients
@@ -293,6 +293,7 @@
 	(DishInfo "Good one")
 	(DishName "Cesar Salad")
 	(DishPrice 2.0)
+	(DishType No)
 	(Friendliness High)
 	(Ingredients
 		[RicoRicoProject_Class20003]
@@ -310,12 +311,14 @@
 	(Ingredients [RicoRicoProject_Class20003])
 	(MaxNum 2000)
 	(Style Classic))
+	
 
 ([RicoRicoProject_Class20000] of  Second
 
 	(DishInfo "Pasta de origen Romana, en Italia, con huevos, bacon y  Parmigiano")
 	(DishName "Pasta Alla Carbonara")
 	(DishPrice 10.0)
+	(DishType No)
 	(Friendliness High)
 	(Ingredients
 		[RicoRicoProject_Class40]
@@ -343,6 +346,7 @@
 	(DishInfo "Italian dish with tomato souce and bacon")
 	(DishName "Pasta Alla Amatriciana")
 	(DishPrice 9.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class37]
@@ -403,6 +407,7 @@
 	(DishInfo "Tipical greek dish")
 	(DishName "Moussakà")
 	(DishPrice 10.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class20012]
@@ -435,11 +440,13 @@
 
 	(DishName "Tabla de queso y jamon")
 	(DishPrice 12.0)
+	(DishType No)
 	(Friendliness High)
 	(Ingredients
 		[RicoRicoProject_Class40003]
 		[RicoRicoProject_Class20026])
 	(MaxNum 320)
+	(DishType No)
 	(Style Gourmet Fun))
 
 ([RicoRicoProject_Class20016] of  First
@@ -512,6 +519,7 @@
 
 	(DishInfo "Tipical spanish dish")
 	(DishName "Croquetas de Patatas")
+	(DishType No)
 	(DishPrice 6.0)
 	(Friendliness High)
 	(IncompatibilityW2 [RicoRicoProject_Class30011])
@@ -536,12 +544,14 @@
 	(DishInfo "TIpical french tartar")
 	(DishName "Tartar de tierna")
 	(DishPrice 5.0)
+	(DishType No)
 	(Friendliness Low)
 	(IncompatibilityW2 [RicoRicoProject_Class30008])
 	(Ingredients [RicoRicoProject_Class30001])
 	(MaxNum 2000)
+	(DishType No)
 	(Style Regional Gourmet))
-
+	
 ([RicoRicoProject_Class30001] of  Ingredient
 
 	(IngredientName "Carne de Vaca")
@@ -596,6 +606,7 @@
 	(DishInfo "Sushi tipico de Japon ideal para charlar")
 	(DishName "Sushi de Salmon")
 	(DishPrice 6.0)
+	(DishType No)
 	(Friendliness Average)
 	(IncompatibilityW2
 		[RicoRicoProject_Class30011]
@@ -611,6 +622,7 @@
 
 	(DishName "Filete de Merluza y Arroz")
 	(DishPrice 5.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class30010]
@@ -635,6 +647,7 @@
 	(DishInfo "Experimental dish with insects")
 	(DishName "Hamburguesa con Grillos")
 	(DishPrice 15.0)
+	(DishType No)
 	(Friendliness Low)
 	(Ingredients
 		[RicoRicoProject_Class30001]
@@ -690,6 +703,7 @@
 	(DishInfo "Plato de gastronomia moleculàr")
 	(DishName "Gofres de Parmigiano y Apionabos")
 	(DishPrice 8.0)
+	(DishType No)
 	(DishType Vegetarian)
 	(Friendliness Average)
 	(IncompatibilityW2
@@ -868,6 +882,7 @@
 	(DishInfo "Plato tipico Español")
 	(DishName "Gazpacho")
 	(DishPrice 6.0)
+	(DishType No)
 	(Friendliness Average)
 	(IncompatibilityW2 [RicoRicoProject_Class20011])
 	(Ingredients
@@ -922,6 +937,7 @@
 
 	(DishName "Paella")
 	(DishPrice 10.0)
+	(DishType No)
 	(Friendliness High)
 	(Ingredients
 		[RicoRicoProject_Class30010]
@@ -947,6 +963,7 @@
 
 	(DishName "Cordero a la Parrilla")
 	(DishPrice 11.0)
+	(DishType No)
 	(Friendliness Low)
 	(Ingredients [RicoRicoProject_Class50010])
 	(MaxNum 1000)
@@ -996,6 +1013,7 @@
 
 	(DishName "Cocido Madrileño")
 	(DishPrice 8.0)
+	(DishType No)
 	(Friendliness Low)
 	(Ingredients
 		[RicoRicoProject_Class30005]
@@ -1015,6 +1033,7 @@
 	(DishInfo "Plato tipico italiano")
 	(DishName "Lasagne")
 	(DishPrice 9.0)
+	(DishType No)
 	(Friendliness High)
 	(Ingredients
 		[RicoRicoProject_Class40]
@@ -1033,6 +1052,7 @@
 
 	(DishName "Tabla de Chorizo")
 	(DishPrice 6.0)
+	(DishType No)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class50016])
 	(MaxNum 320)
@@ -1043,6 +1063,7 @@
 	(DishInfo "Plato tipico Italiano")
 	(DishName "Pasta Boloñesa")
 	(DishPrice 9.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class30001]
@@ -1057,6 +1078,7 @@
 	(DishInfo "Plato de Milano")
 	(DishName "Arroz con Azafran")
 	(DishPrice 7.0)
+	(DishType No)
 	(Friendliness High)
 	(Ingredients
 		[RicoRicoProject_Class50024]
@@ -1084,6 +1106,7 @@
 
 	(DishName "Alitas de Pollo")
 	(DishPrice 4.0)
+	(DishType No)
 	(Friendliness High)
 	(IncompatibilityW2
 		[RicoRicoProject_Class40006]
@@ -1139,6 +1162,7 @@
 
 	(DishName "Anchoa con Huevas de Erizo")
 	(DishPrice 9.0)
+	(DishType No)
 	(Friendliness Low)
 	(IncompatibilityW2
 		[RicoRicoProject_Class50059]
@@ -1165,6 +1189,7 @@
 
 	(DishName "Pescaito Frito")
 	(DishPrice 7.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class50039])
 	(MaxNum 2000)
@@ -1251,6 +1276,7 @@
 
 	(DishName "Chuleta de Buey")
 	(DishPrice 10.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class50049])
 	(MaxNum 3000)
@@ -1285,6 +1311,7 @@
 
 	(DishName "Gamba Roja de Dénia")
 	(DishPrice 8.0)
+	(DishType No)
 	(Friendliness Low)
 	(IncompatibilityW2
 		[RicoRicoProject_Class50048]
@@ -1341,6 +1368,7 @@
 
 	(DishName "Paloma con Flores")
 	(DishPrice 11.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class30004]
@@ -1372,6 +1400,7 @@
 
 	(DishName "Nigiri de Pez Mantequilla con Trufa")
 	(DishPrice 7.0)
+	(DishType No)
 	(Friendliness Low)
 	(IncompatibilityW2
 		[RicoRicoProject_Class50070]
@@ -1390,6 +1419,7 @@
 
 	(DishName "Tuétano a la Brasa con Salsa de Jitomate")
 	(DishPrice 12.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class50039])
 	(MaxNum 2000)
@@ -1399,6 +1429,7 @@
 
 	(DishName "Empanadas de Carne")
 	(DishPrice 5.0)
+	(DishType No)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class30001])
 	(MaxNum 320)
@@ -1408,6 +1439,7 @@
 
 	(DishName "Rossetjat de Bogavante y Verduras")
 	(DishPrice 10.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class50064]
@@ -1659,6 +1691,7 @@
 
 	(DishName "Empanadas de Carne")
 	(DishPrice 5.0)
+	(DishType No)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class30001])
 	(MaxNum 250)
@@ -1669,6 +1702,7 @@
 	(DishInfo "Plato tipico de Galizia")
 	(DishName "Polipo a feira")
 	(DishPrice 9.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class50004]
@@ -1695,6 +1729,7 @@
 	(DishInfo "Sushi tipico de Japon ideal para charlar")
 	(DishName "Sushi de Salmon")
 	(DishPrice 6.0)
+	(DishType No)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class30010]
@@ -2152,7 +2187,9 @@
 		(if (> (length ?li) 0) then
 			(loop-for-count (?i 1 (length ?li))
 				(bind ?v (send (nth$ ?i ?li) ?sl)) ;aqui ?$v to ?v
-				(if (eq ?const ?v) then
+				(if (eq Vegetarian ?v) then ;aqui
+				   (printout t (send (nth$ ?i ?li) get-DishName) )
+				   (printout t "  is valid" crlf)
 				 (if (eq ?encontrado FALSE) then
 				   (bind ?encontrado TRUE)
 				   (bind ?ins (nth$ ?i ?li))
@@ -2969,9 +3006,9 @@
   (menu-restrictions (isVeganVegetarian vegetarian))
   =>
 			      (printout t "DEBUG: Refinement pt.1: Keeping only vegetarian dishes..." crlf)	
-                              (bind ?*firsts* 	(filtrar-single-por ?*firsts* get-DishType Vegetarian ) )
-                              (bind ?*seconds* 	(filtrar-single-por ?*seconds* get-DishType Vegetarian) )
-                              (bind ?*desserts* (filtrar-single-por ?*desserts* get-DishType Vegetarian) )
+                              (bind ?*firsts* 	(filtrar-single-por-group ?*firsts* get-DishType Vegetarian Vegan ) )
+                              (bind ?*seconds* 	(filtrar-single-por-group ?*seconds* get-DishType Vegetarian Vegan ) )
+                              (bind ?*desserts* (filtrar-single-por-group ?*desserts* get-DishType Vegetarian Vegan) )
 
   (if (eq  (is-list-empty ?*firsts*) TRUE) then (printout t "Refinement (Vegan-Vegetarian) - no more firsts... FAIL" crlf)(halt))
   (if (eq  (is-list-empty ?*seconds*) TRUE) then (printout t "Refinement (Vegan-Vegetarian)- no more seconds... FAIL" crlf) (halt))	
@@ -2995,6 +3032,12 @@
   (if (eq  (is-list-empty ?*seconds*) TRUE) then (printout t "Refinement (Vegan-Vegetarian)- no more seconds... FAIL" crlf) (halt))	
   (if  (eq  (is-list-empty ?*desserts*) TRUE) then (printout t "Refinement (Vegan-Vegetarian)- no more desserts... FAIL" crlf) (halt))	
 
+	(printout t "DEBUG: Firsts" crlf)	
+	(print-plates-list ?*firsts*)
+	(printout t "DEBUG: Sconds" crlf)	
+	(print-plates-list ?*seconds*)
+	(printout t "DEBUG: Desserts" crlf)	
+	(print-plates-list ?*desserts*)
   (assert (vegan-vegetarian-is-refined))
 )
 
