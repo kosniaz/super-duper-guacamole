@@ -1,4 +1,4 @@
-; Fri May 19 17:31:02 CEST 2017
+; Mon May 22 18:48:21 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -7,30 +7,29 @@
 
 	(DishInfo "Good one")
 	(DishName "Cesar Salad")
-	(MaxNum 2000)
 	(DishPrice 2.0)
 	(Friendliness High)
 	(Ingredients
 		[RicoRicoProject_Class20003]
 		[RicoRicoProject_Class40019])
+	(MaxNum 2000)
 	(Style Modern))
 
 ([RicoRicoProject_Class10001] of  First
 
 	(DishInfo "Sooo simple")
 	(DishName "Simple Salad")
-	(MaxNum 2000)
 	(DishPrice 3.0)
 	(DishType Vegetarian)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class20003])
+	(MaxNum 2000)
 	(Style Classic))
 
 ([RicoRicoProject_Class20000] of  Second
 
 	(DishInfo "Pasta de origen Romana, en Italia, con huevos, bacon y  Parmigiano")
 	(DishName "Pasta Alla Carbonara")
-	(MaxNum 2000)
 	(DishPrice 10.0)
 	(Friendliness High)
 	(Ingredients
@@ -39,6 +38,7 @@
 		[RicoRicoProject_Class36]
 		[RicoRicoProject_Class39]
 		[RicoRicoProject_Class38])
+	(MaxNum 2000)
 	(Style Classic))
 
 ([RicoRicoProject_Class20003] of  Ingredient
@@ -57,7 +57,6 @@
 
 	(DishInfo "Italian dish with tomato souce and bacon")
 	(DishName "Pasta Alla Amatriciana")
-	(MaxNum 1000)
 	(DishPrice 9.0)
 	(Friendliness Average)
 	(Ingredients
@@ -65,6 +64,7 @@
 		[RicoRicoProject_Class38]
 		[RicoRicoProject_Class40]
 		[RicoRicoProject_Class20007])
+	(MaxNum 1000)
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class20006] of  Second
@@ -92,12 +92,12 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class20009] of  Dessert
-	(MaxNum 320 )
 
 	(DishInfo "Ice cream with many tastes")
 	(DishName "Helado")
 	(DishPrice 2.0)
 	(Friendliness High)
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class20010] of  Dessert
@@ -147,7 +147,6 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class20015] of  First
-	(MaxNum 320 )
 
 	(DishName "Tabla de queso y jamon")
 	(DishPrice 12.0)
@@ -155,6 +154,7 @@
 	(Ingredients
 		[RicoRicoProject_Class40003]
 		[RicoRicoProject_Class20026])
+	(MaxNum 320)
 	(Style Gourmet Fun))
 
 ([RicoRicoProject_Class20016] of  First
@@ -264,7 +264,6 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class30002] of  Second
-	(MaxNum 2000)
 
 	(DishInfo "Plato experimental creado por la RicoRico")
 	(DishName "Plato Combinado de la casa")
@@ -276,6 +275,7 @@
 		[RicoRicoProject_Class30004]
 		[RicoRicoProject_Class30001]
 		[RicoRicoProject_Class30005])
+	(MaxNum 2000)
 	(Style Experimental))
 
 ([RicoRicoProject_Class30003] of  Ingredient
@@ -323,7 +323,6 @@
 	(Style Modern Regional))
 
 ([RicoRicoProject_Class30008] of  Second
-	(MaxNum 2000)
 
 	(DishName "Filete de Merluza y Arroz")
 	(DishPrice 5.0)
@@ -331,6 +330,7 @@
 	(Ingredients
 		[RicoRicoProject_Class30010]
 		[RicoRicoProject_Class30009])
+	(MaxNum 2000)
 	(Style Classic))
 
 ([RicoRicoProject_Class30009] of  Ingredient
@@ -359,7 +359,6 @@
 
 ([RicoRicoProject_Class30012] of  Dessert
 
-	(MaxNum 500)
 	(DishName "Crema Catalana")
 	(DishPrice 3.0)
 	(DishType Vegetarian)
@@ -368,6 +367,7 @@
 	(Ingredients
 		[RicoRicoProject_Class36]
 		[RicoRicoProject_Class50030])
+	(MaxNum 500)
 	(Style Classic Fun Regional))
 
 ([RicoRicoProject_Class36] of  Ingredient
@@ -401,7 +401,6 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class40000] of  First
-	(MaxNum 320 )
 
 	(DishInfo "Plato de gastronomia moleculàr")
 	(DishName "Gofres de Parmigiano y Apionabos")
@@ -414,6 +413,7 @@
 	(Ingredients
 		[RicoRicoProject_Class40005]
 		[RicoRicoProject_Class39])
+	(MaxNum 320)
 	(Style Experimental))
 
 ([RicoRicoProject_Class40002] of  First
@@ -452,7 +452,6 @@
 	(Season Autumn))
 
 ([RicoRicoProject_Class40006] of  Second
-	(MaxNum 2000)
 
 	(DishName "Arroz con Curry y Pasas")
 	(DishPrice 6.0)
@@ -462,6 +461,7 @@
 		[RicoRicoProject_Class30010]
 		[RicoRicoProject_Class40007]
 		[RicoRicoProject_Class40020])
+	(MaxNum 2000)
 	(Style Experimental))
 
 ([RicoRicoProject_Class40007] of  Ingredient
@@ -471,7 +471,6 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class40008] of  Dessert
-	(MaxNum 400 )
 
 	(DishName "Ensalada de fruta")
 	(DishPrice 2.0)
@@ -482,6 +481,7 @@
 		[RicoRicoProject_Class40009]
 		[RicoRicoProject_Class40010]
 		[RicoRicoProject_Class50014])
+	(MaxNum 400)
 	(Style Classic))
 
 ([RicoRicoProject_Class40009] of  Ingredient
@@ -553,7 +553,6 @@
 	(Season Autumn Winter Summer Spring))
 
 ([RicoRicoProject_Class40021] of  Second
-	(MaxNum 2000)
 
 	(DishName "Pasta con Cuatro Quesos")
 	(DishPrice 5.0)
@@ -562,6 +561,7 @@
 	(Ingredients
 		[RicoRicoProject_Class40]
 		[RicoRicoProject_Class40003])
+	(MaxNum 2000)
 	(Style Experimental))
 
 ([RicoRicoProject_Class40022] of  Drink
@@ -634,7 +634,6 @@
 	(Season Summer Spring))
 
 ([RicoRicoProject_Class50006] of  Second
-	(MaxNum 2000)
 
 	(DishName "Paella")
 	(DishPrice 10.0)
@@ -644,6 +643,7 @@
 		[RicoRicoProject_Class40019]
 		[RicoRicoProject_Class50007]
 		[RicoRicoProject_Class50008])
+	(MaxNum 2000)
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class50007] of  Ingredient
@@ -745,13 +745,12 @@
 	(Season Winter Spring Autumn))
 
 ([RicoRicoProject_Class50019] of  First
-	(MaxNum 320 )
-
 
 	(DishName "Tabla de Chorizo")
 	(DishPrice 6.0)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class50016])
+	(MaxNum 320)
 	(Style Classic Regional Gourmet))
 
 ([RicoRicoProject_Class50021] of  Second
@@ -769,7 +768,6 @@
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class50023] of  Second
-	(MaxNum 2000)
 
 	(DishInfo "Plato de Milano")
 	(DishName "Arroz con Azafran")
@@ -778,6 +776,7 @@
 	(Ingredients
 		[RicoRicoProject_Class50024]
 		[RicoRicoProject_Class30010])
+	(MaxNum 2000)
 	(Style Gourmet Regional Experimental))
 
 ([RicoRicoProject_Class50024] of  Ingredient
@@ -787,17 +786,16 @@
 	(Season Summer Spring))
 
 ([RicoRicoProject_Class50025] of  First
-	(MaxNum 320 )
 
 	(DishName "Patata Fritas")
 	(DishPrice 3.0)
 	(DishType Vegan)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class20014])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50027] of  First
-	(MaxNum 320 )
 
 	(DishName "Alitas de Pollo")
 	(DishPrice 4.0)
@@ -806,10 +804,10 @@
 		[RicoRicoProject_Class40006]
 		[RicoRicoProject_Class30011])
 	(Ingredients [RicoRicoProject_Class40019])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50029] of  Dessert
-	(MaxNum 320 )
 
 	(DishName "Profitterol")
 	(DishPrice 6.0)
@@ -821,6 +819,7 @@
 	(Ingredients
 		[RicoRicoProject_Class50030]
 		[RicoRicoProject_Class50031])
+	(MaxNum 320)
 	(Style Gourmet Experimental))
 
 ([RicoRicoProject_Class50030] of  Ingredient
@@ -852,7 +851,6 @@
 		[RicoRicoProject_Class20010]))
 
 ([RicoRicoProject_Class50035] of  First
-	(MaxNum 320 )
 
 	(DishName "Anchoa con Huevas de Erizo")
 	(DishPrice 9.0)
@@ -863,6 +861,7 @@
 	(Ingredients
 		[RicoRicoProject_Class50036]
 		[RicoRicoProject_Class50037])
+	(MaxNum 320)
 	(Style Gourmet Experimental))
 
 ([RicoRicoProject_Class50036] of  Ingredient
@@ -878,12 +877,12 @@
 	(Season Summer Spring Winter Autumn))
 
 ([RicoRicoProject_Class50038] of  Second
-	(MaxNum 2000)
 
 	(DishName "Pescaito Frito")
 	(DishPrice 7.0)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class50039])
+	(MaxNum 2000)
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class50039] of  Ingredient
@@ -912,17 +911,16 @@
 	(Season Winter Autumn))
 
 ([RicoRicoProject_Class50042] of  First
-	(MaxNum 320 )
 
 	(DishName "Carro de Quesos de Santceloni")
 	(DishPrice 6.0)
 	(DishType Vegetarian)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class40003])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50043] of  First
-	(MaxNum 320 )
 
 	(DishName "Patatas Bravas")
 	(DishPrice 4.0)
@@ -931,6 +929,7 @@
 	(Ingredients
 		[RicoRicoProject_Class20014]
 		[RicoRicoProject_Class50044])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50044] of  Ingredient
@@ -940,7 +939,6 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class50045] of  Second
-	(MaxNum 2000)
 
 	(DishName "Tagliatelle con Trufa Negra")
 	(DishPrice 12.0)
@@ -949,6 +947,7 @@
 	(Ingredients
 		[RicoRicoProject_Class50046]
 		[RicoRicoProject_Class50047])
+	(MaxNum 2000)
 	(Style Gourmet Experimental))
 
 ([RicoRicoProject_Class50046] of  Ingredient
@@ -998,7 +997,6 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class50052] of  First
-	(MaxNum 320 )
 
 	(DishName "Gamba Roja de Dénia")
 	(DishPrice 8.0)
@@ -1008,6 +1006,7 @@
 		[RicoRicoProject_Class50009]
 		[RicoRicoProject_Class50057])
 	(Ingredients [RicoRicoProject_Class50053])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50053] of  Ingredient
@@ -1017,7 +1016,6 @@
 	(Season Winter Summer Spring Autumn))
 
 ([RicoRicoProject_Class50054] of  Dessert
-	(MaxNum 320 )
 
 	(DishName "Cheescake")
 	(DishPrice 4.0)
@@ -1030,10 +1028,10 @@
 		[RicoRicoProject_Class50031]
 		[RicoRicoProject_Class40009]
 		[RicoRicoProject_Class40003])
+	(MaxNum 320)
 	(Style Classic))
 
 ([RicoRicoProject_Class50055] of  First
-	(MaxNum 320 )
 
 	(DishName "Ensalada de Flores")
 	(DishPrice 3.0)
@@ -1045,6 +1043,7 @@
 	(Ingredients
 		[RicoRicoProject_Class20003]
 		[RicoRicoProject_Class50056])
+	(MaxNum 320)
 	(Style Experimental))
 
 ([RicoRicoProject_Class50056] of  Ingredient
@@ -1077,11 +1076,11 @@
 	(DishPrice 11.0)
 	(DishType Vegan)
 	(Friendliness Low)
-	(MaxNum 2000)
 	(Ingredients
 		[RicoRicoProject_Class30010]
 		[RicoRicoProject_Class50047]
 		[RicoRicoProject_Class50056])
+	(MaxNum 2000)
 	(Style Modern Experimental Gourmet))
 
 ([RicoRicoProject_Class50060] of  First
@@ -1106,18 +1105,18 @@
 
 	(DishName "Tuétano a la Brasa con Salsa de Jitomate")
 	(DishPrice 12.0)
-	(MaxNum 2000)
 	(Friendliness Average)
 	(Ingredients [RicoRicoProject_Class50039])
+	(MaxNum 2000)
 	(Style Gourmet Modern))
 
 ([RicoRicoProject_Class50062] of  First
-	(MaxNum 320 )
 
 	(DishName "Empanadas de Carne")
 	(DishPrice 5.0)
 	(Friendliness High)
 	(Ingredients [RicoRicoProject_Class30001])
+	(MaxNum 320)
 	(Style Classic Regional))
 
 ([RicoRicoProject_Class50063] of  Second
@@ -1148,12 +1147,12 @@
 	(DishName "Arroz con Judías y Nabos")
 	(DishPrice 8.0)
 	(DishType Vegan)
-	(MaxNum 2000)
 	(Friendliness Average)
 	(Ingredients
 		[RicoRicoProject_Class50068]
 		[RicoRicoProject_Class50069]
 		[RicoRicoProject_Class30010])
+	(MaxNum 2000)
 	(Style Classic))
 
 ([RicoRicoProject_Class50068] of  Ingredient
@@ -1174,12 +1173,12 @@
 	(DishPrice 7.0)
 	(DishType Vegan)
 	(Friendliness High)
-	(MaxNum 250)
 	(Ingredients
 		[RicoRicoProject_Class30010]
 		[RicoRicoProject_Class30004]
 		[RicoRicoProject_Class50071]
 		[RicoRicoProject_Class50072])
+	(MaxNum 250)
 	(Style Regional Experimental Fun))
 
 ([RicoRicoProject_Class50071] of  Ingredient
@@ -1202,13 +1201,120 @@
 	(IncompatibilityWDish
 		[RicoRicoProject_Class50040]
 		[RicoRicoProject_Class40002]
-		[RicoRicoProject_Class50060]))
+		[RicoRicoProject_Class50060]
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class50025]
+		[RicoRicoProject_Class50027]
+		[RicoRicoProject_Class50042]
+		[RicoRicoProject_Class50043]
+		[RicoRicoProject_Class50052]
+		[RicoRicoProject_Class40000]
+		[RicoRicoProject_Class50055]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class50050]
+		[RicoRicoProject_Class50000]
+		[RicoRicoProject_Class50040]
+		[RicoRicoProject_Class50003]
+		[RicoRicoProject_Class50019]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class50062]
+		[RicoRicoProject_Class50078]
+		[RicoRicoProject_Class40002]
+		[RicoRicoProject_Class50035]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class50060]
+		[RicoRicoProject_Class30007]
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class30000]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class50048]
+		[RicoRicoProject_Class50063]
+		[RicoRicoProject_Class50066]
+		[RicoRicoProject_Class30002]
+		[RicoRicoProject_Class40006]
+		[RicoRicoProject_Class40021]
+		[RicoRicoProject_Class40013]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class50017]
+		[RicoRicoProject_Class50009]
+		[RicoRicoProject_Class50015]
+		[RicoRicoProject_Class60001]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class50006]
+		[RicoRicoProject_Class50021]
+		[RicoRicoProject_Class50038]
+		[RicoRicoProject_Class60000]
+		[RicoRicoProject_Class60002]
+		[RicoRicoProject_Class50057]
+		[RicoRicoProject_Class50045]
+		[RicoRicoProject_Class50061]
+		[RicoRicoProject_Class50023]
+		[RicoRicoProject_Class50059]
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class60003]
+		[RicoRicoProject_Class50070]))
 
 ([RicoRicoProject_Class50074] of  Drink
 
 	(DrinkName "Cafè")
 	(DrinkPrice 1.0)
-	(DrinkType Other))
+	(DrinkType Other)
+	(IncompatibilityWDish
+		[RicoRicoProject_Class10001]
+		[RicoRicoProject_Class50025]
+		[RicoRicoProject_Class50027]
+		[RicoRicoProject_Class50042]
+		[RicoRicoProject_Class50043]
+		[RicoRicoProject_Class50052]
+		[RicoRicoProject_Class40000]
+		[RicoRicoProject_Class50055]
+		[RicoRicoProject_Class10000]
+		[RicoRicoProject_Class50050]
+		[RicoRicoProject_Class50000]
+		[RicoRicoProject_Class50040]
+		[RicoRicoProject_Class50003]
+		[RicoRicoProject_Class50019]
+		[RicoRicoProject_Class20016]
+		[RicoRicoProject_Class50062]
+		[RicoRicoProject_Class50078]
+		[RicoRicoProject_Class40002]
+		[RicoRicoProject_Class50035]
+		[RicoRicoProject_Class20015]
+		[RicoRicoProject_Class50060]
+		[RicoRicoProject_Class30007]
+		[RicoRicoProject_Class20025]
+		[RicoRicoProject_Class30000]
+		[RicoRicoProject_Class20000]
+		[RicoRicoProject_Class20006]
+		[RicoRicoProject_Class30008]
+		[RicoRicoProject_Class50048]
+		[RicoRicoProject_Class50063]
+		[RicoRicoProject_Class50066]
+		[RicoRicoProject_Class30002]
+		[RicoRicoProject_Class40006]
+		[RicoRicoProject_Class40021]
+		[RicoRicoProject_Class40013]
+		[RicoRicoProject_Class20011]
+		[RicoRicoProject_Class50017]
+		[RicoRicoProject_Class50009]
+		[RicoRicoProject_Class50015]
+		[RicoRicoProject_Class60001]
+		[RicoRicoProject_Class20005]
+		[RicoRicoProject_Class50006]
+		[RicoRicoProject_Class50021]
+		[RicoRicoProject_Class50038]
+		[RicoRicoProject_Class60000]
+		[RicoRicoProject_Class60002]
+		[RicoRicoProject_Class50057]
+		[RicoRicoProject_Class50045]
+		[RicoRicoProject_Class50061]
+		[RicoRicoProject_Class50023]
+		[RicoRicoProject_Class50059]
+		[RicoRicoProject_Class30011]
+		[RicoRicoProject_Class60003]
+		[RicoRicoProject_Class50070]))
 
 ([RicoRicoProject_Class50075] of  Drink
 
@@ -1272,7 +1378,6 @@
 	(Ingredients [RicoRicoProject_Class30001])
 	(MaxNum 250)
 	(Style Classic Regional))
-	
 
 ([RicoRicoProject_Class60001] of  Second
 
@@ -1304,7 +1409,6 @@
 
 	(DishInfo "Sushi tipico de Japon ideal para charlar")
 	(DishName "Sushi de Salmon")
-	
 	(DishPrice 6.0)
 	(Friendliness Average)
 	(Ingredients

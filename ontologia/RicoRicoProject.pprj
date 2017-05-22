@@ -1,4 +1,4 @@
-; Fri May 19 17:30:50 CEST 2017
+; Mon May 22 18:48:04 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,14 +20,14 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[RicoRicoProject_ProjectKB_Class10082]
-		[RicoRicoProject_ProjectKB_Class10083]
-		[RicoRicoProject_ProjectKB_Class10084]
-		[RicoRicoProject_ProjectKB_Class10085]
-		[RicoRicoProject_ProjectKB_Class10086]
-		[RicoRicoProject_ProjectKB_Class10087]
-		[RicoRicoProject_ProjectKB_Class10088]
-		[RicoRicoProject_ProjectKB_Class10089]))
+		[RicoRicoProject_ProjectKB_Class10025]
+		[RicoRicoProject_ProjectKB_Class10026]
+		[RicoRicoProject_ProjectKB_Class10027]
+		[RicoRicoProject_ProjectKB_Class10028]
+		[RicoRicoProject_ProjectKB_Class10029]
+		[RicoRicoProject_ProjectKB_Class10030]
+		[RicoRicoProject_ProjectKB_Class10031]
+		[RicoRicoProject_ProjectKB_Class10032]))
 
 ([CLSES_TAB] of  Widget
 
@@ -71,6 +71,9 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
+([KB_011824_Class3] of  Map
+)
+
 ([KB_273644_Class0] of  String
 
 	(name "factory_class_name")
@@ -79,9 +82,9 @@
 ([KB_273644_Class1] of  Map
 
 	(entries
-		[RicoRicoProject_ProjectKB_Class10090]
-		[RicoRicoProject_ProjectKB_Class10091]
-		[RicoRicoProject_ProjectKB_Class10092]))
+		[RicoRicoProject_ProjectKB_Class10033]
+		[RicoRicoProject_ProjectKB_Class10034]
+		[RicoRicoProject_ProjectKB_Class10035]))
 
 ([KB_273644_Class100] of  Property_List
 )
@@ -175,9 +178,6 @@
 ([KB_273644_Class99] of  Property_List
 )
 
-([KB_502327_Class3] of  Map
-)
-
 ([LAYOUT_PROPERTIES] of  Property_List
 
 	(name "layout properties")
@@ -262,8 +262,8 @@
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
 		[INSTANCE_ANNOTATION_FORM_WIDGET]
-		[STANDARD_FACET_FORM_WIDGET]
 		[STANDARD_SLOT_FORM_WIDGET]
+		[STANDARD_FACET_FORM_WIDGET]
 		[PAL_FORM_WIDGET]
 		[STANDARD_CLASS_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
@@ -370,61 +370,61 @@
 ([RicoRicoProject_ProjectKB_Class10011] of  Property_List
 )
 
-([RicoRicoProject_ProjectKB_Class10082] of  String
+([RicoRicoProject_ProjectKB_Class10025] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([RicoRicoProject_ProjectKB_Class10083] of  String
+([RicoRicoProject_ProjectKB_Class10026] of  String
 
 	(name "Drink")
-	(string_value "DrinkType"))
+	(string_value "DrinkName"))
 
-([RicoRicoProject_ProjectKB_Class10084] of  String
+([RicoRicoProject_ProjectKB_Class10027] of  String
 
 	(name "First")
 	(string_value "Style"))
 
-([RicoRicoProject_ProjectKB_Class10085] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([RicoRicoProject_ProjectKB_Class10086] of  String
+([RicoRicoProject_ProjectKB_Class10028] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([RicoRicoProject_ProjectKB_Class10087] of  String
+([RicoRicoProject_ProjectKB_Class10029] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([RicoRicoProject_ProjectKB_Class10030] of  String
 
 	(name "Ingredient")
 	(string_value "IngredientName"))
 
-([RicoRicoProject_ProjectKB_Class10088] of  String
+([RicoRicoProject_ProjectKB_Class10031] of  String
 
 	(name "Second")
 	(string_value "Style"))
 
-([RicoRicoProject_ProjectKB_Class10089] of  String
+([RicoRicoProject_ProjectKB_Class10032] of  String
 
 	(name "Dessert")
 	(string_value "DishName"))
 
-([RicoRicoProject_ProjectKB_Class10090] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10033] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([RicoRicoProject_ProjectKB_Class10091] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10034] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([RicoRicoProject_ProjectKB_Class10092] of  Map_Entry
+([RicoRicoProject_ProjectKB_Class10035] of  Map_Entry
 
 	(key "suppress_instance_counting")
 	(key_class "java.lang.String")
