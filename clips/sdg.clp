@@ -1683,6 +1683,13 @@
 		[RicoRicoProject_Class50061]))
 )
 
+
+
+
+
+
+
+
 ;Que estilo te gusta?
 ;preguntas tipo test de psicología (con respuestas de 1 a 10)
 ;religion!
@@ -1700,7 +1707,7 @@
 (defglobal ?*seconds* = FALSE )
 (defglobal ?*desserts* = FALSE )
 (defglobal ?*drinks* = FALSE )
-
+(defglobal ?*guests* = 0)
 
 (defmessage-handler Menu printInfo primary ()
   (printout t "First Dish: " )
@@ -1767,10 +1774,19 @@
 ;;****************
 
 
+(deffunction fail-with-message (?message) 
+	(printout t "FAIL: " ?message crlf)
+	(halt)
+)
+
+
 (deffunction minimum-slot (?li ?sl ?init)
- (bind ?min ?init)
+ (bind ?min ?init) 
  (if (eq ?li FALSE) then (halt))
- (loop-for-count (?i 1 (length ?li))
+	(if (neq ?li FALSE) then	
+		(bind ?li (create$ ?li))) ;use this structure to check if list is empty...
+ (if (eq (length$ ?li) 0) then (fail-with-message "Not enough plates"))
+ (loop-for-count (?i 1 (length$ ?li))
    (bind ?curr (send (nth$ ?i ?li) ?sl))
    (bind ?minim (send ?min ?sl))
    (if (< ?curr ?minim)
@@ -1783,7 +1799,7 @@
 (deffunction maximum-slot (?li ?sl ?init)
  (bind ?min ?init)
  (if (eq ?li FALSE) then (halt))
- (loop-for-count (?i 1 (length ?li))
+ (loop-for-count (?i 1 (length$ ?li))
    (bind ?curr (send (nth$ ?i ?li) ?sl))
    (bind ?minim (send ?min ?sl))
    (if (> ?curr ?minim)
@@ -1793,7 +1809,7 @@
   )
   (return ?min)
 )
-(deffunction findminprices () "" 
+(deffunction findminprice () "" 
 	(bind ?min1 (send (minimum-slot ?*firsts* get-DishPrice (nth$ 1 ?*firsts*)) get-DishPrice)) 
 	(bind ?min2 (send (minimum-slot ?*seconds* get-DishPrice (nth$ 1 ?*seconds*)) get-DishPrice)) 
 	(bind ?min3 (send (minimum-slot ?*desserts* get-DishPrice(nth$ 1 ?*desserts*)) get-DishPrice)) 
@@ -1803,7 +1819,7 @@
 	(return ?min)
 )
 
-(deffunction findmaxprices () "" 
+(deffunction findmaxprice () "" 
 	(bind ?max1 (send (maximum-slot ?*firsts* get-DishPrice (nth$ 1 ?*firsts*)) get-DishPrice)) 
 	(bind ?max2 (send (maximum-slot ?*seconds* get-DishPrice (nth$ 1 ?*seconds*)) get-DishPrice)) 
 	(bind ?max3 (send (maximum-slot ?*desserts* get-DishPrice(nth$ 1 ?*desserts*)) get-DishPrice)) 
@@ -1872,15 +1888,26 @@
 		;(printout t "Entrado" crlf)
 		(if (> (length ?plates) 0) then
 			(loop-for-count (?i 1 (length ?plates))
-				(if (> (send (nth$ ?i ?plates) get-MaxNum) ?guests) then ;if the condition is true, we keep the plate
-				 (if (eq ?encontrado FALSE) then
+				(bind ?maxnum (send (nth$ ?i ?plates) get-MaxNum))
+				(if (neq ?maxnum FALSE) then
+				(if (> ?maxnum ?guests) then ;if the condition is true, we keep the plate
+					 (if (eq ?encontrado FALSE) then
+					   (bind ?encontrado TRUE)
+					   (bind ?ins (nth$ ?i ?plates))
+					  else
+					   (bind ?ins (create$ ?ins (nth$ ?i ?plates)))
+					 )
+				)
+				else
+				(if (eq ?encontrado FALSE) then
 				   (bind ?encontrado TRUE)
 				   (bind ?ins (nth$ ?i ?plates))
 				  else
 				   (bind ?ins (create$ ?ins (nth$ ?i ?plates)))
 				 )
+
 				)
-			)
+		        ) 
 		)
 	)
 	(if (eq ?encontrado FALSE) then
@@ -1888,6 +1915,17 @@
 	)
 	(if (eq ?ins FALSE) then (printout t "JODER TIO PORQUE??" crlf))
 	(return ?ins)
+)
+
+(deffunction is-list-empty(?list)
+	(bind ?ret TRUE)	
+	(if (neq ?list FALSE) then	
+		(bind ?list (create$ ?list))
+		(if (> (length ?list) 0) then 
+			(bind ?ret FALSE) 
+		)
+	)
+	(return ?ret)
 )
 
 (deffunction keep-cheaper-than (?plates ?price) 
@@ -2133,7 +2171,8 @@
 )
 
 (deffunction print-plates-list(?v)
-(if (and (> (length$ ?v) 0) (neq ?v FALSE)) then
+(if (eq (is-list-empty ?v) FALSE) then
+(bind ?v (create$ ?v))
 (loop-for-count (?i 1 (length ?v))
 (bind ?name (send (nth$ ?i ?v) get-DishName))
 (printout t ?name)	
@@ -2183,25 +2222,6 @@
 ;;Until now, we have two states: info-gathering and done.
 ;;The idea of using states might not be good, I am just experimenting.
 
-(defrule menus-are-ready ""
-   (menus-ready)
-   ?oldstate <- (entered-state "info-gathering")
-   =>
-   (retract ?oldstate)
-   (assert (entered-state "creating-menu")))
-    
-
-(defrule system-fail ""
-   (declare (salience -10))
-   (entered-state "info-gathering")
-   ;(not (entered-state "done"))
-   =>
-   (assert (the-system-has-failed)))
-
-(defrule system-success ""
-   (entered-state "done")
-   =>
-   (assert (success)))
 
 
 ;;;****************************
@@ -2215,44 +2235,12 @@
   (printout t crlf crlf)
   (printout t "The Menu Proposal System")
   (printout t crlf crlf)
-  (set-strategy depth)
+  (set-strategy random)
+  (printout t "********************************************************************************************************" crlf)
+  (printout t "****************************************PHASE 1 - READ CONCRETE INPUT DATA******************************" crlf)
+  (printout t "********************************************************************************************************" crlf)
   (focus module-event-info-gathering)
 )
-
-;;print result:
-(defrule print-done-message " "
-  (declare (salience 10))
-  (success)
-  =>
-  (printout t crlf crlf)
-  (printout t "Thank you for the information, the system will now produce 3 ideal menus!")
-  (printout t crlf crlf)
-  (halt))
-
-
-;(defrule print-menus ""
-;  (declare (salience 10))
-;  (success)
-;  (menu-gold ?gold)
-;  (menu-silver ?silver)
-;  (menu-bronze ?bronze)
-;  =>
-;  (printout t crlf crlf)
-;  (printout t "Suggested Menus (in order G-S-B):")
-;  (printout t crlf crlf)
-;  (format t " %s%n%n%n" ?gold)
-;  (format t " %s%n%n%n" ?silver)
-;  (format t " %s%n%n%n" ?bronze))
-
-(defrule print-system-fail ""
-   (declare (salience 10))
-   (the-system-has-failed)
-   =>
-  (printout t crlf crlf)
-  (printout t "We're terribly sorry, we could not find a suitable solution!")
-  (printout t crlf crlf)
-  (halt))
-  
 
 ;;;*************
 ;;;* TEMPLATES *
@@ -2282,13 +2270,6 @@
 	(slot  classic)
 )
 
-;(deftemplate abstract-filters
-;	(slot menu-is-experimental  ) 
-;	(slot menu-is-kid-friendly ) 
-;	(slot menu-is-of-season ) 
-;;	(slot menu-has-guests ) 
-;)
-
 ;;;*******************************
 ;;;* MODULE EVENT INFO GATHERING *
 ;;;*******************************
@@ -2299,6 +2280,8 @@
 )
 
 ;;; Initial fact
+
+
 
 (deffacts initial-facts
     (target-event
@@ -2325,15 +2308,7 @@
 	(experimental unknown)
 	(classic unknown)
     )
-
-    ;(abstract-filters
-;	(menu-is-experimental  unknown)
-;	(menu-is-kid-friendly unknown)
-;	(menu-is-of-season unknown)
-;	(menu-has-guests unknown)
- ;   )
 )
-
 ;;;***************
 ;;;* QUERY RULES *
 ;;;***************
@@ -2372,8 +2347,9 @@
     (not (guests-determined))
     ?e <-(target-event (guests unknown))
 =>
-    (bind ?res (ask-integer-question "How many people are we expecting? (Range of people between 1 and 1000) " 1 1000))
+    (bind ?res (ask-integer-question "How many people are we expecting? (Range of people between 1 and 1000) " 1 10000))
     (assert (guests-determined))
+    (bind ?*guests* ?res)
     (modify ?e (guests ?res))
 )
 
@@ -2401,15 +2377,10 @@
         (not (determined-children))
 	?e <- (target-event (children unknown))
 =>
-	(bind ?res (ask-question "How many children are coming to the event? (none/few/medium/many)" none few medium many))
+	(bind ?res (ask-question "How many children are coming to the event? (none/few/medium/many)......." none few medium many))
 	(assert (determined-children))
 	(modify ?e (children ?res))
 )
-
-;;;*****************************************************************************************
-;;;* More specific information for each type of event may be gathered in the final version *
-;;;*****************************************************************************************
-
 
 ;;; Once all data about the event is gathered
 (defrule start-menu-questions
@@ -2481,15 +2452,20 @@
 =>
     (printout t "Thank you for your answers. We will now proceed to create 3 menus for you!" crlf)
     (printout t "DEBUG: Data gathered until now: " crlf)
-    (printout t "Guests:	 	" ?g  crlf)
-    (printout t "Children:	 	" ?c crlf)
-    (printout t "Type:	  		" ?t  crlf)
-    (printout t "Subtype:	 	" ?st crlf)
-    (printout t "Season:		" ?s crlf)
-    (printout t "Budget-per-person: 	" ?bpp crlf)
-    (printout t "isVeganVegetarian: 	" ?v crlf)
-    (printout t "Classic:  		" ?cl crlf)
-    (printout t "Experimental : 	" ?exp crlf)
+    (printout t "Guests...........:		" ?g  crlf)
+    (printout t "Children.........:		" ?c crlf)
+    (printout t "Type.............:		" ?t  crlf)
+    (printout t "Subtype..........:		" ?st crlf)
+    (printout t "Season...........:		" ?s crlf)
+    (printout t "Budget-per-person:		" ?bpp crlf)
+    (printout t "isVeganVegetarian:		" ?v crlf)
+    (printout t "Classic..........:		" ?cl crlf)
+    (printout t "Experimental.....:		" ?exp crlf)
+
+  (printout t "********************************************************************************************************" crlf)
+  (printout t "************************************PHASE 2- CONVERT TO ABSTRACT PROBLEM DATA***************************" crlf)
+  (printout t "********************************************************************************************************" crlf)
+
     (focus module-convert-to-abstract)
 )
 
@@ -2518,7 +2494,7 @@
          ?x <- (abstract-info (poor-or-rich unknown))
          (target-event (budget-per-person ?bud))
       =>
-	(if (< ?bud  28) then (modify ?x (poor-or-rich poor))  
+	(if (< ?bud  20) then (modify ?x (poor-or-rich poor))  
 	else (modify ?x (poor-or-rich rich))) 
     	(assert (determined-poor-or-rich))
 )
@@ -2616,13 +2592,16 @@
     (printout t "***************************************************************************************" crlf)
     (printout t "DEBUG: Done conversion from concrete to abstract input" crlf)
 
-    (printout t  "Poor-or-rich: " ?poor crlf) 
-    (printout t  "Impressive-event: " ?ev crlf) 
-    (printout t  "Guest: " ?g crlf) 
-    (printout t  "Children: " ?c crlf) 
-    (printout t  "Season: " ?s crlf) 
-    (printout t  "Experimental: " ?exp crlf) 
-    (printout t  "Classic: " ?classic crlf) 
+    (printout t  "Poor-or-rich:			" ?poor crlf) 
+    (printout t  "Impressive-event:		" ?ev crlf) 
+    (printout t  "Guest...........:		" ?g crlf) 
+    (printout t  "Children:			" ?c crlf) 
+    (printout t  "Season.........:		" ?s crlf) 
+    (printout t  "Experimental:			" ?exp crlf) 
+    (printout t  "Classic:			" ?classic crlf) 
+  (printout t "********************************************************************************************************" crlf)
+  (printout t "********************************PHASE 3 - EXECUTE RULES OF ABSTRACT PROBLEM SOLVER**********************" crlf)
+  (printout t "********************************************************************************************************" crlf)
     (focus module-build-abstract-solution)
 )
 
@@ -2819,13 +2798,16 @@
 (defrule print-abstract-results ""
 	(declare (salience -10))
 =>
-	;(printout t "DEBUG: Possible First Dishes, at the end of the heuristic selection:" crlf)
-	;(if (eq ?*firsts* FALSE) then (printout t "No firsts available." crlf)(halt)
-	;else (print-plates-list ?*firsts*))
+	(printout t "DEBUG: Possible First Dishes, at the end of PHASE 3:" crlf)
+	(if (eq (is-list-empty ?*firsts*) TRUE) then (printout t "No firsts available." crlf)(halt)
+	else (print-plates-list ?*firsts*))
 
-	;(printout t "DEBUG: Possible Second Dishes, at the end of the heuristic selection:" crlf)
-	;(if (eq ?*seconds* FALSE) then (printout t "No seconds available." crlf)(halt)
-	;else (print-plates-list ?*seconds*))
+	(printout t "DEBUG: Possible Second Dishes, at the end of PHASE 3:" crlf)
+	(if (eq (is-list-empty ?*seconds*) TRUE) then (printout t "No seconds available." crlf)(halt)
+	else (print-plates-list ?*seconds*))
+	(printout t "DEBUG: Possible  Dishes, at the end of PHASE 3:" crlf)
+	(if (eq (is-list-empty ?*desserts*) TRUE) then (printout t "No desserts available." crlf)(halt)
+	else (print-plates-list ?*desserts*))
 )
 
 ;;; Once an abstract model is ready we go on to the refinement
@@ -2833,6 +2815,9 @@
     (declare (salience -20))
 =>
     (printout t "Abstract problem solved, moving on to refinement." crlf)
+  (printout t "********************************************************************************************************" crlf)
+  (printout t "************************************PHASE 4- REFINEMENT*************************************************" crlf)
+  (printout t "********************************************************************************************************" crlf)
     (focus module-refine-solution)
 )
 
@@ -2867,130 +2852,217 @@
                               (bind ?*seconds* (filtrar-single-por ?*seconds* get-DishType Vegan) )
                               (bind ?*desserts* (filtrar-single-por ?*desserts* get-DishType Vegan) )
   ) 
+  
 
-  (if (eq ?*firsts* FALSE) then (printout t "Refinement (Vegan-Vegetarian) - no more firsts... FAIL" crlf)(halt))
-  (if (eq ?*seconds* FALSE) then (printout t "Refinement (Vegan-Vegetarian)- no more seconds... FAIL" crlf) (halt))	
-  (if (eq ?*desserts* FALSE) then (printout t "Refinement (Vegan-Vegetarian)- no more desserts... FAIL" crlf) (halt))	
+  
+  (if (eq  (is-list-empty ?*firsts*) TRUE) then (printout t "Refinement (Vegan-Vegetarian) - no more firsts... FAIL" crlf)(halt))
+  (if (eq  (is-list-empty ?*seconds*) TRUE) then (printout t "Refinement (Vegan-Vegetarian)- no more seconds... FAIL" crlf) (halt))	
+  (if  (eq  (is-list-empty ?*desserts*) TRUE) then (printout t "Refinement (Vegan-Vegetarian)- no more desserts... FAIL" crlf) (halt))	
 
   (assert (vegan-vegetarian-is-refined))
 )
 
+(defrule refinement-persons ""
+  (not(persons-is-refined))
+  =>
+	(bind ?*seconds* (keep-plates-for-more-than ?*seconds* ?*guests*))
+	(bind ?*firsts* (keep-plates-for-more-than ?*firsts* ?*guests*))
+	(bind ?*desserts* (keep-plates-for-more-than ?*desserts* ?*guests*))
+	(if (eq (is-list-empty ?*firsts*) TRUE) then (fail-with-message "Refinement (guests) - no more firsts..." ))
+	(if (eq (is-list-empty ?*seconds*) TRUE) then (fail-with-message "Refinement (guests) - no more seconds" ))	
+	(if (eq (is-list-empty ?*desserts*) TRUE) then (fail-with-message "Refinement (guests) - no more desserts" ))	
+  (assert (persons-is-refined))
+)
 
 
 (defrule create-solution-menu "" ;;here, add the possiblility to create menus more expensive
 	(not (menus-created))
 	(vegan-vegetarian-is-refined)
+	(persons-is-refined)
 	(target-event (budget-per-person ?bud))
 	=>
-	(printout t "Entered" crlf)
-
-	(bind ?list ?*seconds*)
-	(bind ?min (minimum-slot ?list get-DishPrice (nth$ 1 ?list)))
-
-	(bind ?possiblefirsts ?*firsts*)
-	(bind ?possiblefirsts (eliminar-incompatible-dishes ?possiblefirsts get-IncompatibilityW2 ?min))
-	(bind ?min1 (minimum-slot ?possiblefirsts get-DishPrice (nth$ 1 ?possiblefirsts)))
-	
-	(bind ?possibledesserts ?*desserts*)
-	(bind ?possibledesserts (eliminar-incompatible-dishes ?possibledesserts get-IncompatibilityDW2 ?min))
-	(bind ?minDe (minimum-slot ?possibledesserts get-DishPrice (nth$ 1 ?possibledesserts)))
-
-	(bind ?minDr (minimum-slot ?*drinks* get-DrinkPrice (nth$ 1 ?*drinks*)))
-	
-        (bind ?cheapest (make-instance [cheapest-menu] of Menu))		
-	(send ?cheapest put-FirstDish ?min1 )
-
-	(send ?cheapest put-SecondDish ?min) 
-	(send ?cheapest put-DessertDish ?minDe)
-        (send ?cheapest put-MenuDrink (create$ ?minDr))
-
-
-	(bind ?list ?*seconds*)
-	(bind ?max (random-slot ?list))
-
-	(bind ?possiblefirsts ?*firsts*)
-	(bind ?possiblefirsts (eliminar-incompatible-dishes ?possiblefirsts get-IncompatibilityW2 ?max))
-	(bind ?max1 (maximum-slot ?possiblefirsts get-DishPrice (nth$ 1 ?possiblefirsts)))
+	(bind ?*firsts* (create$ ?*firsts*))
+	(bind ?*seconds*(create$ ?*seconds*))
+	(bind ?*desserts*(create$ ?*desserts*))
 		
-	(bind ?possibledesserts ?*desserts*)
-	(bind ?possibledesserts (eliminar-incompatible-dishes ?possibledesserts get-IncompatibilityDW2 ?max))
-	(bind ?maxDe (maximum-slot ?possibledesserts get-DishPrice (nth$ 1 ?possibledesserts)))
+	(printout t "Creating menus. Dishes disposibles: " crlf)
+		
+	(printout t "DEBUG: Firsts" crlf)	
+	(print-plates-list ?*firsts*)
+	(printout t "DEBUG: Sconds" crlf)	
+	(print-plates-list ?*seconds*)
+	(printout t "DEBUG: Desserts" crlf)	
+	(print-plates-list ?*desserts*)
 
-	(bind ?maxDr (maximum-slot ?*drinks* get-DrinkPrice (nth$ 1 ?*drinks*)))
+ 
+	(bind ?cheapest-not-found TRUE)
+	(while (and (neq ?*seconds* FALSE) (eq ?cheapest-not-found TRUE)) do
+		(bind ?cheapest-not-found FALSE)	
+		(bind ?list ?*seconds*)
+		(bind ?list (create$ ?list))
+		;(printout t "Selecting 2nd" crlf)
+		(bind ?min (minimum-slot ?list get-DishPrice (nth$ 1 ?list)))
+
+		(bind ?possiblefirsts ?*firsts*)
+		(bind ?possiblefirsts (eliminar-incompatible-dishes ?possiblefirsts get-IncompatibilityW2 ?min))
+		(bind ?cheapest-not-found (is-list-empty ?possiblefirsts))
+		(if (eq ?cheapest-not-found TRUE) then (delete-member$ ?*seconds* ?min) else
+		;(printout t "Selecting 1st" crlf)
+		(bind ?possiblefirsts (create$ ?possiblefirsts))
+		(bind ?min1 (minimum-slot ?possiblefirsts get-DishPrice (nth$ 1 ?possiblefirsts)))
+		
+		(bind ?possibledesserts ?*desserts*)
+		(bind ?possibledesserts (eliminar-incompatible-dishes ?possibledesserts get-IncompatibilityDW2 ?min))
+		(bind ?cheapest-not-found (is-list-empty ?possibledesserts))
+
+		(if (eq ?cheapest-not-found TRUE) then (delete-member$ ?*seconds* ?min) else
+		;(printout t "Selecting dessert" crlf)
+		(bind ?possibledesserts (create$ ?possibledesserts))
+		(bind ?minDe (minimum-slot ?possibledesserts get-DishPrice (nth$ 1 ?possibledesserts)))
 	
-        (bind ?mostexpensive (make-instance [expensive-menu] of Menu))		
-	(send ?mostexpensive put-FirstDish ?max1 )
-	(send ?mostexpensive put-SecondDish ?max) 
-	(send ?mostexpensive put-DessertDish ?maxDe)
-        (send ?mostexpensive put-MenuDrink (create$ ?maxDr))
+			
+		(bind ?minDr (minimum-slot ?*drinks* get-DrinkPrice (nth$ 1 ?*drinks*)))
+		
+		(bind ?cheapest (make-instance [cheapest-menu] of Menu))		
+		(send ?cheapest put-FirstDish ?min1 )
+
+		(send ?cheapest put-SecondDish ?min) 
+		(send ?cheapest put-DessertDish ?minDe)
+		(send ?cheapest put-MenuDrink (create$ ?minDr))
+		)
+		)
+	)
+
+	(bind ?most-expensive-not-found TRUE)
+	(while (and (neq ?*seconds* FALSE) (eq ?most-expensive-not-found TRUE)) do
+		(bind ?most-expensive-not-found FALSE)	
+		(bind ?list ?*seconds*)
+		(bind ?list (create$ ?list))
+		;(printout t "Selecting 2nd" crlf)
+		(bind ?max (maximum-slot ?list get-DishPrice (nth$ 1 ?list)))
+
+		(bind ?possiblefirsts ?*firsts*)
+		(bind ?possiblefirsts (eliminar-incompatible-dishes ?possiblefirsts get-IncompatibilityW2 ?max))
+		(bind ?most-expensive-not-found (is-list-empty ?possiblefirsts))
+		(if (eq ?most-expensive-not-found TRUE) then (delete-member$ ?*seconds* ?max) else
+		;(printout t "Selecting 1st" crlf)
+		(bind ?possiblefirsts (create$ ?possiblefirsts))
+		(bind ?max1 (maximum-slot ?possiblefirsts get-DishPrice (nth$ 1 ?possiblefirsts)))
+		
+		(bind ?possibledesserts ?*desserts*)
+		(bind ?possibledesserts (eliminar-incompatible-dishes ?possibledesserts get-IncompatibilityDW2 ?max))
+		(bind ?most-expensive-not-found (is-list-empty ?possibledesserts))
+
+		(if (eq ?most-expensive-not-found TRUE) then (delete-member$ ?*seconds* ?max) else
+		;(printout t "Selecting dessert" crlf)
+		(bind ?possibledesserts (create$ ?possibledesserts))
+		(bind ?maxDe (maximum-slot ?possibledesserts get-DishPrice (nth$ 1 ?possibledesserts)))
 	
+			
+		(bind ?maxDr (maximum-slot ?*drinks* get-DrinkPrice (nth$ 1 ?*drinks*)))
+		
+		(bind ?most-expensive (make-instance [most-expensive-menu] of Menu))		
+		(send ?most-expensive put-FirstDish ?max1 )
+
+		(send ?most-expensive put-SecondDish ?max) 
+		(send ?most-expensive put-DessertDish ?maxDe)
+		(send ?most-expensive put-MenuDrink (create$ ?maxDr))
+		)
+		)
+	)
+
+	
+	(if (or (eq ?cheapest-not-found TRUE)(eq ?most-expensive-not-found TRUE)) then (fail-with-message "Your requierments are too restrictive (or our instances are currently 
+						      very few. Please try again with other requirements"))
 
  	(bind ?minprice	(send ?cheapest get-Price))
-	;(bind ?maxprice (send ?mostexpensive get-Price))
+	(bind ?maxprice (send ?most-expensive get-Price))
+	(if (> ?maxprice ?bud) then (bind ?maxprice ?bud))
+
+	(printout t ?minprice crlf)	
+	(printout t ?maxprice crlf)	
 	(bind ?found1 FALSE)
 	(bind ?found2 FALSE)
 	(bind ?found3 FALSE)
- 	
+ 
+		
 	(if (> ?minprice ?bud) then (printout t "FAIL: Your budget is too low for what you are asking.. Please try with another." crlf)(halt) else
-	(if (> (+ ?minprice 5) ?bud) then (printout t "Budget is very restrictive, but let's see if we can find something for you... Perhaps you have to wait.") ))
-	(bind ?maxprice ?bud) 
+	(if (> (+ ?minprice 5) ?bud) then (printout t "Budget is very restrictive, but let's see if we can find something for you... Perhaps you have to wait.") )
 	(bind ?loops 0)	
-	(while (and (or (not ?found1)(not ?found2)(not ?found3)) (not (> ?loops 3000))) do
+
+	(while (and (or (not ?found1)(not ?found2)(not ?found3)) (not (> ?loops 1000))) do
+	 (bind ?continue FALSE)
 	 (bind ?loops (+ ?loops 1)) 
 	 (bind ?list ?*seconds*)
 	 (bind ?min (random-slot ?list))
 	 (bind ?possiblefirsts ?*firsts*)
 	 (bind ?possiblefirsts (eliminar-incompatible-dishes ?possiblefirsts get-IncompatibilityW2 ?min))
-         (bind ?min1 (random-slot ?possiblefirsts))
+	 (if (eq (is-list-empty ?possiblefirsts) TRUE) then (bind ?nofirsts TRUE) else (bind ?nofirsts FALSE))
+	 (if (eq ?nofirsts FALSE) then 
+	  (bind ?possiblefirsts (create$ ?possiblefirsts))
+          (bind ?min1 (random-slot ?possiblefirsts))
  		
-	 (bind ?possibledesserts ?*desserts*)
-	 (bind ?possibledesserts (eliminar-incompatible-dishes ?possibledesserts get-IncompatibilityDW2 ?min))
-        
-	 (bind ?minDe (random-slot ?possibledesserts))
+	  (bind ?possibledesserts ?*desserts*)
+	  (bind ?possibledesserts (eliminar-incompatible-dishes ?possibledesserts get-IncompatibilityDW2 ?min))
+	  (if (eq (is-list-empty ?possibledesserts) TRUE) then (bind ?nodesserts TRUE) else (bind ?nodesserts FALSE))
+	  (if (neq ?nodesserts TRUE) then  
+	   (bind ?possibledesserts (create$ ?possibledesserts))
+	   (bind ?minDe (random-slot ?possibledesserts))
 	
-	 (bind ?minDr (random-slot ?*drinks*))
+	   (bind ?minDr (random-slot ?*drinks*))
 	
-         (bind ?menu (make-instance [random-menu] of Menu))		
-	 (send ?menu put-FirstDish ?min1 )
-	 (send ?menu put-SecondDish ?min) 
-	 (send ?menu put-DessertDish ?minDe)
-         (send ?menu put-MenuDrink (create$ ?minDr))
-	 (bind ?menuprice (send ?menu get-Price))
+           (bind ?menu (make-instance [random-menu] of Menu))		
+	   (send ?menu put-FirstDish ?min1 )
+	   (send ?menu put-SecondDish ?min) 
+	   (send ?menu put-DessertDish ?minDe)
+           (send ?menu put-MenuDrink (create$ ?minDr))
+	   (bind ?menuprice (send ?menu get-Price))
 
-	 (if (and (> ?bud ?menuprice) (not ?found1) (< ?menuprice (+ ?minprice (* 0.30 (- ?maxprice ?minprice))))) then
-		;this is considered cheap
-		(bind ?menu1 (make-instance [menu1] of Menu))
+	   (if (and (> ?bud ?menuprice) (< ?menuprice (+ ?minprice (* 0.30 (- ?maxprice ?minprice))))) then
+		(if (not ?found1) then
+
+	  	;this is considered cheap
+	  	(bind ?menu1 (make-instance [menu1] of Menu))
 	 	(active-duplicate-instance ?menu to ?menu1)	
-		(bind ?found1 TRUE)
-	 else (if (and (> ?bud ?menuprice)(not ?found3)(> ?menuprice (+ ?minprice  (* 0.80 (- ?maxprice ?minprice))))) then
+		(bind ?found1 TRUE))
+	   else (if (and (> ?bud ?menuprice)(not ?found3)(> ?menuprice (+ ?minprice  (* 0.80 (- ?maxprice ?minprice))))) then
 		;this is considered expensive
-
+		(if (not ?found3) then
 		(bind ?menu3 (make-instance [menu3] of Menu))
 	 	(active-duplicate-instance ?menu to ?menu3)	
 		(bind ?thirdmenu ?menu)
 		(bind ?found3 TRUE)
-	 else (if (and (> ?bud ?menuprice) (not ?found2)) then
+		)
+	   else (if (and (> ?bud ?menuprice)(not ?found2)) then
 		(bind ?menu2 (make-instance [menu2] of Menu))
 	 	(active-duplicate-instance ?menu to ?menu2)	
 		(bind ?secondmenu ?menu)
 		(bind ?found2 TRUE))
-	))
-	)
-
-	(printout t "********************************************************************************************" crlf)	
-	(printout t "*****************************************RESULTS********************************************" crlf)	
-
-	(printout t "****************************************OPTION 1: ECONOMY MENU*******************************" crlf)	
-	(send ?menu1 printInfo)		
-
-	(printout t "****************************************OPTION 2: GOLD MENU*********************************" crlf)	
+	  ))
+	  ))
+          )
 	
-	(send ?menu2 printInfo)		
+	  (if (or (not ?found1)(not ?found2)(not ?found3)) then (fail-with-message "We could not create 3 menus with the given restrictions, please try again with more loose ones. However, we print any suggestions that we might have been able to find."))
 
-	(printout t "****************************************OPTION 3: PLATINUM MENU***************************" crlf)	
-	(send ?menu3 printInfo)		
+	  (printout t "********************************************************************************************" crlf)	
+	  (printout t "*****************************************RESULTS********************************************" crlf)	
 
-	(assert (menus-created))
+	  (printout t "****************************************OPTION 1: ECONOMY MENU*******************************" crlf)	
+	  (if (eq ?found1 TRUE) then
+	  (send ?menu1 printInfo)	
+	  )	
+
+	  (printout t "****************************************OPTION 2: GOLD MENU*********************************" crlf)	
+	
+	  (if (eq ?found2 TRUE) then
+	  (send ?menu2 printInfo)		
+	  )
+	  (printout t "****************************************OPTION 3: PLATINUM MENU***************************" crlf)	
+	  (if (eq ?found3 TRUE) then
+	  (send ?menu3 printInfo)		
+	  )
+	  (assert (menus-created))
+	)
 
 ) 
 
@@ -3019,5 +3091,5 @@
 (defrule announce-dishes ""
  (menus-created)
  =>
- (if (yes-or-no-p "Are you satisfied with the menus suggested?") then (printout t "Thank you for using Super Duper Guacamole!" crlf) else (printout t "We're sorry. Please consider trying again with the different input (or even with the same :) )" crlf))
+ (if (yes-or-no-p "Are you satisfied with the menus suggested? (yes/no)") then (printout t "Thank you for using Super Duper Guacamole!" crlf) else (printout t "We're sorry. Please consider trying again with the different input (or even with the same :) )" crlf))
  (halt))
